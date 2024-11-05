@@ -29,7 +29,9 @@ export default function TabThreeScreen() {
         )}>
         {isAuthenticated?(
             <>
-
+            <ThemedView style={styles.titleContainer}>
+                <ThemedText type="title">Bem vindo {user?.name}!</ThemedText>
+            </ThemedView>
             </>
         ):(
             <>
