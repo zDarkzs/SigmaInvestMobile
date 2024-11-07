@@ -23,9 +23,11 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
       try{
           const response = await fetch('http://localhost:8000/auth/getdata/',{
             method:'POST',
+            mode: 'no-cors',
               headers:{
                 'Authorization': `Token ${token}`,
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+
               },
           });
         if(response.ok){
