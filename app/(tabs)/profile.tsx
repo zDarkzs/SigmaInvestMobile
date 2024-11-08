@@ -37,6 +37,7 @@
                 <>
                 <ThemedView style={styles.titleContainer}>
                     <ThemedText type="title">Bem vindo{userData&&userData.username?(","+ userData.username):('')}!</ThemedText>
+                    <ThemedText>{token?(token):("token não carregado")}</ThemedText>
                 </ThemedView>
                 </>
             ):(
@@ -65,7 +66,7 @@
                     <Button title='login' onPress={handleLogin}/>
                     </View>
                     <View style={styles.inputForm}>
-                        <ThemedText>Faça login para obter mais funções.</ThemedText>
+                        <ThemedText>Ou crie uma conta.</ThemedText>
                         <TextInput
                             style={styles.input}
                             placeholder="username"
@@ -130,7 +131,7 @@
 
       },
       inputFormHolder:{
-          flexDirection:'row',
+          flexDirection:'column',
           width:'70%',
       }
     });
