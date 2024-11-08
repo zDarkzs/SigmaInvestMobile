@@ -21,9 +21,8 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     const [userData, setUserData] = useState<any|null>(null);
     const fetchUserData = async (token:string) =>{
       try{
-          const response = await fetch('http://localhost:8000/auth/getdata/',{
+          const response = await fetch('http://localhost:8080/auth/getdata/',{
             method:'POST',
-            mode: 'no-cors',
               headers:{
                 'Authorization': `Token ${token}`,
                 'Content-Type':'application/json',
@@ -41,8 +40,9 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
 
     const login = async (username:string,password:string) => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/auth/login/', {
+            const response = await fetch('http://127.0.0.1:8080/auth/login/', {
                 method:'POST',
+                mode:'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -63,8 +63,9 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
 
     const register = async (username: string, password: string, email: string ) =>{
         try {
-            const response = await fetch("http://127.0.0.1:8000/auth/signup/",{
+            const response = await fetch("http://127.0.0.1:8080/auth/signup/",{
                 method: 'POST',
+                mode:'cors',
                 headers:{
                     'Content-Type': 'application/json',
                 },
@@ -90,7 +91,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     };
 
     return (
-        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout}}>
+        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout,userData}}>
             {children}
         </AuthContext.Provider>
     )

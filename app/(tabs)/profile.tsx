@@ -10,13 +10,17 @@
     import {useAuth} from "@/context/AuthContext";
 
     export default function TabThreeScreen() {
-        const  {token, isAuthenticated,login} = useAuth();
+        const  {token, isAuthenticated,login, register, userData} = useAuth();
         const  [username, setUsername] = useState<string>('');
         const [password, setPassword] = useState<string>('');
+        const [email, setEmail] = useState<string>('');
 
 
         const handleLogin = async () => {
            await login(username, password);
+        }
+        const handleRegister = async () =>{
+            await register(username,email,password);
         }
 
 
@@ -40,6 +44,8 @@
                     <ThemedView style={styles.titleContainer}>
                         <ThemedText type="title">Profile</ThemedText>
                     </ThemedView>
+                    <View style={styles.inputFormHolder}>
+
                     <View style={styles.inputForm}>
                     <ThemedText>Faça login para obter mais funções.</ThemedText>
                     <TextInput
@@ -57,6 +63,32 @@
                         secureTextEntry
                     />
                     <Button title='login' onPress={handleLogin}/>
+                    </View>
+                    <View style={styles.inputForm}>
+                        <ThemedText>Faça login para obter mais funções.</ThemedText>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="username"
+                            value={username}
+                            onChangeText={setUsername}
+                            keyboardType="default"
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="email"
+                            value={email}
+                            onChangeText={setEmail}
+                            keyboardType="email-address"
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Senha"
+                            value={password}
+                            onChangeText={setPassword}
+                            secureTextEntry
+                        />
+                        <Button title='register' onPress={handleRegister}/>
+                    </View>
                     </View>
                 </>
             )}
@@ -96,5 +128,9 @@
           alignItems: 'center',
           justifyContent:'space-around',
 
+      },
+      inputFormHolder:{
+          flexDirection:'row',
+          width:'70%',
       }
     });
