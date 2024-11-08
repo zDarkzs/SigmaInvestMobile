@@ -36,7 +36,7 @@
             {isAuthenticated?(
                 <>
                 <ThemedView style={styles.titleContainer}>
-                    <ThemedText type="title">Bem vindo!</ThemedText>
+                    <ThemedText type="title">Bem vindo{userData&&userData.username?(","+ userData.username):('')}!</ThemedText>
                 </ThemedView>
                 </>
             ):(

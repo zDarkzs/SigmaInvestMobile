@@ -42,7 +42,6 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         try {
             const response = await fetch('http://127.0.0.1:8080/auth/login/', {
                 method:'POST',
-                mode:'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -52,6 +51,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             const data = await response.json();
             if (response.ok){
                 await AsyncStorage.setItem('token', data.token);
+                fetchUserData(data.token);
                 setToken(data.token);
             } else {
                 console.log(data.error);
@@ -61,7 +61,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }
     };
 
-    const register = async (username: string, password: string, email: string ) =>{
+    const register = async (username: string, email: string, password:string ) =>{
         try {
             const response = await fetch("http://127.0.0.1:8080/auth/signup/",{
                 method: 'POST',
