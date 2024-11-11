@@ -4,11 +4,12 @@
     import { TabBarIcon } from '@/components/navigation/TabBarIcon';
     import { Colors } from '@/constants/Colors';
     import { useColorScheme } from '@/hooks/useColorScheme';
+    import {useAuth} from "@/context/AuthContext";
 
     export default function TabLayout() {
       const colorScheme = useColorScheme();
       const logged = false
-
+        const {userData} = useAuth();
       if(logged){
           return (
                <Tabs
@@ -48,20 +49,20 @@
             }}
           />
           <Tabs.Screen
-            name="explore"
+            name="portfolios"
             options={{
-              title: 'Explore',
+              title: 'Portfolios',
               tabBarIcon: ({ color, focused }) => (
-                <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+                <TabBarIcon name={focused ? 'briefcase' : 'briefcase-outline'} color={color} />
               ),
             }}
           />
           <Tabs.Screen
             name="profile"
             options={{
-              title: 'Profile',
+              title: `${userData?('Profile'):('Login/SignUp')}`,
               tabBarIcon: ({ color, focused }) => (
-                  <TabBarIcon name='happy-outline' color={color} />
+                  <TabBarIcon name={focused? 'happy' : 'happy-outline'} color={color} />
               ),
             }}/>
 
