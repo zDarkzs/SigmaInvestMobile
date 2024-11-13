@@ -11,7 +11,7 @@ interface AuthContextType {
     login: (username:string, password:string) => Promise<void>;
     register:(username:string,password:string,email:string) => Promise<void>;
     logout: () => Promise<void>;
-    fetchUserPortfolios: () => Promise<void>;
+    fetchUserPortfolios: (token:string) => Promise<void>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -97,15 +97,16 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
 
     const fetchUserPortfolios = async (token:string) =>{
         try {
+            console.log(`Token utilizado:`,token);
             const Response = await fetch('http://localhost:8080/api/portfolios/byuser/',{
-                method:'POST',
-                mode:'cors',
+                method:'GET',
                 headers:{
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'application/json',
                 }
             });
             const data = await Response.json();
+            console.log(`Dados retornados: `,data);
             if(Response.ok){
                 setUserPortfolios(data);
             }
@@ -115,7 +116,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     }
 
     return (
-        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout,userData,userPortfolios}}>
+        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout,fetchUserPortfolios,userData,userPortfolios}}>
             {children}
         </AuthContext.Provider>
     )

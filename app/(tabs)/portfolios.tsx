@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform } from 'react-native';
+import {StyleSheet, Image, Platform, Button} from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -9,7 +9,12 @@ import { ThemedView } from '@/components/ThemedView';
 import {useAuth} from "@/context/AuthContext";
 
 export default function PortfoliosScreen() {
-  const { userPortfolios, } = useAuth();
+  const { token,userPortfolios, fetchUserPortfolios} = useAuth();
+
+  const handleFetchUserPortfolios = async () => {
+    await fetchUserPortfolios(token);
+
+  }
 
   return (
     <ParallaxScrollView
@@ -18,9 +23,10 @@ export default function PortfoliosScreen() {
         <ThemedText type="title"> Seus Portfolios</ThemedText>
       {userPortfolios?(
           <ThemedView>
+            <Button title='Recarregar porfolios' onPress={handleFetchUserPortfolios}/>
             <ThemedText type="subtitle"> Seus Portfolios</ThemedText>
             {userPortfolios?.map((portfolio,index)=>(
-                <ThemedText key={index}>{portfolio.name}</ThemedText>
+                <ThemedText key={index}>{portfolio.title}</ThemedText>
             ))}
           </ThemedView>
       ):(
