@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {StyleSheet, Image, Platform, Button} from 'react-native';
+import {StyleSheet, Image, Platform, Button, View} from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -9,6 +9,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import {useAuth} from "@/context/AuthContext";
 import {useState} from "react";
+import PortfolioCard from "@/components/PortfolioCard";
 
 export default function PortfoliosScreen() {
   const { token,userPortfolios, fetchUserPortfolios} = useAuth();
@@ -40,20 +41,20 @@ export default function PortfoliosScreen() {
         <ThemedText type="title"> Seus Portfolios</ThemedText>
           {userPortfolios?(
             <ThemedView>
-              <ThemedView style={styles.button}>
+              <ThemedView style={styles.buttonHolder}>
               <Button title='Recarregar porfolios'  onPress={handleFetchUserPortfolios}/>
               <Button title='Definir portfolio(debug)' onPress={handleSetPortfolio}/>
               </ThemedView>
 
               <ThemedText type="subtitle"> Seus Portfolios</ThemedText>
                 {userPortfolios?.map((portfolio,index)=>(
-                   <ThemedText key={index}>{portfolio.title}</ThemedText>
+                   <PortfolioCard thisPortfolio={portfolio}/>
                  ))}
               </ThemedView>
                ):(
             <ThemedText type="subtitle"> Faça login ou cadastre-se para ver seus portfolios</ThemedText>
           )}
-
+      <View style={styles.screenConsumer}></View>
 
     </ParallaxScrollView>
   );
@@ -70,12 +71,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
-  button:{
-    height:'25%',
+  buttonHolder:{
+    height:150,
     width:'33%',
     marginVertical:'2%',
-    flexDirection:'row',
+    flexDirection:'column',
     justifyContent:'space-evenly',
     alignItems: 'flex-start',
+  },
+  screenConsumer:{
+    height:'100%',
   }
 });

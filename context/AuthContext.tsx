@@ -20,9 +20,11 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     const [userData, setUserData] = useState<any|null>(null);
     const [userPortfolios, setUserPortfolios] = useState<any[]|null>(null);
 
+    const baseUrl = 'localhost:8080'//pode-se alterar pelo ip da maquina
+
     const fetchUserData = async (token:string) =>{
       try{
-          const response = await fetch('http://localhost:8080/auth/getdata/',{
+          const response = await fetch(`${baseUrl}/auth/getdata/`,{
             method:'POST',
               headers:{
                 'Authorization': `Token ${token}`,
@@ -42,7 +44,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
 
     const login = async (username:string,password:string) => {
         try {
-            const response = await fetch('http://127.0.0.1:8080/auth/login/', {
+            const response = await fetch(`${baseUrl}/auth/login/`, {
                 method:'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,6 +52,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
                 body: JSON.stringify({username, password}),
             });
 
+            console.log(response);
             const data = await response.json();
             if (response.ok){
                 await AsyncStorage.setItem('token', data.token);
@@ -65,7 +68,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
 
     const register = async (username: string, email: string, password:string ) =>{
         try {
-            const response = await fetch("http://127.0.0.1:8080/auth/signup/",{
+            const response = await fetch(`${baseUrl}/auth/signup/`,{
                 method: 'POST',
                 mode:'cors',
                 headers:{
@@ -98,16 +101,16 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     const fetchUserPortfolios = async (token:string) =>{
         try {
             console.log(`Token utilizado:`,token);
-            const Response = await fetch('http://localhost:8080/api/portfolios/byuser/',{
+            const response = await fetch(`${baseUrl}/api/portfolios/byuser/`,{
                 method:'GET',
                 headers:{
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'application/json',
                 }
             });
-            const data = await Response.json();
+            const data = await response.json();
             console.log(`Dados retornados: `,data);
-            if(Response.ok){
+            if(response.ok){
                 setUserPortfolios(data);
             }
         }catch (error){
