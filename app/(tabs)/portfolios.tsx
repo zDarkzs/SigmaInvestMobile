@@ -3,6 +3,7 @@ import {StyleSheet, Image, Platform, Button} from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
+//import {PortfolioCard}
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -13,8 +14,10 @@ export default function PortfoliosScreen() {
   const { token,userPortfolios, fetchUserPortfolios} = useAuth();
   const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
   const handleFetchUserPortfolios = async () => {
-    await fetchUserPortfolios(token);
-
+    if(token){//Um pouco reduntante, mas assegurado
+      await fetchUserPortfolios(token);
+    }
+    console.error("Token de autenticação não definido!");
   }
   const handleSetPortfolio = () =>{
     setCurrentPortfolio({title:'teste'});
@@ -37,8 +40,11 @@ export default function PortfoliosScreen() {
         <ThemedText type="title"> Seus Portfolios</ThemedText>
           {userPortfolios?(
             <ThemedView>
-              <Button title='Recarregar porfolios' onPress={handleFetchUserPortfolios}/>
+              <ThemedView style={styles.button}>
+              <Button title='Recarregar porfolios'  onPress={handleFetchUserPortfolios}/>
               <Button title='Definir portfolio(debug)' onPress={handleSetPortfolio}/>
+              </ThemedView>
+
               <ThemedText type="subtitle"> Seus Portfolios</ThemedText>
                 {userPortfolios?.map((portfolio,index)=>(
                    <ThemedText key={index}>{portfolio.title}</ThemedText>
@@ -64,4 +70,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
+  button:{
+    height:'25%',
+    width:'33%',
+    marginVertical:'2%',
+    flexDirection:'row',
+    justifyContent:'space-evenly',
+    alignItems: 'flex-start',
+  }
 });
