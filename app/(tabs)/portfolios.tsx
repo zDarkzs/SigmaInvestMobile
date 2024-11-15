@@ -17,6 +17,7 @@ export default function PortfoliosScreen() {
   const handleFetchUserPortfolios = async () => {
     if(token){//Um pouco reduntante, mas assegurado
       await fetchUserPortfolios(token);
+      return;
     }
     console.error("Token de autenticação não definido!");
   }
@@ -47,14 +48,15 @@ export default function PortfoliosScreen() {
               </ThemedView>
 
               <ThemedText type="subtitle"> Seus Portfolios</ThemedText>
+
                 {userPortfolios?.map((portfolio,index)=>(
                    <PortfolioCard thisPortfolio={portfolio}/>
                  ))}
+
               </ThemedView>
                ):(
             <ThemedText type="subtitle"> Faça login ou cadastre-se para ver seus portfolios</ThemedText>
           )}
-      <View style={styles.screenConsumer}></View>
 
     </ParallaxScrollView>
   );
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent:'space-evenly',
     alignItems: 'flex-start',
   },
-  screenConsumer:{
-    height:'100%',
-  }
+
+
+
 });
