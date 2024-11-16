@@ -10,6 +10,7 @@ import { ThemedView } from '@/components/ThemedView';
 import {useAuth} from "@/context/AuthContext";
 import {useState} from "react";
 import PortfolioCard from "@/components/PortfolioCard";
+import CreatePortfolioCard from "@/components/CreatePortfolioCard";
 
 export default function PortfoliosScreen() {
   const { token,userPortfolios, fetchUserPortfolios} = useAuth();
@@ -17,13 +18,14 @@ export default function PortfoliosScreen() {
   const handleFetchUserPortfolios = async () => {
     if(token){//Um pouco reduntante, mas assegurado
       await fetchUserPortfolios(token);
+      return;
     }
     console.error("Token de autenticação não definido!");
   }
   const handleSetPortfolio = () =>{
     setCurrentPortfolio({title:'teste'});
   }
-  if(currentPortfolio){
+  if(currentPortfolio){// Todo: trocar isso aqui por um modal
     return (
         <ThemedView>
           <ThemedText>
@@ -46,7 +48,7 @@ export default function PortfoliosScreen() {
               <Button title='Definir portfolio(debug)' onPress={handleSetPortfolio}/>
               </ThemedView>
 
-              <ThemedText type="subtitle"> Seus Portfolios</ThemedText>
+              <CreatePortfolioCard/>
                 {userPortfolios?.map((portfolio,index)=>(
                    <PortfolioCard thisPortfolio={portfolio}/>
                  ))}
@@ -54,7 +56,6 @@ export default function PortfoliosScreen() {
                ):(
             <ThemedText type="subtitle"> Faça login ou cadastre-se para ver seus portfolios</ThemedText>
           )}
-      <View style={styles.screenConsumer}></View>
 
     </ParallaxScrollView>
   );
@@ -79,7 +80,5 @@ const styles = StyleSheet.create({
     justifyContent:'space-evenly',
     alignItems: 'flex-start',
   },
-  screenConsumer:{
-    height:'100%',
-  }
+
 });
