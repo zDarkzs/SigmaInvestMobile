@@ -94,12 +94,6 @@
                 </>
             )}
 
-
-
-
-
-
-
         </ParallaxScrollView>
       );
     }

@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {StyleSheet, Image, Platform, Button, View} from 'react-native';
+import {StyleSheet, Image, Platform, Button, View, Modal, TouchableOpacity, TextInput} from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -8,13 +8,22 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import {useAuth} from "@/context/AuthContext";
-import {useState} from "react";
+import React, {useState} from "react";
 import PortfolioCard from "@/components/PortfolioCard";
 import CreatePortfolioCard from "@/components/CreatePortfolioCard";
 
 export default function PortfoliosScreen() {
   const { token,userPortfolios, fetchUserPortfolios} = useAuth();
   const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
+  const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
+
+  const [newPortfolioTitle, setNewPortfolioTitle] = useState<string>('');
+
+  const closeAllModals = () =>{
+    setIsCreateModalVisible(false);
+    //Todo: Adicionar o modal de detalhes aqui
+  }
+
   const handleFetchUserPortfolios = async () => {
     if(token){//Um pouco reduntante, mas assegurado
       await fetchUserPortfolios(token);
@@ -25,16 +34,7 @@ export default function PortfoliosScreen() {
   const handleSetPortfolio = () =>{
     setCurrentPortfolio({title:'teste'});
   }
-  if(currentPortfolio){// Todo: trocar isso aqui por um modal
-    return (
-        <ThemedView>
-          <ThemedText>
-            {currentPortfolio.title}
-          </ThemedText>
-        </ThemedView>
-    )
 
-  }
 
   return (
     <ParallaxScrollView
@@ -45,13 +45,37 @@ export default function PortfoliosScreen() {
             <ThemedView>
               <ThemedView style={styles.buttonHolder}>
               <Button title='Recarregar porfolios'  onPress={handleFetchUserPortfolios}/>
-              <Button title='Definir portfolio(debug)' onPress={handleSetPortfolio}/>
+              <Button title='Definir portfolio(debug)'  onPress={handleSetPortfolio}/>
               </ThemedView>
 
-              <CreatePortfolioCard/>
+
                 {userPortfolios?.map((portfolio,index)=>(
                    <PortfolioCard thisPortfolio={portfolio}/>
                  ))}
+                   <CreatePortfolioCard onPress={() => {
+                       setIsCreateModalVisible(true)
+                   }}/>
+              <Modal
+                  animationType='slide'
+                  transparent={true}
+                  visible={isCreateModalVisible}
+                  onRequestClose={() => setIsCreateModalVisible(false)}
+                >
+
+
+                <View style={styles.modalContent}>
+                  <TextInput
+                  onChangeText={setNewPortfolioTitle}
+                  placeholder='Titulo do portfolio'
+                  value={newPortfolioTitle}
+                  style={styles.titleInput}
+                  />
+                  <View style={styles.buttonHolder}>
+                    <Button title='Criar Portfolio' onPress={()=>{console.log('escute Jesus is King - Kanye West')}}/>
+                    <Button title='Cancelar' color='red' onPress={()=>{setIsCreateModalVisible(false)}}/>
+                  </View>
+                </View>
+              </Modal>
               </ThemedView>
                ):(
             <ThemedText type="subtitle"> Faça login ou cadastre-se para ver seus portfolios</ThemedText>
@@ -73,12 +97,27 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   buttonHolder:{
-    height:150,
-    width:'33%',
-    marginVertical:'2%',
-    flexDirection:'column',
-    justifyContent:'space-evenly',
+    backgroundColor:'red',
+    padding:10,
+    width:'100%',
+    flexDirection:'row',
+    justifyContent:'space-between',
     alignItems: 'flex-start',
   },
+    modalContent:{
+      margin:'10%',
+      backgroundColor:'white',
+      width:'90%',
+      height:'20%',
+      borderRadius:10,
+      flexDirection:'column',
+      justifyContent:'center',
+      alignItems: 'center'
+    },
+  titleInput:{
+    width:'90%',
+    height:50,
+    fontSize:20
+  }
 
 });

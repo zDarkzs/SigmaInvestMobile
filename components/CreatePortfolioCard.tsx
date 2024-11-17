@@ -4,11 +4,11 @@ import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {Props} from "expo-system-ui/plugin/build/withAndroidUserInterfaceStyle";
 import {ThemedText} from "@/components/ThemedText";
 
-export default function CreatePortfolioCard() {
+export default function CreatePortfolioCard({onPress}:any) {
     return(
 
 
-        <TouchableOpacity style={styles.card} onPress={()=>{}}>
+        <TouchableOpacity style={styles.card} onPress={onPress}>
             <ThemedText style={styles.cardText}>Adicionar Portfolio</ThemedText>
         </TouchableOpacity>
     )
