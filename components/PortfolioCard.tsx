@@ -7,8 +7,7 @@ import {ThemedText} from "@/components/ThemedText";
 export default function PortfolioCard({thisPortfolio, onPress}:any) {
     return(
 
-
-        <TouchableOpacity style={styles.card} onPress={()=>{}}>
+        <TouchableOpacity style={styles.card} onPress={onPress}>
             <View style={styles.constInfo}>
                 {thisPortfolio&&
                 thisPortfolio.title&&
@@ -17,7 +16,7 @@ export default function PortfolioCard({thisPortfolio, onPress}:any) {
                     <ThemedText>Titulo da carteira</ThemedText>
                     <ThemedText style={styles.infoText}>{thisPortfolio.title}</ThemedText>
                         <ThemedText>Proprietario</ThemedText>
-                    <ThemedText style={styles.infoText}>{thisPortfolio.user}</ThemedText>
+                    <ThemedText style={styles.infoText}>{thisPortfolio.username}</ThemedText>
                     </>
                 ):(
                     <ThemedText >Informações da carteira  não carregadas</ThemedText>

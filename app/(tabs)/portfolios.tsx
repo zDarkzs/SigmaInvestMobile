@@ -33,9 +33,10 @@ export default function PortfoliosScreen() {
     }
     console.error("Token de autenticação não definido!");
   }
-  const handleSetPortfolio = ({portfolio}:any|null) =>{
-    if(portfolio){
+  const handlePortfolioCardPress = ({portfolio}:any|null) =>{
+    if(portfolio == null){
       setCurrentPortfolio(portfolio);
+      console.log('portfolio definido: ', portfolio)
       setIsDetailModalVisible(true);
       return;
     }
@@ -53,12 +54,11 @@ export default function PortfoliosScreen() {
             <ThemedView>
               <ThemedView style={styles.buttonHolder}>
               <Button title='Recarregar porfolios'  onPress={handleFetchUserPortfolios}/>
-              <Button title='Definir portfolio(debug)'  onPress={handleSetPortfolio}/>
               </ThemedView>
 
 
                 {userPortfolios?.map((portfolio,index)=>(
-                   <PortfolioCard thisPortfolio={portfolio} onPress={handleSetPortfolio} />
+                   <PortfolioCard thisPortfolio={portfolio} onPress={() =>{handlePortfolioCardPress(portfolio)}} />
                  ))}
                    <CreatePortfolioCard onPress={() => {
                        setIsCreateModalVisible(true)
@@ -71,6 +71,7 @@ export default function PortfoliosScreen() {
                   onRequestClose={() => closeAllModals()}
                 >
                 <View style={styles.modalContent}>
+                  <ThemedText style={styles.modalTitle}>Criar novo portfolio</ThemedText>
                   <TextInput
                   onChangeText={setNewPortfolioTitle}
                   placeholder='Titulo do portfolio'
@@ -121,7 +122,9 @@ const styles = StyleSheet.create({
     left: -35,
     position: 'absolute',
   },
-  titleContainer: {
+  modalTitle: {
+    fontWeight:"bold",
+    fontSize:30,
     flexDirection: 'row',
     gap: 8,
   },
@@ -153,6 +156,7 @@ const styles = StyleSheet.create({
     borderRadius:5,
     padding:10,
     borderStyle:'solid',
+    color:'white'
   }
 
 });

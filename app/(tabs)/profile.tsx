@@ -17,7 +17,7 @@
 
 
         const handleLogin = async () => {
-           await login(username, password);
+           await login('fabio', 'fabio@aluno'); //TODO: CORRIGIR ISSO AQUI DEPOIS
         }
         const handleRegister = async () =>{
             await register(username,email,password);

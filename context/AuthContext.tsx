@@ -20,7 +20,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     const [userData, setUserData] = useState<any|null>(null);
     const [userPortfolios, setUserPortfolios] = useState<any[]|null>(null);
 
-    const baseUrl = 'http://192.168.55.32:8080'//pode-se alterar pelo ip da maquina
+    const baseUrl = 'http://localhost:8080'//pode-se alterar pelo ip da maquina
 
     const fetchUserData = async (token:string) =>{
       try{
