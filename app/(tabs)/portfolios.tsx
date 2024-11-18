@@ -16,12 +16,14 @@ export default function PortfoliosScreen() {
   const { token,userPortfolios, fetchUserPortfolios} = useAuth();
   const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
+  const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
 
   const [newPortfolioTitle, setNewPortfolioTitle] = useState<string>('');
 
-  const closeAllModals = () =>{
+  const closeAllModals = () =>{ //Evita bugs de mais de um modal ficar aberto
     setIsCreateModalVisible(false);
-    //Todo: Adicionar o modal de detalhes aqui
+    setIsDetailModalVisible(false);
+    setCurrentPortfolio(null);
   }
 
   const handleFetchUserPortfolios = async () => {
@@ -31,9 +33,15 @@ export default function PortfoliosScreen() {
     }
     console.error("Token de autenticação não definido!");
   }
-  const handleSetPortfolio = () =>{
-    setCurrentPortfolio({title:'teste'});
+  const handleSetPortfolio = ({portfolio}:any|null) =>{
+    if(portfolio){
+      setCurrentPortfolio(portfolio);
+      setIsDetailModalVisible(true);
+      return;
+    }
   }
+
+
 
 
   return (
@@ -50,19 +58,18 @@ export default function PortfoliosScreen() {
 
 
                 {userPortfolios?.map((portfolio,index)=>(
-                   <PortfolioCard thisPortfolio={portfolio}/>
+                   <PortfolioCard thisPortfolio={portfolio} onPress={handleSetPortfolio} />
                  ))}
                    <CreatePortfolioCard onPress={() => {
                        setIsCreateModalVisible(true)
                    }}/>
+              {/*Modal para criar portfolios*/}
               <Modal
                   animationType='slide'
                   transparent={true}
                   visible={isCreateModalVisible}
-                  onRequestClose={() => setIsCreateModalVisible(false)}
+                  onRequestClose={() => closeAllModals()}
                 >
-
-
                 <View style={styles.modalContent}>
                   <TextInput
                   onChangeText={setNewPortfolioTitle}
@@ -71,11 +78,33 @@ export default function PortfoliosScreen() {
                   style={styles.titleInput}
                   />
                   <View style={styles.buttonHolder}>
-                    <Button title='Criar Portfolio' onPress={()=>{console.log('escute Jesus is King - Kanye West')}}/>
-                    <Button title='Cancelar' color='red' onPress={()=>{setIsCreateModalVisible(false)}}/>
+                    <Button title='Criar Portfolio'  onPress={()=>{closeAllModals()}}/>
+                    <Button title='Cancelar' color='red' onPress={()=>{closeAllModals()}}/>
                   </View>
                 </View>
               </Modal>
+
+              {/* Modal de detalhes do portfolio */}
+              <Modal
+                  animationType='slide'
+                  transparent={true}
+                  visible={isDetailModalVisible}
+                  onRequestClose={() => closeAllModals()}
+                >
+                <View style={styles.modalContent}>
+                  <TextInput
+                  onChangeText={setNewPortfolioTitle}
+                  placeholder='Titulo do portfolio'
+                  value={newPortfolioTitle}
+                  style={styles.titleInput}
+                  />
+                  <View style={styles.buttonHolder}>
+                    <Button title='Criar Portfolio'  onPress={()=>{closeAllModals()}}/>
+                    <Button title='Cancelar' color='red' onPress={()=>{closeAllModals()}}/>
+                  </View>
+                </View>
+              </Modal>
+
               </ThemedView>
                ):(
             <ThemedText type="subtitle"> Faça login ou cadastre-se para ver seus portfolios</ThemedText>
@@ -97,27 +126,33 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   buttonHolder:{
-    backgroundColor:'red',
-    padding:10,
     width:'100%',
     flexDirection:'row',
-    justifyContent:'space-between',
+    justifyContent:'space-evenly',
     alignItems: 'flex-start',
   },
+
     modalContent:{
       margin:'10%',
-      backgroundColor:'white',
+      backgroundColor:'#444444',
       width:'90%',
       height:'20%',
       borderRadius:10,
       flexDirection:'column',
-      justifyContent:'center',
-      alignItems: 'center'
+      justifyContent:'space-evenly',
+      alignItems: 'center',
+      boxShadow:'10px 5px 5px black',
     },
+
   titleInput:{
-    width:'90%',
+    width:'95%',
     height:50,
-    fontSize:20
+    fontSize:20,
+    backgroundColor:'#777777',
+    borderColor:'white',
+    borderRadius:5,
+    padding:10,
+    borderStyle:'solid',
   }
 
 });
