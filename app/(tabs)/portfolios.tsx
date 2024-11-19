@@ -13,15 +13,40 @@ import PortfolioCard from "@/components/PortfolioCard";
 import CreatePortfolioCard from "@/components/CreatePortfolioCard";
 
 export default function PortfoliosScreen() {
-  const { token,userPortfolios, fetchUserPortfolios} = useAuth();
+  const {
+    token,
+    userPortfolios,
+    fetchUserPortfolios,
+    createPortfolio } = useAuth();
+
+
   const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
+  const [isCreationOKModalVisible, setIsCreationOKModalVisible] = useState(false);
+  const [isCreationERRORModalVisible, setIsCreationERRORModalVisible] = useState(false);
+
 
   const [newPortfolioTitle, setNewPortfolioTitle] = useState<string>('');
+  const [portfolioCreationStatus, setPortfolioCreationStatus] = useState<'OK'|'ERROR'|undefined>(undefined);
+  const handleCreateNewPortfolio = async () => {
+    if(token&&newPortfolioTitle){
+      const tryCreation = await createPortfolio(token,newPortfolioTitle);
+      if(tryCreation === 'OK'){
+        console.log('Porfolio criado com sucesso');
+        setIsCreationOKModalVisible(true);
+      }
+      if(tryCreation === 'ERROR'){
+        console.log('Erro ao criar o portfolio');
+        setIsCreationERRORModalVisible(true);
+      }
+    }
+  }
 
   const closeAllModals = () =>{ //Evita bugs de mais de um modal ficar aberto
     setIsCreateModalVisible(false);
+    setIsCreationOKModalVisible(false);
+    setIsCreationERRORModalVisible(false);
     setIsDetailModalVisible(false);
     setCurrentPortfolio(null);
   }
@@ -68,7 +93,7 @@ export default function PortfoliosScreen() {
                   animationType='slide'
                   transparent={true}
                   visible={isCreateModalVisible}
-                  onRequestClose={() => closeAllModals()}
+                  onRequestClose={closeAllModals}
                 >
                 <View style={styles.modalContent}>
                   <ThemedText style={styles.modalTitle}>Criar novo portfolio</ThemedText>
@@ -79,23 +104,49 @@ export default function PortfoliosScreen() {
                   style={styles.titleInput}
                   />
                   <View style={styles.buttonHolder}>
-                    <Button title='Criar Portfolio'  onPress={()=>{closeAllModals()}}/>
-                    <Button title='Cancelar' color='red' onPress={()=>{closeAllModals()}}/>
+                    <Button title='Criar Portfolio'  onPress={handleCreateNewPortfolio}/>
+                    <Button title='Cancelar' color='red' onPress={closeAllModals}/>
                   </View>
                 </View>
               </Modal>
+
+              {/* Modal de criacao bem sucedida */}
+              <Modal
+                  animationType='slide'
+                  transparent={true}
+                  visible={isCreationOKModalVisible}
+                  onRequestClose={closeAllModals}
+              >
+                <View style={styles.modalContent}>
+                  <ThemedText style={styles.modalTitle}>Portfolio Criado com sucesso! ✔</ThemedText>
+                  <Button title='Fechar' onPress={closeAllModals}/>
+                </View>
+              </Modal>
+
+              {/* Modal de criacao com erro */}
+              <Modal
+                animationType='slide'
+                transparent={true}
+                visible={isCreationERRORModalVisible}
+                onRequestClose={closeAllModals}
+              ></Modal>
 
               {/* Modal de detalhes do portfolio */}
               <Modal
                   animationType='slide'
                   transparent={true}
                   visible={isDetailModalVisible}
-                  onRequestClose={() => closeAllModals()}
+                  onRequestClose={closeAllModals}
                 >
+                {currentPortfolio&&
+                currentPortfolio.title?(<ThemedText style={styles.modalTitle}>Portfolio {currentPortfolio.title}</ThemedText>):(
+                    <ThemedText style={styles.modalTitle}>Portfolio não carregado</ThemedText>
+                )}
+
                 <View style={styles.modalContent}>
                   <TextInput
                   onChangeText={setNewPortfolioTitle}
-                  placeholder='Titulo do portfolio'
+                  placeholder='Detalhes do portfolio'
                   value={newPortfolioTitle}
                   style={styles.titleInput}
                   />

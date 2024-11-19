@@ -12,6 +12,7 @@ interface AuthContextType {
     register:(username:string,password:string,email:string) => Promise<void>;
     logout: () => Promise<void>;
     fetchUserPortfolios: (token:string) => Promise<void>;
+    createPortfolio: (token:string, title:string) => Promise<'OK'|'ERROR'|undefined>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -118,9 +119,32 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }
     }
 
+    const createPortfolio = async (token:string, title:string) =>{
+        try{
+            const response = await fetch(`${baseUrl}/api/portfolios/create/`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({title}),
+            });
+            const data = await response.json();
+            console.log(`Dados retornados: `, data)
+            if (response.ok) {
+                console.log('Carteira criada com sucesso', data);
+                await fetchUserPortfolios(token);
+                return 'OK';
+            }
+        }catch (erro){
+            console.error(`Erro ao criar o portfolio: ${erro}`)
+            return 'ERROR';
+        }
+    }
+
 
     return (
-        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout,fetchUserPortfolios,userData,userPortfolios}}>
+        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout,fetchUserPortfolios,userData,userPortfolios,createPortfolio}}>
             {children}
         </AuthContext.Provider>
     )
