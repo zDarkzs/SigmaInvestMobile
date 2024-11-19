@@ -28,13 +28,14 @@ export default function PortfoliosScreen() {
 
 
   const [newPortfolioTitle, setNewPortfolioTitle] = useState<string>('');
-  const [portfolioCreationStatus, setPortfolioCreationStatus] = useState<'OK'|'ERROR'|undefined>(undefined);
+
   const handleCreateNewPortfolio = async () => {
     if(token&&newPortfolioTitle){
       const tryCreation = await createPortfolio(token,newPortfolioTitle);
       if(tryCreation === 'OK'){
         console.log('Porfolio criado com sucesso');
         setIsCreationOKModalVisible(true);
+        setNewPortfolioTitle('');
       }
       if(tryCreation === 'ERROR'){
         console.log('Erro ao criar o portfolio');
@@ -58,12 +59,11 @@ export default function PortfoliosScreen() {
     }
     console.error("Token de autenticação não definido!");
   }
-  const handlePortfolioCardPress = ({portfolio}:any|null) =>{
-    if(portfolio == null){
+
+  const handlePortfolioCardPress = ({portfolio}:any) =>{
+    if(currentPortfolio == undefined){
       setCurrentPortfolio(portfolio);
-      console.log('portfolio definido: ', portfolio)
-      setIsDetailModalVisible(true);
-      return;
+      console.log('portfolio definido: ', currentPortfolio)
     }
   }
 
