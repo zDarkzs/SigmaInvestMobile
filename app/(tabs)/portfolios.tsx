@@ -128,7 +128,10 @@ export default function PortfoliosScreen() {
                 transparent={true}
                 visible={isCreationERRORModalVisible}
                 onRequestClose={closeAllModals}
-              ></Modal>
+              >
+                <ThemedText style={styles.modalTitle}>Houve um erro ao criar o portfolio ❌</ThemedText>
+                  <Button title='Fechar' onPress={closeAllModals}/>
+              </Modal>
 
               {/* Modal de detalhes do portfolio */}
               <Modal
@@ -146,13 +149,28 @@ export default function PortfoliosScreen() {
                 ):(
                     <ThemedText style={styles.modalTitle}>Portfolio não carregado</ThemedText>
                 )}
+                  {
+                    currentPortfolio&&
+                      currentPortfolio.title&&
+                      currentPortfolio.total&&
+                      currentPortfolio.appreciation?(
+                          <>
+                            <View style={styles.infoTable}>
+                              <View style={styles.infoRowContainer}>
+                                <ThemedText>Título: {currentPortfolio.title}</ThemedText>
+                              </View>
+                              <View style={styles.infoRowContainer}>
+                                <ThemedText>Total: {currentPortfolio.total}</ThemedText>
+                            </View>
 
-                  <TextInput
-                  onChangeText={setNewPortfolioTitle}
-                  placeholder='Detalhes do portfolio'
-                  value={newPortfolioTitle}
-                  style={styles.titleInput}
-                  />
+                              <View style={styles.infoRowContainer}>
+                                <ThemedText></ThemedText>
+                              </View>
+
+                              </View>
+                          </>
+                    ):('')
+                  }
                   <View style={styles.buttonHolder}>
                     <Button title='Criar Portfolio'  onPress={()=>{closeAllModals()}}/>
                     <Button title='Cancelar' color='red' onPress={()=>{closeAllModals()}}/>
@@ -211,6 +229,16 @@ const styles = StyleSheet.create({
     padding:10,
     borderStyle:'solid',
     color:'white'
+  },
+  infoTable:{
+    alignItems: "flex-start",
+    justifyContent:'flex-start',
+    flexDirection:"column",
+  },
+  infoRowContainer:{
+    alignItems:'center',
+    justifyContent:'center',
+    flexDirection:'row',
   }
 
 });
