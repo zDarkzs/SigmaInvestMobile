@@ -60,11 +60,9 @@ export default function PortfoliosScreen() {
     console.error("Token de autenticação não definido!");
   }
 
-  const handlePortfolioCardPress = ({portfolio}:any) =>{
-    if(currentPortfolio == undefined){
-      setCurrentPortfolio(portfolio);
-      console.log('portfolio definido: ', currentPortfolio)
-    }
+  const handlePortfolioCardPress = (portfolio:any) =>{
+    setCurrentPortfolio(portfolio);
+    setIsDetailModalVisible(true);
   }
 
 
@@ -83,11 +81,12 @@ export default function PortfoliosScreen() {
 
 
                 {userPortfolios?.map((portfolio,index)=>(
-                   <PortfolioCard thisPortfolio={portfolio} onPress={() =>{handlePortfolioCardPress(portfolio)}} />
+                   <PortfolioCard thisPortfolio={portfolio} onPress={() =>{handlePortfolioCardPress(portfolio);}} />
                  ))}
                    <CreatePortfolioCard onPress={() => {
                        setIsCreateModalVisible(true)
                    }}/>
+
               {/*Modal para criar portfolios*/}
               <Modal
                   animationType='slide'
@@ -138,12 +137,16 @@ export default function PortfoliosScreen() {
                   visible={isDetailModalVisible}
                   onRequestClose={closeAllModals}
                 >
-                {currentPortfolio&&
-                currentPortfolio.title?(<ThemedText style={styles.modalTitle}>Portfolio {currentPortfolio.title}</ThemedText>):(
+
+
+                <View style={styles.modalContent}>
+                  {currentPortfolio&&
+                currentPortfolio.title?(
+                    <ThemedText style={styles.modalTitle}>Detalhes do portfolio</ThemedText>
+                ):(
                     <ThemedText style={styles.modalTitle}>Portfolio não carregado</ThemedText>
                 )}
 
-                <View style={styles.modalContent}>
                   <TextInput
                   onChangeText={setNewPortfolioTitle}
                   placeholder='Detalhes do portfolio'
