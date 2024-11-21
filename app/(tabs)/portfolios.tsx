@@ -97,7 +97,7 @@ export default function PortfoliosScreen() {
                   onRequestClose={closeAllModals}
                 >
                 <View style={styles.modalContent}>
-                  <ThemedText style={styles.modalTitle}>Criar novo portfolio</ThemedText>
+                  <ThemedText style={styles.modalTitleText}>Criar novo portfolio</ThemedText>
                   <TextInput
                   onChangeText={setNewPortfolioTitle}
                   placeholder='Titulo do portfolio'
@@ -119,7 +119,7 @@ export default function PortfoliosScreen() {
                   onRequestClose={closeAllModals}
               >
                 <View style={styles.modalContent}>
-                  <ThemedText style={styles.modalTitle}>Portfolio Criado com sucesso! ✔</ThemedText>
+                  <ThemedText style={styles.modalTitleText}>Portfolio Criado com sucesso! ✔</ThemedText>
                   <Button title='Fechar' onPress={closeAllModals}/>
                 </View>
               </Modal>
@@ -131,7 +131,7 @@ export default function PortfoliosScreen() {
                 visible={isCreationERRORModalVisible}
                 onRequestClose={closeAllModals}
               >
-                <ThemedText style={styles.modalTitle}>Houve um erro ao criar o portfolio ❌</ThemedText>
+                <ThemedText style={styles.modalTitleText}>Houve um erro ao criar o portfolio ❌</ThemedText>
                   <Button title='Fechar' onPress={closeAllModals}/>
               </Modal>
 
@@ -148,10 +148,10 @@ export default function PortfoliosScreen() {
                   {currentPortfolio&&
                 currentPortfolio.title?(
                     <View style={styles.modalTitleHolder}>
-                    <ThemedText style={styles.modalTitle}>Detalhes do portfolio</ThemedText>
+                    <ThemedText style={styles.modalTitleText}>Detalhes do portfolio</ThemedText>
                     </View>
                 ):(
-                    <ThemedText style={styles.modalTitle}>Portfolio não carregado</ThemedText>
+                    <ThemedText style={styles.modalTitleText}>Portfolio não carregado</ThemedText>
                 )}
                   {
                     currentPortfolio&&
@@ -172,16 +172,17 @@ export default function PortfoliosScreen() {
                                 <ThemedText style={styles.portfolioInfoDescription}>Valorização:</ThemedText>
                                 <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.appreciation}</ThemedText>
                               </View>
-
-
                             </View>
                           </>
                     ):('')
                   }
-                  <View style={styles.buttonHolder}>
-                    <Button title='Criar Portfolio'  onPress={()=>{closeAllModals()}}/>
-                    <Button title='Cancelar' color='red' onPress={()=>{closeAllModals()}}/>
-                  </View>
+                  <TouchableOpacity>
+                    <ThemedText>Adicionar novo ativo à carteira</ThemedText>
+                  </TouchableOpacity>
+
+
+                    <Button title='Fechar' color='red' onPress={()=>{closeAllModals()}}/>
+
                 </View>
               </Modal>
 
@@ -207,7 +208,8 @@ const styles = StyleSheet.create({
     justifyContent:'space-evenly',
     alignItems: 'flex-start',
   },
-    modalTitle: {
+
+    modalTitleText: {
     fontWeight:"bold",
     fontSize:30,
     flexDirection: 'row',
