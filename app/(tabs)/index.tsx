@@ -9,7 +9,7 @@ import {useAuth} from "@/context/AuthContext";
 
 export default function HomeScreen() {
 
-    const {user} = useAuth();
+    const {token} = useAuth();
 
   return (
     <ParallaxScrollView
@@ -21,7 +21,7 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome{user?("," + user.name):("")}!</ThemedText>
+        <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>

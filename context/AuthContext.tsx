@@ -12,6 +12,8 @@ interface AuthContextType {
     register:(username:string,password:string,email:string) => Promise<void>;
     logout: () => Promise<void>;
     fetchUserPortfolios: (token:string) => Promise<void>;
+    createPortfolio: (token:string, title:string) => Promise<'OK'|'ERROR'|undefined>;
+    fetchPortfolioAssets: (portfolioID:string) => Promise<void>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -20,7 +22,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     const [userData, setUserData] = useState<any|null>(null);
     const [userPortfolios, setUserPortfolios] = useState<any[]|null>(null);
 
-    const baseUrl = 'http://10.105.4.237:8080/'//pode-se alterar pelo ip da maquina
+    const baseUrl = 'http://localhost:8080'//pode-se alterar pelo ip da maquina
 
     const fetchUserData = async (token:string) =>{
       try{
@@ -116,10 +118,43 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }catch (error){
             console.error("Erro ao buscar carteiras de usuario ",error);
         }
+    };
+
+    const fetchPortfolioAssets = async (portfolioID:string) =>{
+        try{
+            const response = await fetch(`${baseUrl}/api/portfolio/${portfolioID}/assets`);
+        }
+        catch (error) {
+            console.error("Erro ao buscar ativos da carteira ",error);
+        }
     }
 
+    const createPortfolio = async (token:string, title:string) =>{
+        try{
+            const response = await fetch(`${baseUrl}/api/portfolios/create/`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({title}),
+            });
+            const data = await response.json();
+            console.log(`Dados retornados: `, data)
+            if (response.ok) {
+                console.log('Carteira criada com sucesso', data);
+                await fetchUserPortfolios(token);
+                return 'OK';
+            }
+        }catch (erro){
+            console.error(`Erro ao criar o portfolio: ${erro}`)
+            return 'ERROR';
+        }
+    }
+
+
     return (
-        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout,fetchUserPortfolios,userData,userPortfolios}}>
+        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout,fetchUserPortfolios,userData,userPortfolios,createPortfolio,fetchPortfolioAssets}}>
             {children}
         </AuthContext.Provider>
     )
