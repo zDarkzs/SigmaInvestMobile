@@ -14,10 +14,13 @@
         const  [username, setUsername] = useState<string>('');
         const [password, setPassword] = useState<string>('');
         const [email, setEmail] = useState<string>('');
-
+        const [debug, setDebug] = useState<boolean>(true);
 
         const handleLogin = async () => {
-           await login('fabio', 'fabio@aluno'); //TODO: CORRIGIR ISSO AQUI DEPOIS
+           await login(username, password);
+        }
+        const debugHandleLogin = async () => {
+            await login('fabio','fabio@aluno');
         }
         const handleRegister = async () =>{
             await register(username,email,password);
@@ -49,6 +52,8 @@
 
                     <View style={styles.inputForm}>
                     <ThemedText>Faça login para obter mais funções.</ThemedText>
+                        {debug?(<Button title='LOGAR COMO BETINHA' onPress={debugHandleLogin}/>):('')}
+
                     <TextInput
                         style={styles.input}
                         placeholder="email"

@@ -13,6 +13,7 @@ interface AuthContextType {
     logout: () => Promise<void>;
     fetchUserPortfolios: (token:string) => Promise<void>;
     createPortfolio: (token:string, title:string) => Promise<'OK'|'ERROR'|undefined>;
+    fetchPortfolioAssets: (portfolioID:string) => Promise<void>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -117,6 +118,15 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }catch (error){
             console.error("Erro ao buscar carteiras de usuario ",error);
         }
+    };
+
+    const fetchPortfolioAssets = async (portfolioID:string) =>{
+        try{
+            const response = await fetch(`${baseUrl}/api/portfolio/${portfolioID}/assets`);
+        }
+        catch (error) {
+            console.error("Erro ao buscar ativos da carteira ",error);
+        }
     }
 
     const createPortfolio = async (token:string, title:string) =>{
@@ -144,7 +154,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
 
 
     return (
-        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout,fetchUserPortfolios,userData,userPortfolios,createPortfolio}}>
+        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout,fetchUserPortfolios,userData,userPortfolios,createPortfolio,fetchPortfolioAssets}}>
             {children}
         </AuthContext.Provider>
     )

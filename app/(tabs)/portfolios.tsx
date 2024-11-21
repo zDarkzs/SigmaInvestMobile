@@ -21,6 +21,8 @@ export default function PortfoliosScreen() {
 
 
   const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
+
+
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isCreationOKModalVisible, setIsCreationOKModalVisible] = useState(false);
@@ -145,7 +147,9 @@ export default function PortfoliosScreen() {
                 <View style={styles.modalContent}>
                   {currentPortfolio&&
                 currentPortfolio.title?(
+                    <View style={styles.modalTitleHolder}>
                     <ThemedText style={styles.modalTitle}>Detalhes do portfolio</ThemedText>
+                    </View>
                 ):(
                     <ThemedText style={styles.modalTitle}>Portfolio não carregado</ThemedText>
                 )}
@@ -157,17 +161,20 @@ export default function PortfoliosScreen() {
                           <>
                             <View style={styles.infoTable}>
                               <View style={styles.infoRowContainer}>
-                                <ThemedText>Título: {currentPortfolio.title}</ThemedText>
+                                <ThemedText style={styles.portfolioInfoDescription}>Título:</ThemedText>
+                                <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.title}</ThemedText>
                               </View>
                               <View style={styles.infoRowContainer}>
-                                <ThemedText>Total: {currentPortfolio.total}</ThemedText>
+                                <ThemedText style={styles.portfolioInfoDescription}>Total:</ThemedText>
+                                <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.total}</ThemedText>
+                              </View>
+                              <View style={styles.infoRowContainer}>
+                                <ThemedText style={styles.portfolioInfoDescription}>Valorização:</ThemedText>
+                                <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.appreciation}</ThemedText>
+                              </View>
+
+
                             </View>
-
-                              <View style={styles.infoRowContainer}>
-                                <ThemedText></ThemedText>
-                              </View>
-
-                              </View>
                           </>
                     ):('')
                   }
@@ -194,29 +201,37 @@ const styles = StyleSheet.create({
     left: -35,
     position: 'absolute',
   },
-  modalTitle: {
-    fontWeight:"bold",
-    fontSize:30,
-    flexDirection: 'row',
-    gap: 8,
-  },
   buttonHolder:{
     width:'100%',
     flexDirection:'row',
     justifyContent:'space-evenly',
     alignItems: 'flex-start',
   },
-
+    modalTitle: {
+    fontWeight:"bold",
+    fontSize:30,
+    flexDirection: 'row',
+    gap: 8,
+  },
+    modalTitleHolder:{
+      width:'100%',
+      backgroundColor:'#555555',
+      alignItems:'center',
+      padding:10,
+      borderColor:'white',
+      borderTopLeftRadius:6,
+      borderTopRightRadius:6,
+    },
     modalContent:{
       margin:'10%',
       backgroundColor:'#444444',
-      width:'90%',
-      height:'20%',
       borderRadius:10,
+      paddingBottom:5,
       flexDirection:'column',
       justifyContent:'space-evenly',
       alignItems: 'center',
       boxShadow:'10px 5px 5px black',
+      gap:10,
     },
 
   titleInput:{
@@ -234,6 +249,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent:'flex-start',
     flexDirection:"column",
+    gap:5,
+  },
+  portfolioInfoDescription:{
+    fontWeight:'bold',
+    fontSize:25,
+  },
+  portfolioInfoContent:{
+    fontSize:25,
   },
   infoRowContainer:{
     alignItems:'center',
