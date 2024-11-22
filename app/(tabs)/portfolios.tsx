@@ -1,35 +1,27 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
+import React, {useState} from "react";
 import {StyleSheet, Image, Platform, Button, View, Modal, TouchableOpacity, TextInput} from 'react-native';
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+
 import {useAuth} from "@/context/AuthContext";
-import React, {useState} from "react";
 import PortfolioCard from "@/components/PortfolioCard";
-import CreatePortfolioCard from "@/components/CreatePortfolioCard";
 
 export default function PortfoliosScreen() {
-  interface Portfolio{
-    title:string,
-    total:number,
-    appreciation:number,
-    assets: any[]|[]
-  }
 
   const {
     token,
     userPortfolios,
     fetchUserPortfolios,
     createPortfolio,
-      fetchPortfolioAssets,
+    fetchPortfolioAssets,
+    portfolioAssets,
     } = useAuth();
 
 
-  const [currentPortfolio, setCurrentPortfolio] = useState<Portfolio|null>(null);
-
+  const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
 
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
@@ -70,16 +62,10 @@ export default function PortfoliosScreen() {
     console.error("Token de autenticação não definido!");
   }
 
-  const handlePortfolioCardPress = (portfolio:any) =>{
-    setCurrentPortfolio(
-        {
-          title:portfolio.title,
-          total:portfolio.total,
-          appreciation:portfolio.appreciation,
-          assets:[]
-        }
-    );
-    console.log(currentPortfolio.assets);
+  const handlePortfolioCardPress = async (portfolio:any) =>{
+    setCurrentPortfolio(portfolio);
+    await fetchPortfolioAssets(portfolio);
+
     setIsDetailModalVisible(true);
   }
 
@@ -198,15 +184,27 @@ export default function PortfoliosScreen() {
                     ):('')
                   }
 
-                  {currentPortfolio&&
-                      currentPortfolio.assets?(
-                      ''
-                  ):(
-                      <View style={styles.modalTitleHolder}>
-                      <ThemedText style={styles.modalTitleText}>Você ainda não tem ativos nesta carteira</ThemedText>
-                      </View>
-                  )
-                  }
+                  {
+  portfolioAssets && portfolioAssets.length > 0 ? (
+    portfolioAssets.map((asset, index) => (
+      <View key={index} style={styles.assetRow}>
+        <ThemedText style={styles.assetText}>Ativo: {asset.asset}</ThemedText>
+        <ThemedText style={styles.assetText}>Portfólio: {asset.portfolio}</ThemedText>
+        <ThemedText style={styles.assetText}>Quantidade: {asset.quantity}</ThemedText>
+        <ThemedText style={styles.assetText}>Preço Médio: {asset.average_price}</ThemedText>
+      </View>
+    ))
+  ) : (
+    <View style={styles.noAssetsContainer}>
+      <ThemedText style={styles.noAssetsText}>
+        Nenhum ativo encontrado para este portfólio.
+      </ThemedText>
+    </View>
+  )
+}
+
+  )
+}
 
                     <View style={styles.buttonHolder}>
                       <Button title='Adicionar ativo' />
@@ -307,6 +305,24 @@ const styles = StyleSheet.create({
     fontSize:30,
     color:'white',
     fontWeight:'bold',
-  }
+  },
+  noAssetsContainer: {
+  alignItems: 'center',
+  marginVertical: 20,
+},
+noAssetsText: {
+  fontSize: 30,
+  color: '#999',
+},
+assetRow: {
+  flexDirection: 'row',
+  paddingVertical: 10,
+  borderBottomWidth: 1,
+  borderBottomColor: '#ddd',
+},
+assetText: {
+  fontSize: 16,
+  color: '#333',
+},
 
 });

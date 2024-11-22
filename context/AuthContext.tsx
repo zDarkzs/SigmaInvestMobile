@@ -14,7 +14,7 @@ interface AuthContextType {
     logout: () => Promise<void>;
     fetchUserPortfolios: (token:string) => Promise<void>;
     createPortfolio: (token:string, title:string) => Promise<'OK'|'ERROR'|undefined>;
-    fetchPortfolioAssets: (portfolioID:string) => Promise<void>;
+    fetchPortfolioAssets: (portfolio:any) => Promise<void>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -122,9 +122,16 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }
     };
 
-    const fetchPortfolioAssets = async (portfolioID:string) =>{
+    const fetchPortfolioAssets = async (portfolio:any) =>{
         try{
-            const response = await fetch(`${baseUrl}/api/portfolio/${portfolioID}/assets`);
+            const response = await fetch(`${baseUrl}/api/portfolios/${portfolio.id}/assets`,{
+                method:'GET',
+            });
+            const data = await response.json();
+            console.log('Dados retornados: ',data);
+            if(response.ok){
+                setPortfolioAssets(data);
+            }
         }
         catch (error) {
             console.error("Erro ao buscar ativos da carteira ",error);
