@@ -8,6 +8,7 @@ interface AuthContextType {
     userData: any|null;
     isAuthenticated: boolean;
     userPortfolios: any[] |null;
+    portfolioAssets: any[] |null;
     login: (username:string, password:string) => Promise<void>;
     register:(username:string,password:string,email:string) => Promise<void>;
     logout: () => Promise<void>;
@@ -21,6 +22,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     const [token, setToken] = useState<string|null>(null);
     const [userData, setUserData] = useState<any|null>(null);
     const [userPortfolios, setUserPortfolios] = useState<any[]|null>(null);
+    const [portfolioAssets, setPortfolioAssets] = useState<any[]|null>(null);
 
     const baseUrl = 'http://localhost:8080'//pode-se alterar pelo ip da maquina
 
@@ -154,7 +156,17 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
 
 
     return (
-        <AuthContext.Provider value={{ token, isAuthenticated: !!token,login,register,logout,fetchUserPortfolios,userData,userPortfolios,createPortfolio,fetchPortfolioAssets}}>
+        <AuthContext.Provider value={{ token,
+            isAuthenticated: !!token,
+            login,
+            register,
+            logout,
+            userData,
+            userPortfolios,
+            portfolioAssets,
+            fetchUserPortfolios,
+            createPortfolio,
+            fetchPortfolioAssets}}>
             {children}
         </AuthContext.Provider>
     )

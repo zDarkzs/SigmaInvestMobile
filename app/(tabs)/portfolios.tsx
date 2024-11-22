@@ -3,7 +3,6 @@ import {StyleSheet, Image, Platform, Button, View, Modal, TouchableOpacity, Text
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
-//import {PortfolioCard}
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -13,14 +12,23 @@ import PortfolioCard from "@/components/PortfolioCard";
 import CreatePortfolioCard from "@/components/CreatePortfolioCard";
 
 export default function PortfoliosScreen() {
+  interface Portfolio{
+    title:string,
+    total:number,
+    appreciation:number,
+    assets: any[]|[]
+  }
+
   const {
     token,
     userPortfolios,
     fetchUserPortfolios,
-    createPortfolio } = useAuth();
+    createPortfolio,
+      fetchPortfolioAssets,
+    } = useAuth();
 
 
-  const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
+  const [currentPortfolio, setCurrentPortfolio] = useState<Portfolio|null>(null);
 
 
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
@@ -63,7 +71,15 @@ export default function PortfoliosScreen() {
   }
 
   const handlePortfolioCardPress = (portfolio:any) =>{
-    setCurrentPortfolio(portfolio);
+    setCurrentPortfolio(
+        {
+          title:portfolio.title,
+          total:portfolio.total,
+          appreciation:portfolio.appreciation,
+          assets:[]
+        }
+    );
+    console.log(currentPortfolio.assets);
     setIsDetailModalVisible(true);
   }
 
@@ -85,9 +101,10 @@ export default function PortfoliosScreen() {
                 {userPortfolios?.map((portfolio,index)=>(
                    <PortfolioCard thisPortfolio={portfolio} onPress={() =>{handlePortfolioCardPress(portfolio);}} />
                  ))}
-                   <CreatePortfolioCard onPress={() => {
-                       setIsCreateModalVisible(true)
-                   }}/>
+
+              <TouchableOpacity style={styles.card} onPress={() => setIsCreateModalVisible(true)}>
+                <ThemedText style={styles.cardText}>Adicionar Portfolio</ThemedText>
+              </TouchableOpacity>
 
               {/*Modal para criar portfolios*/}
               <Modal
@@ -97,7 +114,10 @@ export default function PortfoliosScreen() {
                   onRequestClose={closeAllModals}
                 >
                 <View style={styles.modalContent}>
-                  <ThemedText style={styles.modalTitleText}>Criar novo portfolio</ThemedText>
+                  <View style={styles.modalTitleHolder}>
+                    <ThemedText style={styles.modalTitleText}>Criar novo portfolio</ThemedText>
+                  </View>
+
                   <TextInput
                   onChangeText={setNewPortfolioTitle}
                   placeholder='Titulo do portfolio'
@@ -119,7 +139,9 @@ export default function PortfoliosScreen() {
                   onRequestClose={closeAllModals}
               >
                 <View style={styles.modalContent}>
+                  <View style={styles.modalTitleHolder}>
                   <ThemedText style={styles.modalTitleText}>Portfolio Criado com sucesso! ✔</ThemedText>
+                  </View>
                   <Button title='Fechar' onPress={closeAllModals}/>
                 </View>
               </Modal>
@@ -143,10 +165,9 @@ export default function PortfoliosScreen() {
                   onRequestClose={closeAllModals}
                 >
 
-
                 <View style={styles.modalContent}>
                   {currentPortfolio&&
-                currentPortfolio.title?(
+                  currentPortfolio.title?(
                     <View style={styles.modalTitleHolder}>
                     <ThemedText style={styles.modalTitleText}>Detalhes do portfolio</ThemedText>
                     </View>
@@ -176,12 +197,21 @@ export default function PortfoliosScreen() {
                           </>
                     ):('')
                   }
-                  <TouchableOpacity>
-                    <ThemedText>Adicionar novo ativo à carteira</ThemedText>
-                  </TouchableOpacity>
 
+                  {currentPortfolio&&
+                      currentPortfolio.assets?(
+                      ''
+                  ):(
+                      <View style={styles.modalTitleHolder}>
+                      <ThemedText style={styles.modalTitleText}>Você ainda não tem ativos nesta carteira</ThemedText>
+                      </View>
+                  )
+                  }
 
-                    <Button title='Fechar' color='red' onPress={()=>{closeAllModals()}}/>
+                    <View style={styles.buttonHolder}>
+                      <Button title='Adicionar ativo' />
+                      <Button title='Fechar' color='red' onPress={()=>{closeAllModals()}}/>
+                    </View>
 
                 </View>
               </Modal>
@@ -213,7 +243,6 @@ const styles = StyleSheet.create({
     fontWeight:"bold",
     fontSize:30,
     flexDirection: 'row',
-    gap: 8,
   },
     modalTitleHolder:{
       width:'100%',
@@ -264,6 +293,20 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     flexDirection:'row',
+  },
+  card:{
+    height: 150,
+    width:'100%',
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-evenly',
+    backgroundColor:'#C6BD48',
+    borderRadius:15,
+  },
+  cardText:{
+    fontSize:30,
+    color:'white',
+    fontWeight:'bold',
   }
 
 });
