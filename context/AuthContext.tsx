@@ -2,7 +2,6 @@ import React, {createContext, useContext, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-
 interface AuthContextType {
     token: string|null;
     userData: any|null;
@@ -20,6 +19,7 @@ const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
 export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =>{
     const [token, setToken] = useState<string|null>(null);
+    const [apiKey, setApiKey] = useState<string|null>(null);
     const [userData, setUserData] = useState<any|null>(null);
     const [userPortfolios, setUserPortfolios] = useState<any[]|null>(null);
     const [portfolioAssets, setPortfolioAssets] = useState<any[]|null>(null);
@@ -159,6 +159,12 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             console.error(`Erro ao criar o portfolio: ${erro}`)
             return 'ERROR';
         }
+    }
+
+    const fetchApiKey:()=>Promise<string> = async ():Promise<string> =>{
+
+
+        return "";
     }
 
 

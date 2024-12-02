@@ -23,15 +23,18 @@ export default function PortfoliosScreen() {
 
   const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
 
+
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
-  const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isCreationOKModalVisible, setIsCreationOKModalVisible] = useState(false);
   const [isCreationERRORModalVisible, setIsCreationERRORModalVisible] = useState(false);
+
+  const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
+  const [isTransactionModalVisible, setIsTransactionModalVisible] = useState(false);
 
 
   const [newPortfolioTitle, setNewPortfolioTitle] = useState<string>('');
 
-  const handleCreateNewPortfolio = async () => {
+  const handleCreateNewPortfolio:()=>Promise<void> = async ():Promise<void> => {
     if(token&&newPortfolioTitle){
       const tryCreation = await createPortfolio(token,newPortfolioTitle);
       if(tryCreation === 'OK'){
@@ -46,11 +49,16 @@ export default function PortfoliosScreen() {
     }
   }
 
+  const handleNewTransaction:()=>Promise<void> = async () =>{
+
+  }
+
   const closeAllModals = () =>{ //Evita bugs de mais de um modal ficar aberto
     setIsCreateModalVisible(false);
     setIsCreationOKModalVisible(false);
     setIsCreationERRORModalVisible(false);
     setIsDetailModalVisible(false);
+    setIsTransactionModalVisible(false);
     setCurrentPortfolio(null);
   }
 
@@ -150,7 +158,6 @@ export default function PortfoliosScreen() {
                   visible={isDetailModalVisible}
                   onRequestClose={closeAllModals}
                 >
-
                 <View style={styles.modalContent}>
                   {currentPortfolio&&
                   currentPortfolio.title?(
@@ -185,31 +192,40 @@ export default function PortfoliosScreen() {
                   }
 
                   {
-  portfolioAssets && portfolioAssets.length > 0 ? (
-    portfolioAssets.map((asset, index) => (
-      <View key={index} style={styles.assetRow}>
-        <ThemedText style={styles.assetText}>Ativo: {asset.asset}</ThemedText>
-        <ThemedText style={styles.assetText}>Portfólio: {asset.portfolio}</ThemedText>
-        <ThemedText style={styles.assetText}>Quantidade: {asset.quantity}</ThemedText>
-        <ThemedText style={styles.assetText}>Preço Médio: {asset.average_price}</ThemedText>
-      </View>
-    ))
-  ) : (
-    <View style={styles.noAssetsContainer}>
-      <ThemedText style={styles.noAssetsText}>
-        Nenhum ativo encontrado para este portfólio.
-      </ThemedText>
-    </View>
-  )
-}
-
-  )
-}
-
+                   portfolioAssets && portfolioAssets.length > 0 ? (
+                    portfolioAssets.map((asset, index) => (
+                     <View key={index} style={styles.assetRow}>
+                      <ThemedText style={styles.assetText}>Ativo: {asset.asset}</ThemedText>
+                      <ThemedText style={styles.assetText}>Portfólio: {asset.portfolio}</ThemedText>
+                       <ThemedText style={styles.assetText}>Quantidade: {asset.quantity}</ThemedText>
+                      <ThemedText style={styles.assetText}>Preço Médio: {asset.average_price}</ThemedText>
+                     </View>
+                    ))
+                  ) : (
+                    <View style={styles.noAssetsContainer}>
+                     <ThemedText style={styles.noAssetsText}>
+                      Nenhum ativo encontrado para este portfólio.
+                     </ThemedText>
+                   </View>
+                   )
+                  }
                     <View style={styles.buttonHolder}>
-                      <Button title='Adicionar ativo' />
-                      <Button title='Fechar' color='red' onPress={()=>{closeAllModals()}}/>
+                      <Button title='Adicionar ativo' onPress={()=>{setIsTransactionModalVisible(true)}} />
+                      <Button title='Fechar' color='red' onPress={closeAllModals}/>
                     </View>
+
+                </View>
+              </Modal>
+
+
+              {/* Modal de transação financeira */}
+              <Modal
+                animationType='slide'
+                transparent={true}
+                visible={isTransactionModalVisible}
+                onRequestClose={closeAllModals}
+              >
+                <View style={styles.modalContent}>
 
                 </View>
               </Modal>
