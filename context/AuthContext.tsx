@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AuthContextType {
     token: string|null;
+    apiKey: string|null;
     userData: any|null;
     isAuthenticated: boolean;
     userPortfolios: any[] |null;
@@ -26,9 +27,9 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
 
     const baseUrl = 'http://localhost:8080'//pode-se alterar pelo ip da maquina
 
-    const fetchUserData = async (token:string) =>{
+    const fetchUserData:(token:string)=>Promise<void> = async (token:string):Promise<void> =>{
       try{
-          const response = await fetch(`${baseUrl}/auth/getdata/`,{
+          const response:Response = await fetch(`${baseUrl}/auth/getdata/`,{
             method:'POST',
               headers:{
                 'Authorization': `Token ${token}`,
@@ -37,7 +38,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
               },
           });
         if(response.ok){
-            const userData = await response.json();
+            const userData:any = await response.json();
             setUserData(userData);
             await fetchUserPortfolios(token);
         }
@@ -46,9 +47,9 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
       }
     };
 
-    const login = async (username:string,password:string) => {
+    const login:(username:string,password:string)=>Promise<void> = async (username:string,password:string) => {
         try {
-            const response = await fetch(`${baseUrl}/auth/login/`, {
+            const response:Response = await fetch(`${baseUrl}/auth/login/`, {
                 method:'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,11 +57,13 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
                 body: JSON.stringify({username, password}),
             });
 
-            console.log(response);
-            const data = await response.json();
+
+            const data:any = await response.json();
+            console.log(data);
             if (response.ok){
                 await AsyncStorage.setItem('token', data.token);
                 await fetchUserData(data.token);
+                await AsyncStorage.setItem('key', data.key);
                 setToken(data.token);
             } else {
                 console.log(data.error);
@@ -70,9 +73,9 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }
     };
 
-    const register = async (username: string, email: string, password:string ) =>{
+    const register:(username:string,email:string,password:string)=>Promise<void> = async (username: string, email: string, password:string ):Promise<void> =>{
         try {
-            const response = await fetch(`${baseUrl}/auth/signup/`,{
+            const response:Response = await fetch(`${baseUrl}/auth/signup/`,{
                 method: 'POST',
                 mode:'cors',
                 headers:{
@@ -81,7 +84,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
                 body: JSON.stringify({username, password, email}),
             });
 
-            const data = await response.json();
+            const data:any = await response.json();
             if (response.ok){
                 await AsyncStorage.setItem('token', data.token);
                 await fetchUserData(data.token);
@@ -97,22 +100,22 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }
     }
 
-    const logout = async () => {
+    const logout:()=>Promise<void> = async ():Promise<void> => {
         await AsyncStorage.removeItem('token');
         setToken(null);
     };
 
-    const fetchUserPortfolios = async (token:string) =>{
+    const fetchUserPortfolios:(token:string) => Promise<void> = async (token:string):Promise<void> =>{
         try {
             console.log(`Token utilizado:`,token);
-            const response = await fetch(`${baseUrl}/api/portfolios/byuser/`,{
+            const response:Response = await fetch(`${baseUrl}/api/portfolios/byuser/`,{
                 method:'GET',
                 headers:{
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'application/json',
                 }
             });
-            const data = await response.json();
+            const data:any = await response.json();
             console.log(`Dados retornados: `,data);
             if(response.ok){
                 setUserPortfolios(data);
@@ -122,12 +125,12 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }
     };
 
-    const fetchPortfolioAssets = async (portfolio:any) =>{
+    const fetchPortfolioAssets:(portfolio:any)=>Promise<void> = async (portfolio:any):Promise<void> =>{
         try{
-            const response = await fetch(`${baseUrl}/api/portfolios/${portfolio.id}/assets`,{
+            const response:Response = await fetch(`${baseUrl}/api/portfolios/${portfolio.id}/assets`,{
                 method:'GET',
             });
-            const data = await response.json();
+            const data:any = await response.json();
             console.log('Dados retornados: ',data);
             if(response.ok){
                 setPortfolioAssets(data);
@@ -138,9 +141,9 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }
     }
 
-    const createPortfolio = async (token:string, title:string) =>{
+    const createPortfolio:(token:string,title:string)=>Promise<'OK'|'ERROR'|undefined> = async (token:string, title:string):Promise<'OK'|'ERROR'|undefined> =>{
         try{
-            const response = await fetch(`${baseUrl}/api/portfolios/create/`, {
+            const response:Response = await fetch(`${baseUrl}/api/portfolios/create/`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Token ${token}`,
@@ -148,7 +151,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
                 },
                 body: JSON.stringify({title}),
             });
-            const data = await response.json();
+            const data:any = await response.json();
             console.log(`Dados retornados: `, data)
             if (response.ok) {
                 console.log('Carteira criada com sucesso', data);
@@ -171,6 +174,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     return (
         <AuthContext.Provider value={{ token,
             isAuthenticated: !!token,
+            apiKey,
             login,
             register,
             logout,
@@ -185,9 +189,9 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     )
 }
 
-export const useAuth = () => {
+export const useAuth:()=> AuthContextType = ():AuthContextType => {
 
-    const context = useContext(AuthContext);
+    const context:AuthContextType|undefined = useContext(AuthContext);
     if (!context) throw new Error("useAuth must be used within the AuthProvider");
     return context;
 };

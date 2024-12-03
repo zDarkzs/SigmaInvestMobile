@@ -25,14 +25,17 @@ export default function PortfoliosScreen() {
 
 
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
+  const [newPortfolioTitle, setNewPortfolioTitle] = useState<string>('');
   const [isCreationOKModalVisible, setIsCreationOKModalVisible] = useState(false);
   const [isCreationERRORModalVisible, setIsCreationERRORModalVisible] = useState(false);
 
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isTransactionModalVisible, setIsTransactionModalVisible] = useState(false);
+  const [selectedType,setSelectedType] = useState<string|null>(null);
+  const [quantity, setQuantity] = useState<string>('');
+  const [price, setPrice] = useState<string>('');
 
 
-  const [newPortfolioTitle, setNewPortfolioTitle] = useState<string>('');
 
   const handleCreateNewPortfolio:()=>Promise<void> = async ():Promise<void> => {
     if(token&&newPortfolioTitle){
@@ -226,6 +229,44 @@ export default function PortfoliosScreen() {
                 onRequestClose={closeAllModals}
               >
                 <View style={styles.modalContent}>
+                  <ThemedText style={styles.modalTitleText}>Adicionar ativo</ThemedText>
+
+                  {/* Seleção de tipo */}
+                  <View style={styles.typeSelector}>
+                    <TouchableOpacity
+                    style={[
+                        styles.typeButton,
+                        selectedType === 'stocks' && styles.selectedTypeButton
+                    ]}
+                    onPress={()=>{setSelectedType('stocks')}}
+                    >
+                      <ThemedText>📊</ThemedText>
+                      <ThemedText style={styles.typeButtonText}>Ações</ThemedText>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                    style={[
+                    styles.typeButton,
+                    selectedType === 'crypto' && styles.selectedTypeButton,
+                    ]}
+                    onPress={() => setSelectedType('crypto')}
+                   >
+
+                    <ThemedText style={styles.typeButtonText}>🔒</ThemedText>
+                    <ThemedText style={styles.typeButtonText}>Cripto</ThemedText>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={[
+                    styles.typeButton,
+                    selectedType === 'currency' && styles.selectedTypeButton,
+                    ]}
+                    onPress={() => setSelectedType('currency')}
+                    >
+                    <ThemedText style={styles.typeButtonText}>💰</ThemedText>
+                    <ThemedText style={styles.typeButtonText}>Moeda</ThemedText>
+                  </TouchableOpacity>
+                  </View>
+
 
                 </View>
               </Modal>
@@ -339,6 +380,36 @@ assetRow: {
 assetText: {
   fontSize: 16,
   color: '#333',
+},
+typeSelector: {
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  marginVertical: 20,
+  gap:5
+},
+typeButton: {
+  padding: 10,
+  borderRadius: 10,
+  backgroundColor: '#777777',
+  alignItems:'center',
+},
+selectedTypeButton: {
+  backgroundColor: '#C6BD48',
+},
+typeButtonText: {
+  color: 'white',
+  fontSize: 30,
+  fontWeight: 'bold',
+},
+input: {
+  width: '95%',
+  height: 50,
+  fontSize: 18,
+  backgroundColor: '#777777',
+  color: 'white',
+  borderRadius: 5,
+  padding: 10,
+  marginVertical: 10,
 },
 
 });
