@@ -67,6 +67,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
                 await fetchUserData(data.token);
                 await AsyncStorage.setItem('key', data.key);
                 setToken(data.token);
+                setApiKey(data.key);
             } else {
                 console.log(data.error);
             }
@@ -91,6 +92,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
                 await AsyncStorage.setItem('token', data.token);
                 await fetchUserData(data.token);
                 setToken(data.token);
+                setApiKey(data.key);
                 return;
             }
             console.log(data.error);
@@ -175,12 +177,12 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
      }
      try{
            if(assetType == ''){throw new Error("Insira um tipo válido(como você fez isso?)")}
-           const response = await fetch(`${externalUrl}${externalEndPoint[assetType]}?token=${apiKey}`);
+           const response = await fetch(`${externalUrl + externalEndPoint[assetType]}?token=${apiKey}`);
             if(!response.ok){
                 throw new Error(response.status + ' ' + response.statusText);
             }
-            const data = response.json();
-            console.log('Dados retornados: ',data.stocks);
+            const data = await response.json();
+            return(data.stocks);
         }
         catch (error:any){
             console.error(error)

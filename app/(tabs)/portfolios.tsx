@@ -59,6 +59,7 @@ export default function PortfoliosScreen() {
   const handleStockSearch = async () =>{
       try{
         const assets = await fetchAssets(selectedType);
+        console.log(assets);
         setCurrentSearchAssets(await fetchAssets(selectedType));
       }
     catch (error){
