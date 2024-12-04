@@ -1,13 +1,15 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import React, {useState} from "react";
-import {StyleSheet, Image, Platform, Button, View, Modal, TouchableOpacity, TextInput} from 'react-native';
+import {StyleSheet, Button, View, Modal, TouchableOpacity, TextInput} from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
 import {useAuth} from "@/context/AuthContext";
+
 import PortfolioCard from "@/components/PortfolioCard";
+import * as crypto from "node:crypto";
 
 export default function PortfoliosScreen() {
 
@@ -15,6 +17,7 @@ export default function PortfoliosScreen() {
     token,
     userPortfolios,
     fetchUserPortfolios,
+    fetchAssets,
     createPortfolio,
     fetchPortfolioAssets,
     portfolioAssets,
@@ -31,7 +34,8 @@ export default function PortfoliosScreen() {
 
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isTransactionModalVisible, setIsTransactionModalVisible] = useState(false);
-  const [selectedType,setSelectedType] = useState<string|null>(null);
+  const [selectedType,setSelectedType] = useState<''|'stock'|'crypto'|'currency'>('');
+  const [currentSearchAssets, setCurrentSearchAssets] = useState<any[]|null>(null);
   const [quantity, setQuantity] = useState<string>('');
   const [price, setPrice] = useState<string>('');
 
@@ -49,6 +53,16 @@ export default function PortfoliosScreen() {
         console.log('Erro ao criar o portfolio');
         setIsCreationERRORModalVisible(true);
       }
+    }
+  }
+
+  const handleStockSearch = async () =>{
+      try{
+        const assets = await fetchAssets(selectedType);
+        setCurrentSearchAssets(await fetchAssets(selectedType));
+      }
+    catch (error){
+        console.error(error)
     }
   }
 
@@ -236,9 +250,9 @@ export default function PortfoliosScreen() {
                     <TouchableOpacity
                     style={[
                         styles.typeButton,
-                        selectedType === 'stocks' && styles.selectedTypeButton
+                        selectedType == 'stock' && styles.selectedTypeButton
                     ]}
-                    onPress={()=>{setSelectedType('stocks')}}
+                    onPress={()=>{setSelectedType('stock')}}
                     >
                       <ThemedText>📊</ThemedText>
                       <ThemedText style={styles.typeButtonText}>Ações</ThemedText>
@@ -265,6 +279,14 @@ export default function PortfoliosScreen() {
                     <ThemedText style={styles.typeButtonText}>💰</ThemedText>
                     <ThemedText style={styles.typeButtonText}>Moeda</ThemedText>
                   </TouchableOpacity>
+                  </View>
+
+                  <View style={styles.buttonHolder}>
+
+                    {selectedType === '' ? (''):(
+                      <Button title='PESQUISAR' onPress={()=>{handleStockSearch()}}/>
+                    )}
+                    <Button title='CANCELAR'  color='red' onPress={()=>{setIsTransactionModalVisible(false); setSelectedType('')}}/>
                   </View>
 
 

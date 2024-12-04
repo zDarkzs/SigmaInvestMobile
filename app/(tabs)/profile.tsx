@@ -14,13 +14,13 @@
         const  [username, setUsername] = useState<string>('');
         const [password, setPassword] = useState<string>('');
         const [email, setEmail] = useState<string>('');
-        const [debug, setDebug] = useState<boolean>(true);
+        const [debug] = useState<boolean>(true);
 
         const handleLogin = async () => {
            await login(username, password);
         }
         const debugHandleLogin = async () => {
-            await login('fabio','fabio@aluno');
+            await login('fabio','fabio@aluno'); //Todo: apagar isso aqui um dia
         }
         const handleRegister = async () =>{
             await register(username,email,password);

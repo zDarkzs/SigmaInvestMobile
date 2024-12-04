@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {string} from "prop-types";
 
 
 interface AuthContextType {
@@ -15,6 +16,7 @@ interface AuthContextType {
     fetchUserPortfolios: (token:string) => Promise<void>;
     createPortfolio: (token:string, title:string) => Promise<'OK'|'ERROR'|undefined>;
     fetchPortfolioAssets: (portfolio:any) => Promise<void>;
+    fetchAssets:(assetType:''|'stock'|'crypto'|'currency') => Promise<any>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -164,11 +166,27 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }
     }
 
-    const fetchApiKey:()=>Promise<string> = async ():Promise<string> =>{
-
-
-        return "";
+    const fetchAssets = async (assetType:''|'stock'|'crypto'|'currency'):Promise<any> =>{
+     const externalUrl = 'https://brapi.dev/api/';
+     const externalEndPoint = {
+      stock: 'quote/list',
+      crypto: 'v2/crypto',
+      currency: 'v2/currency'
+     }
+     try{
+           if(assetType == ''){throw new Error("Insira um tipo válido(como você fez isso?)")}
+           const response = await fetch(`${externalUrl}${externalEndPoint[assetType]}?token=${apiKey}`);
+            if(!response.ok){
+                throw new Error(response.status + ' ' + response.statusText);
+            }
+            const data = response.json();
+            console.log('Dados retornados: ',data.stocks);
+        }
+        catch (error:any){
+            console.error(error)
+        }
     }
+
 
 
     return (
@@ -181,6 +199,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             userData,
             userPortfolios,
             portfolioAssets,
+            fetchAssets,
             fetchUserPortfolios,
             createPortfolio,
             fetchPortfolioAssets}}>
