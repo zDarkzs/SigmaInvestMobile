@@ -172,17 +172,31 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
      const externalUrl = 'https://brapi.dev/api/';
      const externalEndPoint = {
       stock: 'quote/list',
-      crypto: 'v2/crypto',
-      currency: 'v2/currency'
+      crypto: 'v2/crypto/available',
+      currency: 'v2/currency/available'
+     }
+     const responseKeys = {
+     stock: 'stocks',
+     crypto: 'coins',
+     currency: 'currencies',
      }
      try{
            if(assetType == ''){throw new Error("Insira um tipo válido(como você fez isso?)")}
-           const response = await fetch(`${externalUrl + externalEndPoint[assetType]}?token=${apiKey}`);
+
+           if(apiKey == null){
+               throw new Error("Chave da api não localizada.")
+           }
+           const params = new URLSearchParams({
+               token:apiKey
+           })
+
+           const response = await fetch(`${externalUrl + externalEndPoint[assetType]}?${params.toString()}`);
             if(!response.ok){
                 throw new Error(response.status + ' ' + response.statusText);
             }
             const data = await response.json();
-            return(data.stocks);
+            const key = responseKeys[assetType];
+            return(data[key] || []);
         }
         catch (error:any){
             console.error(error)
