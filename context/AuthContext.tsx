@@ -17,6 +17,7 @@ interface AuthContextType {
     createPortfolio: (token:string, title:string) => Promise<'OK'|'ERROR'|undefined>;
     fetchPortfolioAssets: (portfolio:any) => Promise<void>;
     fetchAssets:(assetType:''|'stock'|'crypto'|'currency') => Promise<any>;
+    fetchStocks:()=>Promise<any[]>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -168,17 +169,38 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }
     }
 
+
+    const fetchStocks = async () =>{
+        try{
+
+        const response = await fetch(`${baseUrl}/api/assets/stocks`,{
+            method : 'POST',
+
+            headers:{
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application-json',
+            }
+        })
+        const data = await response.json();
+        if (response.ok){
+            return data
+        }
+        }catch (e) {
+            console.error(e)
+        }
+    }
+
     const fetchAssets = async (assetType:''|'stock'|'crypto'|'currency'):Promise<any> =>{
      const externalUrl = 'https://brapi.dev/api/';
      const externalEndPoint = {
       stock: 'quote/list',
-      crypto: 'v2/crypto/available',
-      currency: 'v2/currency/available'
+      crypto: 'v2/crypto/available',//indisponivel
+      currency: 'v2/currency/available'//indisponivel
      }
      const responseKeys = {
      stock: 'stocks',
-     crypto: 'coins',
-     currency: 'currencies',
+     crypto: 'coins',//indisponivel
+     currency: 'currencies',//indisponivel
      }
      try{
            if(assetType == ''){throw new Error("Insira um tipo válido(como você fez isso?)")}
@@ -216,6 +238,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             userPortfolios,
             portfolioAssets,
             fetchAssets,
+            fetchStocks,
             fetchUserPortfolios,
             createPortfolio,
             fetchPortfolioAssets}}>

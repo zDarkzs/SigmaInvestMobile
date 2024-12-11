@@ -18,6 +18,7 @@ export default function PortfoliosScreen() {
     userPortfolios,
     fetchUserPortfolios,
     fetchAssets,
+    fetchStocks,
     createPortfolio,
     fetchPortfolioAssets,
     portfolioAssets,
@@ -58,18 +59,23 @@ export default function PortfoliosScreen() {
 
   const handleStockSearch = async () =>{
       try{
-        const assets = await fetchAssets(selectedType);
-        console.log(assets);
-        setCurrentSearchAssets(await fetchAssets(selectedType));
+        if (selectedType != 'stock'){
+          throw new Error('Selecione um tipo válido(cryptos e moedas estão indisponiveis)')
+        }
+        //const assets = await fetchAssets(selectedType);
+        //console.log(assets);
+        //setCurrentSearchAssets(await fetchAssets(selectedType));
+        const stocks = await fetchStocks()
+        setCurrentSearchAssets(stocks);
+        console.log(stocks);
       }
     catch (error){
-        console.error(error)
+        console.error(error);
+        //TODO: criar um modal de erro
     }
   }
 
-  const handleNewTransaction:()=>Promise<void> = async () =>{
 
-  }
 
   const closeAllModals = () =>{ //Evita bugs de mais de um modal ficar aberto
     setIsCreateModalVisible(false);
