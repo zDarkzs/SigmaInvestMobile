@@ -16,8 +16,8 @@ interface AuthContextType {
     fetchUserPortfolios: (token:string) => Promise<void>;
     createPortfolio: (token:string, title:string) => Promise<'OK'|'ERROR'|undefined>;
     fetchPortfolioAssets: (portfolio:any) => Promise<void>;
-    fetchAssets:(assetType:''|'stock'|'crypto'|'currency') => Promise<any>;
     fetchStocks:()=>Promise<any[]>;
+    fetchStockDetails:(ticket:string) => Promise<any>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -190,44 +190,26 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
         }
     }
 
-    const fetchAssets = async (assetType:''|'stock'|'crypto'|'currency'):Promise<any> =>{
-     const externalUrl = 'https://brapi.dev/api/';
-     const externalEndPoint = {
-      stock: 'quote/list',
-      crypto: 'v2/crypto/available',//indisponivel
-      currency: 'v2/currency/available'//indisponivel
-     }
-     const responseKeys = {
-     stock: 'stocks',
-     crypto: 'coins',//indisponivel
-     currency: 'currencies',//indisponivel
-     }
-     try{
-           if(assetType == ''){throw new Error("Insira um tipo válido(como você fez isso?)")}
-
-           if(apiKey == null){
-               throw new Error("Chave da api não localizada.")
-           }
-           const params = new URLSearchParams({
-               token:apiKey
-           })
-
-           const response = await fetch(`${externalUrl + externalEndPoint[assetType]}?${params.toString()}`);
-            if(!response.ok){
-                throw new Error(response.status + ' ' + response.statusText);
-            }
+    const fetchStockDetails = async (ticker:string)=>{
+        try{
+            const response = await fetch(`${baseUrl}/api/assets/stocks/detail/`,{
+                method:'POST',
+                headers:{
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application-json',
+                    'ticker': ticker
+                }
+            })
             const data = await response.json();
-            const key = responseKeys[assetType];
-            return(data[key] || []);
-        }
-        catch (error:any){
-            console.error(error)
+            if (response.ok){
+                return data;
+            }
+        }catch (e) {
+            console.error(e)
         }
     }
 
-
-
-    return (
+     return (
         <AuthContext.Provider value={{ token,
             isAuthenticated: !!token,
             apiKey,
@@ -237,8 +219,8 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             userData,
             userPortfolios,
             portfolioAssets,
-            fetchAssets,
             fetchStocks,
+            fetchStockDetails,
             fetchUserPortfolios,
             createPortfolio,
             fetchPortfolioAssets}}>

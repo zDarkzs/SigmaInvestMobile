@@ -17,8 +17,8 @@ export default function PortfoliosScreen() {
     token,
     userPortfolios,
     fetchUserPortfolios,
-    fetchAssets,
     fetchStocks,
+    fetchStockDetails,
     createPortfolio,
     fetchPortfolioAssets,
     portfolioAssets,
@@ -36,6 +36,17 @@ export default function PortfoliosScreen() {
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isTransactionModalVisible, setIsTransactionModalVisible] = useState(false);
   const [selectedType,setSelectedType] = useState<''|'stock'|'crypto'|'currency'>('');
+  type OrderByType =
+  '' |
+  'name' |
+  'close' |
+  'change' |
+  'change_abs' |
+  'volume' |
+  'market_cap_basic' |
+  'sector';
+  const [orderBy, setOrderBy] = useState<OrderByType>('');
+
   const [currentSearchAssets, setCurrentSearchAssets] = useState<any[]|null>(null);
   const [quantity, setQuantity] = useState<string>('');
   const [price, setPrice] = useState<string>('');
@@ -264,6 +275,8 @@ export default function PortfoliosScreen() {
                       <ThemedText>📊</ThemedText>
                       <ThemedText style={styles.typeButtonText}>Ações</ThemedText>
                     </TouchableOpacity>
+
+                    {/* OPÇÃO CRIPTO // DESCONTINUADA
                     <TouchableOpacity
                     style={[
                     styles.typeButton,
@@ -275,6 +288,7 @@ export default function PortfoliosScreen() {
                     <ThemedText style={styles.typeButtonText}>🔒</ThemedText>
                     <ThemedText style={styles.typeButtonText}>Cripto</ThemedText>
                   </TouchableOpacity>
+                    */}
 
                   <TouchableOpacity
                     style={[
