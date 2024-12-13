@@ -76,7 +76,7 @@ export default function PortfoliosScreen() {
         }
         const stocks = await fetchStocks()
         setCurrentSearchAssets(stocks);
-        setIsStockListModalVisible(true);
+        //setIsStockListModalVisible(true);
         console.log(currentSearchAssets);
       }
     catch (error){
@@ -282,8 +282,10 @@ export default function PortfoliosScreen() {
                   <View>
 
                   </View>
+                {currentSearchAssets?.map((stock,index)=>(
+                    <StockCard thisStock={stock} onPress={()=>{handleStockSelect(stock)}} />
+                  ))}
                   <View style={styles.buttonHolder}>
-
                     {selectedType === '' ? (''):(
                       <Button title='PESQUISAR' onPress={()=>{handleStockSearch()}}/>
                     )}
@@ -292,7 +294,6 @@ export default function PortfoliosScreen() {
 
               <CustomModal visible={isStockListModalVisible} onClose={()=> {setIsStockListModalVisible(false)}}>
                 <ScrollView>
-
                     <View style={styles.buttonHolder}>
                       <Button title='Fechar' color='red' onPress={()=>{setIsStockListModalVisible(false)}}/>
                     </View>
