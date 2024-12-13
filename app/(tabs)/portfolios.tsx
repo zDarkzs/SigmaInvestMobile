@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import React, {useState} from "react";
-import {StyleSheet, Button, View, Modal, TouchableOpacity, TextInput} from 'react-native';
+import {StyleSheet, Button, View, Modal, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -10,6 +10,7 @@ import {useAuth} from "@/context/AuthContext";
 
 import PortfolioCard from "@/components/PortfolioCard";
 import StockCard from "@/components/StockCard";
+import CustomModal from "@/components/CustomModal";
 
 export default function PortfoliosScreen() {
 
@@ -53,8 +54,6 @@ export default function PortfoliosScreen() {
   const [quantity, setQuantity] = useState<string>('');
   const [price, setPrice] = useState<string>('');
 
-
-
   const handleCreateNewPortfolio:()=>Promise<void> = async ():Promise<void> => {
     if(token&&newPortfolioTitle){
       const tryCreation = await createPortfolio(token,newPortfolioTitle);
@@ -86,11 +85,10 @@ export default function PortfoliosScreen() {
     }
   }
 
-  const handleStockSelect = async (stock) =>{
+  const handleStockSelect = async (stock:any) =>{
     console.log(stock)
     return
   }
-
 
   const closeAllModals = () =>{ //Evita bugs de mais de um modal ficar aberto
     setIsCreateModalVisible(false);
@@ -98,6 +96,7 @@ export default function PortfoliosScreen() {
     setIsCreationERRORModalVisible(false);
     setIsDetailModalVisible(false);
     setIsTransactionModalVisible(false);
+    setIsStockListModalVisible(false);
     setCurrentPortfolio(null);
   }
 
@@ -140,13 +139,7 @@ export default function PortfoliosScreen() {
               </TouchableOpacity>
 
               {/*Modal para criar portfolios*/}
-              <Modal
-                  animationType='slide'
-                  transparent={true}
-                  visible={isCreateModalVisible}
-                  onRequestClose={closeAllModals}
-                >
-                <View style={styles.modalContent}>
+              <CustomModal visible={isCreateModalVisible} onClose={closeAllModals}>
                   <View style={styles.modalTitleHolder}>
                     <ThemedText style={styles.modalTitleText}>Criar novo portfolio</ThemedText>
                   </View>
@@ -159,46 +152,29 @@ export default function PortfoliosScreen() {
                   />
                   <View style={styles.buttonHolder}>
                     <Button title='Criar Portfolio'  onPress={handleCreateNewPortfolio}/>
-                    <Button title='Cancelar' color='red' onPress={closeAllModals}/>
                   </View>
-                </View>
-              </Modal>
+              </CustomModal>
 
               {/* Modal de criacao bem sucedida */}
-              <Modal
-                  animationType='slide'
-                  transparent={true}
+              <CustomModal
                   visible={isCreationOKModalVisible}
-                  onRequestClose={closeAllModals}
+                  onClose={closeAllModals}
               >
-                <View style={styles.modalContent}>
-                  <View style={styles.modalTitleHolder}>
+                <View style={styles.modalTitleHolder}>
                   <ThemedText style={styles.modalTitleText}>Portfolio Criado com sucesso! ✔</ThemedText>
                   </View>
                   <Button title='Fechar' onPress={closeAllModals}/>
-                </View>
-              </Modal>
+              </CustomModal>
 
               {/* Modal de criacao com erro */}
-              <Modal
-                animationType='slide'
-                transparent={true}
-                visible={isCreationERRORModalVisible}
-                onRequestClose={closeAllModals}
-              >
+              <CustomModal visible={isCreationERRORModalVisible} onClose={closeAllModals}>
                 <ThemedText style={styles.modalTitleText}>Houve um erro ao criar o portfolio ❌</ThemedText>
                   <Button title='Fechar' onPress={closeAllModals}/>
-              </Modal>
+              </CustomModal>
 
               {/* Modal de detalhes do portfolio */}
-              <Modal
-                  animationType='slide'
-                  transparent={true}
-                  visible={isDetailModalVisible}
-                  onRequestClose={closeAllModals}
-                >
-                <View style={styles.modalContent}>
-                  {currentPortfolio&&
+              <CustomModal visible={isDetailModalVisible} onClose={closeAllModals}>
+                 {currentPortfolio&&
                   currentPortfolio.title?(
                     <View style={styles.modalTitleHolder}>
                     <ThemedText style={styles.modalTitleText}>Detalhes do portfolio</ThemedText>
@@ -250,22 +226,16 @@ export default function PortfoliosScreen() {
                   }
                     <View style={styles.buttonHolder}>
                       <Button title='Adicionar ativo' onPress={()=>{setIsTransactionModalVisible(true)}} />
-                      <Button title='Fechar' color='red' onPress={closeAllModals}/>
                     </View>
 
-                </View>
-              </Modal>
+              </CustomModal>
 
 
               {/* Modal de transação financeira */}
-              <Modal
-                animationType='slide'
-                transparent={true}
-                visible={isTransactionModalVisible}
-                onRequestClose={closeAllModals}
-              >
-                <View style={styles.modalContent}>
+              <CustomModal visible={isTransactionModalVisible} onClose={()=>setIsTransactionModalVisible(false)}>
+                 <View style={styles.modalTitleHolder}>
                   <ThemedText style={styles.modalTitleText}>Adicionar ativo</ThemedText>
+                  </View>
 
                   {/* Seleção de tipo */}
                   <View style={styles.typeSelector}>
@@ -306,28 +276,31 @@ export default function PortfoliosScreen() {
                   </TouchableOpacity>
                     */}
                   </View>
+                  <View style={styles.modalTitleHolder}>
+                    <ThemedText style={styles.modalTitleText}>Ordenar por</ThemedText>
+                  </View>
+                  <View>
 
+                  </View>
                   <View style={styles.buttonHolder}>
 
                     {selectedType === '' ? (''):(
                       <Button title='PESQUISAR' onPress={()=>{handleStockSearch()}}/>
                     )}
-                    <Button title='CANCELAR'  color='red' onPress={()=>{setIsTransactionModalVisible(false); setSelectedType('')}}/>
-                  </View>
                 </View>
-              </Modal>
+              </CustomModal>
 
-              <Modal
-                  animationType='slide'
-                  transparent={true}
-                  visible={isStockListModalVisible}
-                  onRequestClose={closeAllModals}
-              >
-                {currentSearchAssets?.map((stock,index)=>(
+              <CustomModal visible={isStockListModalVisible} onClose={()=> {setIsStockListModalVisible(false)}}>
+                <ScrollView>
+
+                    <View style={styles.buttonHolder}>
+                      <Button title='Fechar' color='red' onPress={()=>{setIsStockListModalVisible(false)}}/>
+                    </View>
+                    {currentSearchAssets?.map((stock,index)=>(
                     <StockCard thisStock={stock} onPress={()=>{handleStockSelect(stock)}} />
-
                   ))}
-              </Modal>
+                </ScrollView>
+              </CustomModal>
 
               </ThemedView>
                ):(
