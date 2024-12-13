@@ -9,7 +9,7 @@ import { ThemedView } from '@/components/ThemedView';
 import {useAuth} from "@/context/AuthContext";
 
 import PortfolioCard from "@/components/PortfolioCard";
-import * as crypto from "node:crypto";
+import StockCard from "@/components/StockCard";
 
 export default function PortfoliosScreen() {
 
@@ -35,6 +35,7 @@ export default function PortfoliosScreen() {
 
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isTransactionModalVisible, setIsTransactionModalVisible] = useState(false);
+  const [isStockListModalVisible, setIsStockListModalVisible] = useState(false);
   const [selectedType,setSelectedType] = useState<''|'stock'|'crypto'|'currency'>('');
   type OrderByType =
   '' |
@@ -48,6 +49,7 @@ export default function PortfoliosScreen() {
   const [orderBy, setOrderBy] = useState<OrderByType>('');
 
   const [currentSearchAssets, setCurrentSearchAssets] = useState<any[]|null>(null);
+  const[currentStock,setCurrentStock] = useState<any|null>(null);
   const [quantity, setQuantity] = useState<string>('');
   const [price, setPrice] = useState<string>('');
 
@@ -73,12 +75,10 @@ export default function PortfoliosScreen() {
         if (selectedType != 'stock'){
           throw new Error('Selecione um tipo válido(cryptos e moedas estão indisponiveis)')
         }
-        //const assets = await fetchAssets(selectedType);
-        //console.log(assets);
-        //setCurrentSearchAssets(await fetchAssets(selectedType));
         const stocks = await fetchStocks()
         setCurrentSearchAssets(stocks);
-        console.log(stocks);
+        setIsStockListModalVisible(true);
+        console.log(currentSearchAssets);
       }
     catch (error){
         console.error(error);
@@ -86,6 +86,10 @@ export default function PortfoliosScreen() {
     }
   }
 
+  const handleStockSelect = async (stock) =>{
+    console.log(stock)
+    return
+  }
 
 
   const closeAllModals = () =>{ //Evita bugs de mais de um modal ficar aberto
@@ -289,7 +293,7 @@ export default function PortfoliosScreen() {
                     <ThemedText style={styles.typeButtonText}>Cripto</ThemedText>
                   </TouchableOpacity>
                     */}
-
+                    {/* OPÇÃO MOEDA // DESCONTINUADA
                   <TouchableOpacity
                     style={[
                     styles.typeButton,
@@ -300,6 +304,7 @@ export default function PortfoliosScreen() {
                     <ThemedText style={styles.typeButtonText}>💰</ThemedText>
                     <ThemedText style={styles.typeButtonText}>Moeda</ThemedText>
                   </TouchableOpacity>
+                    */}
                   </View>
 
                   <View style={styles.buttonHolder}>
@@ -309,9 +314,19 @@ export default function PortfoliosScreen() {
                     )}
                     <Button title='CANCELAR'  color='red' onPress={()=>{setIsTransactionModalVisible(false); setSelectedType('')}}/>
                   </View>
-
-
                 </View>
+              </Modal>
+
+              <Modal
+                  animationType='slide'
+                  transparent={true}
+                  visible={isStockListModalVisible}
+                  onRequestClose={closeAllModals}
+              >
+                {currentSearchAssets?.map((stock,index)=>(
+                    <StockCard thisStock={stock} onPress={()=>{handleStockSelect(stock)}} />
+
+                  ))}
               </Modal>
 
               </ThemedView>
