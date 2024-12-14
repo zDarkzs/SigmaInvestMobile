@@ -65,7 +65,7 @@ export default function StockCard({thisStock, onPress}:any) {
          justifyContent:'center',
          paddingVertical:'2%',
          paddingHorizontal:'2%',
-         width:'20%',
+         width:'15%',
          height:'90%',
          borderRadius:10,
 
