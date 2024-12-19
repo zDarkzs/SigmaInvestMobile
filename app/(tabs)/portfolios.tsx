@@ -37,6 +37,7 @@ export default function PortfoliosScreen() {
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isTransactionModalVisible, setIsTransactionModalVisible] = useState(false);
   const [isStockListModalVisible, setIsStockListModalVisible] = useState(false);
+
   const [selectedType,setSelectedType] = useState<''|'stock'|'crypto'|'currency'>('');
   type OrderByType =
   '' |
@@ -109,9 +110,10 @@ export default function PortfoliosScreen() {
   }
 
   const handlePortfolioCardPress = async (portfolio:any) =>{
-    setCurrentPortfolio(portfolio);
-    await fetchPortfolioAssets(portfolio);
 
+    setCurrentPortfolio(portfolio);
+    const currentPortfolioAssets = await fetchPortfolioAssets(portfolio);
+    console.log(currentPortfolioAssets)
     setIsDetailModalVisible(true);
   }
 

@@ -4,14 +4,23 @@ import {Image, ImageBackground, StyleSheet, TouchableOpacity, View} from "react-
 import {Props} from "expo-system-ui/plugin/build/withAndroidUserInterfaceStyle";
 import {ThemedText} from "@/components/ThemedText";
 
+import {useAuth} from '@/context/AuthContext';
+
+export default function StockCard({thisStock, onPress, currentPortfolio, isSelected}:any) {
+
+    const {
+        token,
+        fetchPortfolioAssets
+    } = useAuth();
 
 
-export default function StockCard({thisStock, onPress, isSelected}:any) {
+
     const [isExpanded, setIsExpanded] = useState(false);
     const [quantity, setQuantity] = useState(0);
     const [value, setValue] = useState(0);
     const [time, setTime] = useState(0);
     const handleCardPress = ()=>{
+
         setIsExpanded(prev => !prev);
         if (onPress){onPress()}
     }
@@ -22,6 +31,7 @@ export default function StockCard({thisStock, onPress, isSelected}:any) {
 
             <View style={styles.basicInfo}>
                 {thisStock&&
+                thisStock.id&&
                 thisStock.stock&&
                 thisStock.logo?(
                     <>
