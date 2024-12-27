@@ -1,6 +1,6 @@
 import {Component, useContext, useEffect, useState,} from "react"
 import {ThemedView} from "@/components/ThemedView";
-import {Image, ImageBackground, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Button, Image, ImageBackground, StyleSheet, TextInput, TouchableOpacity, View} from "react-native";
 import {Props} from "expo-system-ui/plugin/build/withAndroidUserInterfaceStyle";
 import {ThemedText} from "@/components/ThemedText";
 
@@ -13,11 +13,24 @@ export default function StockCard({thisStock, onPress, currentPortfolio, isSelec
         fetchPortfolioAssets
     } = useAuth();
 
+    const handleVenda = ()=>{
+        try {
 
+        }catch (erro){
+            console.log(erro)
+        }
+    }
+    const handleCompra = () =>{
+        try {
+
+        }catch (erro){
+            console.log(erro)
+        }
+    }
 
     const [isExpanded, setIsExpanded] = useState(false);
-    const [quantity, setQuantity] = useState(0);
-    const [value, setValue] = useState(0);
+    const [quantity, setQuantity] = useState("0");
+    const [quotation, setQuotation] = useState(thisStock.close||"0.0");
     const [time, setTime] = useState(0);
     const handleCardPress = ()=>{
 
@@ -31,7 +44,6 @@ export default function StockCard({thisStock, onPress, currentPortfolio, isSelec
 
             <View style={styles.basicInfo}>
                 {thisStock&&
-                thisStock.id&&
                 thisStock.stock&&
                 thisStock.logo?(
                     <>
@@ -60,15 +72,36 @@ export default function StockCard({thisStock, onPress, currentPortfolio, isSelec
 
             </View>
 
-        </TouchableOpacity>
-        {isExpanded&&(
-                <View style={styles.cardActions}>
-                    <ThemedText style={styles.infoText}> Movimentar cotas  </ThemedText>
-                    <View>
+                </TouchableOpacity>
+                {isExpanded&&(
+                        <View style={styles.cardActions}>
+                            <ThemedText style={styles.infoText}> Movimentar cotas  </ThemedText>
+                            <View>
+                                <ThemedText>Quantidade de cotas</ThemedText>
+                                  <TextInput
+                                    style={styles.input}
+                                    keyboardType="numeric"
+                                    placeholder="Digite a quantidade"
+                                    value={quantity}
+                                    onChangeText={setQuantity}
+                                  />
 
-                    </View>
-                </View>
-                )}
+                              {/* Campo para valor de cada cota */}
+                              <ThemedText>Valor por cota (R$)</ThemedText>
+                              <TextInput
+                                style={styles.input}
+                                keyboardType="numeric"
+                                placeholder="Digite o valor"
+                                value={quotation}
+                                onChangeText={setQuotation}
+                              />
+                            </View>
+                            <View style={styles.cardActionButtonHolder}>
+                                <Button title='Vender' color='red'/>
+                                <Button title='Comprar' color='green'/>
+                            </View>
+                        </View>
+                        )}
     </View>
 
 )}
@@ -94,21 +127,27 @@ export default function StockCard({thisStock, onPress, currentPortfolio, isSelec
 
     },
         cardActions:{
-            flexDirection:'row',
+            flexDirection:'column',
             width:'80%',
-            height:100,
             marginTop:-10 ,
-            paddingTop:20,
+            paddingVertical:10,
             alignItems:"center",
             backgroundColor:'#555555',
             borderRadius:10,
             zIndex:-1
      },
      cardActionButtonHolder:{
-
+         flexDirection:'row',
+         gap:5,
      },
      cardActionButton:{
 
+     },
+     input:{
+       color:'white',
+        backgroundColor:'#444444',
+         borderRadius:5,
+         padding:3
      },
      basicInfo:{
         flexDirection:'column',
