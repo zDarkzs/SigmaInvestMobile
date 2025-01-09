@@ -26,7 +26,6 @@ export default function PortfoliosScreen() {
     } = useAuth();
 
 
-  const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
 
 
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
@@ -50,6 +49,8 @@ export default function PortfoliosScreen() {
   'sector';
   const [orderBy, setOrderBy] = useState<OrderByType>('');
 
+  const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
+  const [currentPortfolioAssets, setCurrentPortfolioAssets] = useState<any[]|null>(null)
   const [currentSearchAssets, setCurrentSearchAssets] = useState<any[]|null>(null);
   const[currentStock,setCurrentStock] = useState<any|null>(null);
   const [quantity, setQuantity] = useState<string>('');
@@ -112,9 +113,14 @@ export default function PortfoliosScreen() {
   const handlePortfolioCardPress = async (portfolio:any) =>{
 
     setCurrentPortfolio(portfolio);
-    const currentPortfolioAssets = await fetchPortfolioAssets(portfolio);
-    console.log(currentPortfolioAssets)
+
+    const assets = await fetchPortfolioAssets(portfolio);
+    const portfolioWithAssets = {...portfolio,assets};
+    setCurrentPortfolio(portfolioWithAssets)
+    console.log(portfolioWithAssets)
+
     setIsDetailModalVisible(true);
+
   }
 
 
@@ -284,8 +290,8 @@ export default function PortfoliosScreen() {
                   <View>
 
                   </View>
-                {currentSearchAssets?.map((stock,index)=>(
-                    <StockCard thisStock={stock} onPress={()=>{handleStockSelect(stock)}} />
+                {currentPortfolio&&currentSearchAssets?.map((stock,index)=>(
+                    <StockCard thisStock={stock} portfolio={currentPortfolio} onPress={()=>{handleStockSelect(stock)}} />
                   ))}
                   <View style={styles.buttonHolder}>
                     {selectedType === '' ? (''):(

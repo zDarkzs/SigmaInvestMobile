@@ -18,6 +18,7 @@ interface AuthContextType {
     fetchPortfolioAssets: (portfolio:any) => Promise<void>;
     fetchStocks:()=>Promise<any[]>;
     fetchStockDetails:(ticket:string) => Promise<any>;
+    transaction:(stock:string,portfolio:any,quantity:number,quotation:number) => Promise<any>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -28,7 +29,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     const [userPortfolios, setUserPortfolios] = useState<any[]|null>(null);
     const [portfolioAssets, setPortfolioAssets] = useState<any[]|null>(null);
 
-    const baseUrl = 'http://localhost:8080'//pode-se alterar pelo ip da maquina
+    const baseUrl = 'http://192.168.55.10:8080'//pode-se alterar pelo ip da maquina
 
     const fetchUserData:(token:string)=>Promise<void> = async (token:string):Promise<void> =>{
       try{
@@ -208,7 +209,20 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             console.error(e)
         }
     }
-
+    const transaction = async (stock:string,portfolio:any,quantity:number,quotation:number)=>{
+        try {
+            const response = await fetch(`${baseUrl}/api/portfolio/${portfolio.id}/history`,{
+                method:'POST',
+                headers:{
+                    'Authorization': `Token ${token}`,
+                    'Content-type': 'application-json',
+                },
+                body:JSON.stringify({stock,portfolio,quantity,quotation})
+            })
+        }catch (e) {
+            console.error(e)
+        }
+    }
      return (
         <AuthContext.Provider value={{ token,
             isAuthenticated: !!token,
@@ -223,7 +237,8 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             fetchStockDetails,
             fetchUserPortfolios,
             createPortfolio,
-            fetchPortfolioAssets}}>
+            fetchPortfolioAssets,
+            transaction}}>
             {children}
         </AuthContext.Provider>
     )
