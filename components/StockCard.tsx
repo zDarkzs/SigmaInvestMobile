@@ -11,10 +11,18 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
   const [quotation, setQuotation] = useState(thisStock?.close || "0.0");
 
   // Função para lidar com a compra
-  const handleCompra = () => {
+  const handleCompra = async (quantity:string,quotation:string) => {
+    //Como cada card tem o portfolio e o ativo já definido então para esta função se passa só as informações variaveis
     try {
-      console.log("Compra efetuada para o portfólio:", portfolio);
+      console.log("Tentativa de compra para o portfólio:", portfolio);
       console.log("Quantidade:", quantity, "Valor por cota:", quotation);
+      if(!(thisStock&&thisStock.stock)){
+        throw new Error('Erro ao enviar informações do ativo')
+      }
+      if(!(portfolio&&portfolio.id)){
+        throw new Error('Erro ao enviar informações da carteira')
+      }
+      const history  = await transaction(thisStock,portfolio,quantity,quotation);
     } catch (erro) {
       console.error("Erro ao processar compra:", erro);
     }
@@ -88,7 +96,9 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
           </View>
           <View style={styles.cardActionButtonHolder}>
             <Button title="Vender" color="red" onPress={handleVenda} />
-            <Button title="Comprar" color="green" onPress={handleCompra} />
+            <Button title="Comprar" color="green" onPress={async () => {
+              await handleCompra(quantity,quotation);
+            }} />
             <Button title="Teste" color="yellow" onPress={testTransaction}/>
           </View>
         </View>
