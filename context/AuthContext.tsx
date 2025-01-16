@@ -18,7 +18,7 @@ interface AuthContextType {
     fetchPortfolioAssets: (portfolio:any) => Promise<void>;
     fetchStocks:()=>Promise<any[]>;
     fetchStockDetails:(ticket:string) => Promise<any>;
-    transaction:(stock:string,portfolio:any,quantity:string,quotation:string) => Promise<any>;
+    transaction:(asset:any,portfolioId:string,quantity:string,quotation:string) => Promise<any>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -209,15 +209,15 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             console.error(e)
         }
     }
-    const transaction = async (stock:any,portfolio:any,quantity:string,quotation:string)=>{
+    const transaction = async (asset:any,portfolioId:string,quantity:string,quotation:string)=>{
         try {
-            const response = await fetch(`${baseUrl}/api/portfolio/${portfolio.id}/history`,{
+            const response = await fetch(`${baseUrl}/api/portfolio/${portfolioId}/history/`,{
                 method:'POST',
                 headers:{
                     'Authorization': `Token ${token}`,
                     'Content-type': 'application-json',
                 },
-                body:JSON.stringify({stock,portfolio,quantity,quotation})
+                body:JSON.stringify({asset,portfolioId,quantity,quotation})
             })
             const data = await response.json()
             if (response.ok){
