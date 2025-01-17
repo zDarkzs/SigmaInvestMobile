@@ -211,7 +211,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     }
     const transaction = async (asset:any,portfolioId:string,quantity:string,quotation:string)=>{
         try {
-            const response = await fetch(`${baseUrl}/api/portfolio/${portfolioId}/history/`,{
+            const response = await fetch(`${baseUrl}/api/portfolios/${portfolioId}/history/`,{
                 method:'POST',
                 headers:{
                     'Authorization': `Token ${token}`,
