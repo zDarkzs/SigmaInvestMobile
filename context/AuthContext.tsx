@@ -215,7 +215,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
                 method:'POST',
                 headers:{
                     'Authorization': `Token ${token}`,
-                    'Content-type': 'application-json',
+                    'Content-type': 'application/json',
                 },
                 body:JSON.stringify({asset,portfolioId,quantity,quotation})
             })
