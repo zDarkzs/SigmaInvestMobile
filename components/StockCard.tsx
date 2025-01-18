@@ -14,7 +14,7 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
   const handleCompra = async (quantity:string,quotation:string) => {
     //Como cada card tem o portfolio e o ativo já definido então para esta função se passa só as informações variaveis
     try {
-      console.log("Tentativa de compra para o portfólio:", portfolio);
+      console.log("Tentativa de compra para o portfólio:", portfolio.id);
       console.log("Quantidade:", quantity, "Valor por cota:", quotation);
       if(!(thisStock&&thisStock.stock)){
         throw new Error('Erro ao enviar informações do ativo')
