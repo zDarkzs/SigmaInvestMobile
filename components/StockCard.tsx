@@ -22,7 +22,7 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
       if(!(portfolio&&portfolio.id)){
         throw new Error('Erro ao enviar informações da carteira')
       }
-      const history  = await transaction(thisStock,portfolio.id,quantity,quotation);
+      const history  = await transaction(thisStock.stock,portfolio.id,quantity,quotation);
     } catch (erro) {
       console.error("Erro ao processar compra:", erro);
     }
