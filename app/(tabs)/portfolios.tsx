@@ -92,6 +92,10 @@ export default function PortfoliosScreen() {
     return
   }
 
+  const handleTransactionComplete = async ()=>{
+    setCurrentSearchAssets([]);
+  }
+
   const closeAllModals = () =>{ //Evita bugs de mais de um modal ficar aberto
     setIsCreateModalVisible(false);
     setIsCreationOKModalVisible(false);

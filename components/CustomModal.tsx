@@ -10,13 +10,13 @@ export default function CustomModal({ visible, onClose, children, title }: {
     return (
     <Modal animationType="slide" transparent={true} visible={visible} onRequestClose={onClose}>
       <ScrollView contentContainerStyle={styles.modalContent} >
+        <Button title="Fechar" color="red" onPress={onClose} />
         {title && (
           <View style={styles.modalTitleHolder}>
             <ThemedText style={styles.modalTitleText}>{title}</ThemedText>
           </View>
         )}
         {children}
-        <Button title="Fechar" color="red" onPress={onClose} />
       </ScrollView>
     </Modal>
   );
@@ -39,8 +39,7 @@ export default function CustomModal({ visible, onClose, children, title }: {
       margin:'10%',
       backgroundColor:'#444444',
       borderRadius:10,
-      paddingBottom:5,
-      paddingHorizontal:5,
+      padding:5,
       flexDirection:'column',
       justifyContent:'space-evenly',
       alignItems: 'center',
