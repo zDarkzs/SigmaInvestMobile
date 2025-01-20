@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     const [userPortfolios, setUserPortfolios] = useState<any[]|null>(null);
     const [portfolioAssets, setPortfolioAssets] = useState<any[]|null>(null);
 
-    const baseUrl = 'http://192.168.55.10:8080'//pode-se alterar pelo ip da maquina
+    const baseUrl = 'http://192.168.1.105:8080'//pode-se alterar pelo ip da maquina
 
     const fetchUserData:(token:string)=>Promise<void> = async (token:string):Promise<void> =>{
       try{
@@ -209,7 +209,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             console.error(e)
         }
     }
-    const transaction = async (assetStock:string,portfolioId:string,quantity:string,quotation:string)=>{
+    const transaction = async (asset:string,portfolioId:string,quantity:string,quotation:string)=>{
         try {
             const response = await fetch(`${baseUrl}/api/portfolios/${portfolioId}/history/`,{
                 method:'POST',
