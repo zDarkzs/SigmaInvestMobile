@@ -124,7 +124,13 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             const data:any = await response.json();
             console.log(`Dados retornados: `,data);
             if(response.ok){
+                let portfolios = data;
+                for(let portfolio of portfolios){
+                    const assets = await fetchPortfolioAssets(portfolio);
+
+                }
                 setUserPortfolios(data);
+                console.log(data)
             }
         }catch (error){
             console.error("Erro ao buscar carteiras de usuario ",error);
