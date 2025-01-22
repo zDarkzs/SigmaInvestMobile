@@ -197,17 +197,15 @@ export default function PortfoliosScreen() {
                       currentPortfolio.appreciation?(
                           <>
                             <View style={styles.infoTable}>
-                              <View style={styles.infoRowContainer}>
-                                <ThemedText style={styles.portfolioInfoDescription}>Título:</ThemedText>
+                              <View style={styles.descriptionContainer}>
+                                <ThemedText style={styles.descriptionText}>Título|</ThemedText>
+                                <ThemedText style={styles.descriptionText}>Total|</ThemedText>
+                                <ThemedText style={styles.descriptionText}>Valorização|</ThemedText>
+                              </View>
+                              <View style={styles.infoContainer}>
                                 <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.title}</ThemedText>
-                              </View>
-                              <View style={styles.infoRowContainer}>
-                                <ThemedText style={styles.portfolioInfoDescription}>Total:</ThemedText>
                                 <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.total}</ThemedText>
-                              </View>
-                              <View style={styles.infoRowContainer}>
-                                <ThemedText style={styles.portfolioInfoDescription}>Valorização:</ThemedText>
-                                <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.appreciation}</ThemedText>
+                                <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.appreciation}%</ThemedText>
                               </View>
                             </View>
                           </>
@@ -218,7 +216,7 @@ export default function PortfoliosScreen() {
                    portfolioAssets && portfolioAssets.length > 0 ? (
                     portfolioAssets.map((asset, index) => (
                      <View key={index} style={styles.assetRow}>
-                      <ThemedText style={styles.assetText}>Ativo: {asset.asset}</ThemedText>
+                      <ThemedText style={styles.assetText}>Ativo: {asset.ticker}</ThemedText>
                       <ThemedText style={styles.assetText}>Portfólio: {asset.portfolio}</ThemedText>
                        <ThemedText style={styles.assetText}>Quantidade: {asset.quantity}</ThemedText>
                       <ThemedText style={styles.assetText}>Preço Médio: {asset.average_price}</ThemedText>
@@ -374,20 +372,23 @@ const styles = StyleSheet.create({
   infoTable:{
     alignItems: "flex-start",
     justifyContent:'flex-start',
-    flexDirection:"column",
+    flexDirection:"row",
     gap:5,
   },
-  portfolioInfoDescription:{
-    fontWeight:'bold',
-    fontSize:25,
-  },
+
   portfolioInfoContent:{
     fontSize:25,
   },
-  infoRowContainer:{
-    alignItems:'center',
-    justifyContent:'center',
-    flexDirection:'row',
+
+  infoContainer:{
+
+  },
+  descriptionContainer:{
+    alignItems:'flex-end',
+  },
+  descriptionText:{
+    fontWeight:'bold',
+    fontSize:25,
   },
   card:{
     height: 150,
