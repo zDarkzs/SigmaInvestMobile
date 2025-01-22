@@ -222,8 +222,7 @@ export default function PortfoliosScreen() {
                    portfolioAssets && portfolioAssets.length > 0 ? (
                     portfolioAssets.map((asset, index) => (
                      <View key={index} style={styles.assetRow}>
-                      <ThemedText style={styles.assetText}>Ativo: {asset.asset}</ThemedText>
-                      <ThemedText style={styles.assetText}>Portfólio: {asset.portfolio}</ThemedText>
+                      <ThemedText style={styles.assetText}>Ativo: {asset.ticker}</ThemedText>
                        <ThemedText style={styles.assetText}>Quantidade: {asset.quantity}</ThemedText>
                       <ThemedText style={styles.assetText}>Preço Médio: {asset.average_price}</ThemedText>
                      </View>
@@ -423,7 +422,7 @@ assetRow: {
 },
 assetText: {
   fontSize: 16,
-  color: '#333',
+  color: '#ffffff',
 },
 typeSelector: {
   flexDirection: 'row',
