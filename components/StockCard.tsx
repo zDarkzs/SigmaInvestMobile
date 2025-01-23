@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { StyleSheet, View, TouchableOpacity, Image, TextInput, Button } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { useAuth } from "@/context/AuthContext";
+import CustomModal from "@/components/CustomModal";
 
 export default function StockCard({ thisStock, onPress, portfolio, isSelected }: any) {
   const { fetchPortfolioAssets,transaction } = useAuth();
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isCompleteModalVisible, setIsCompleteModalVisible] = useState(false);
   const [quantity, setQuantity] = useState("0");
   const [quotation, setQuotation] = useState(thisStock?.close || "0.0");
 
@@ -26,6 +28,10 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
     } catch (erro) {
       console.error("Erro ao processar compra:", erro);
     }
+    setIsExpanded(false);
+    setIsCompleteModalVisible(false);
+    setQuotation(thisStock?.close || "0.0");
+    setQuantity("0")
   };
 
   // Função para lidar com a venda
@@ -46,6 +52,9 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
   const testTransaction = ()=>{
 
   };
+  const finishTransaction=()=>{
+
+  }
   return (
     <View style={styles.card}>
         <TouchableOpacity style={styles.cardContent} onPress={handleCardPress}>
@@ -103,6 +112,10 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
           </View>
         </View>
       )}
+
+      <CustomModal visible={isCompleteModalVisible} onClose={finishTransaction}>
+        <ThemedText>Transação feita com sucesso!✔</ThemedText>
+      </CustomModal>
     </View>
   );
 }

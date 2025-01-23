@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     const [userPortfolios, setUserPortfolios] = useState<any[]|null>(null);
     const [portfolioAssets, setPortfolioAssets] = useState<any[]|null>(null);
 
-    const baseUrl = 'http://192.168.1.106:8080'//pode-se alterar pelo ip da maquina
+    const baseUrl = 'http://192.168.55.10:8080'//pode-se alterar pelo ip da maquina
 
     const fetchUserData:(token:string)=>Promise<void> = async (token:string):Promise<void> =>{
       try{
@@ -124,7 +124,13 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             const data:any = await response.json();
             console.log(`Dados retornados: `,data);
             if(response.ok){
+                let portfolios = data;
+                for(let portfolio of portfolios){
+                    const assets = await fetchPortfolioAssets(portfolio);
+
+                }
                 setUserPortfolios(data);
+                console.log(data)
             }
         }catch (error){
             console.error("Erro ao buscar carteiras de usuario ",error);
