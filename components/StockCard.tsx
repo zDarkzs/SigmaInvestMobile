@@ -70,12 +70,13 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
           </View>
           <View style={styles.variableInfo}>
             {thisStock?.name && thisStock?.close ? (
-              <>
+              <View style={styles.stockInfo}>
                 <ThemedText>Empresa</ThemedText>
                 <ThemedText style={styles.infoText}>{thisStock.name}</ThemedText>
                 <ThemedText>Último fechamento</ThemedText>
                 <ThemedText style={styles.infoText}>R${thisStock.close}</ThemedText>
-              </>
+              </View>
+
             ) : (
               <ThemedText>Informações da ação não carregadas</ThemedText>
             )}
@@ -166,15 +167,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#333333",
   },
   variableInfo: {
-    flexDirection: "column",
+    flexDirection: "row",
     alignItems: "flex-start",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     padding: "2%",
     width: "75%",
     height: "90%",
     borderRadius: 10,
     backgroundColor: "#444444",
   },
+  stockInfo:{},
+  propertyInfo:{},
   infoText: {
     fontWeight: "bold",
     fontSize: 24,

@@ -146,7 +146,9 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             const data:any = await response.json();
             console.log('Dados retornados: ',data);
             if(response.ok){
+
                 setPortfolioAssets(data);
+                updateAssetsInfo();
             }
         }
         catch (error) {
