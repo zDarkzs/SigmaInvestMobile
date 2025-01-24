@@ -239,7 +239,10 @@ export default function PortfoliosScreen() {
 
 
               {/* Modal de transação financeira */}
-              <CustomModal visible={isTransactionModalVisible} onClose={()=>setIsTransactionModalVisible(false)}>
+              <CustomModal visible={isTransactionModalVisible} onClose={()=> {
+                setIsTransactionModalVisible(false);
+                handleFetchUserPortfolios();
+              }}>
                  <View style={styles.modalTitleHolder}>
                   <ThemedText style={styles.modalTitleText}>Adicionar ativo</ThemedText>
                   </View>
