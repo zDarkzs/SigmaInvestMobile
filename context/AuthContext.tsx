@@ -19,6 +19,7 @@ interface AuthContextType {
     fetchStocks:()=>Promise<any[]>;
     fetchStockDetails:(ticket:string) => Promise<any>;
     transaction:(asset:any,portfolioId:string,quantity:string,quotation:string) => Promise<any>;
+    updateAssetsInfo:()=>Promise<void>;
 }
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
@@ -152,6 +153,27 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             console.error("Erro ao buscar ativos da carteira ",error);
         }
     }
+    const updateAssetsInfo:() =>Promise<void> = async():Promise<void>=>{
+        //Usar somente se não conseguir esses dados somente no back-end
+
+        try{
+            const response:Response = await fetch(`${baseUrl}/api/assets/full-info/`,{
+                method:'POST',
+                headers:{
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(portfolioAssets)
+            });
+            const data = await response.json();
+            if(response.ok){
+            console.log(data);
+            setPortfolioAssets(data);
+            }
+        }catch (error){
+            console.error(("Erro ao atualizar dados dos ativos"))
+        }
+    }
 
     const createPortfolio:(token:string,title:string)=>Promise<'OK'|'ERROR'|undefined> = async (token:string, title:string):Promise<'OK'|'ERROR'|undefined> =>{
         try{
@@ -248,7 +270,8 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             fetchUserPortfolios,
             createPortfolio,
             fetchPortfolioAssets,
-            transaction}}>
+            transaction,
+            updateAssetsInfo}}>
             {children}
         </AuthContext.Provider>
     )

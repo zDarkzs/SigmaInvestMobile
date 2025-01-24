@@ -23,6 +23,7 @@ export default function PortfoliosScreen() {
     createPortfolio,
     fetchPortfolioAssets,
     portfolioAssets,
+    updateAssetsInfo
     } = useAuth();
 
 
@@ -32,7 +33,7 @@ export default function PortfoliosScreen() {
   const [newPortfolioTitle, setNewPortfolioTitle] = useState<string>('');
   const [isCreationOKModalVisible, setIsCreationOKModalVisible] = useState(false);
   const [isCreationERRORModalVisible, setIsCreationERRORModalVisible] = useState(false);
-
+  const [areStocksUpdated, setAreStocksUpdated] = useState(false);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isTransactionModalVisible, setIsTransactionModalVisible] = useState(false);
   const [isStockListModalVisible, setIsStockListModalVisible] = useState(false);
@@ -50,12 +51,12 @@ export default function PortfoliosScreen() {
   const [orderBy, setOrderBy] = useState<OrderByType>('');
 
   const [currentPortfolio, setCurrentPortfolio] = useState<any|null>(null);
-  const [currentPortfolioAssets, setCurrentPortfolioAssets] = useState<any[]|null>(null)
+  const [currentPortfolioAssets, setCurrentPortfolioAssets] = useState<any[]|null>(null);
   const [currentSearchAssets, setCurrentSearchAssets] = useState<any[]|null>(null);
   const[currentStock,setCurrentStock] = useState<any|null>(null);
   const [quantity, setQuantity] = useState<string>('');
   const [price, setPrice] = useState<string>('');
-
+  const [assets, setAssets] = useState<any[]|null>(null);
   const handleCreateNewPortfolio:()=>Promise<void> = async ():Promise<void> => {
     if(token&&newPortfolioTitle){
       const tryCreation = await createPortfolio(token,newPortfolioTitle);
@@ -118,14 +119,13 @@ export default function PortfoliosScreen() {
 
     setCurrentPortfolio(portfolio);
 
-    const assets = await fetchPortfolioAssets(portfolio);
-    const portfolioWithAssets = {...portfolio,assets};
-    setCurrentPortfolio(portfolioWithAssets)
-    console.log(portfolioWithAssets)
-
+    await updateAssetsInfo();
+    setAreStocksUpdated(true)
+    console.log(portfolioAssets);
     setIsDetailModalVisible(true);
 
   }
+
 
 
 
@@ -219,13 +219,9 @@ export default function PortfoliosScreen() {
                   }
 
                   {
-                   portfolioAssets && portfolioAssets.length > 0 ? (
-                    portfolioAssets.map((asset, index) => (
-                     <View key={index} style={styles.assetRow}>
-                      <ThemedText style={styles.assetText}>Ativo: {asset.ticker}</ThemedText>
-                       <ThemedText style={styles.assetText}>Quantidade: {asset.quantity}</ThemedText>
-                      <ThemedText style={styles.assetText}>Preço Médio: {asset.average_price}</ThemedText>
-                     </View>
+                   currentPortfolio && portfolioAssets && currentPortfolio.assets.length > 0 ? (
+                    currentPortfolio&&portfolioAssets.map((stock:any, index:number) => (
+                     <StockCard thisStock={stock} portfolio={currentPortfolio} onPress={()=>{handleStockSelect(stock)}} />
                     ))
                   ) : (
                     <View style={styles.noAssetsContainer}>
