@@ -11,7 +11,8 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
   const [isCompleteModalVisible, setIsCompleteModalVisible] = useState(false);
   const [quantity, setQuantity] = useState("0");
   const [quotation, setQuotation] = useState(thisStock?.close || "0.0");
-
+  const[isInPortfolio,setIsInPortfolio] = useState((thisStock.quantity&&thisStock.average_price));
+  console.log(isInPortfolio);
   // Função para lidar com a compra
   const handleCompra = async (quantity:string,quotation:string) => {
     //Como cada card tem o portfolio e o ativo já definido então para esta função se passa só as informações variaveis
@@ -69,7 +70,7 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
             )}
           </View>
           <View style={styles.variableInfo}>
-            {thisStock?.name && thisStock?.close ? (
+            {thisStock?.name && thisStock?.close && (
               <View style={styles.stockInfo}>
                 <ThemedText>Empresa</ThemedText>
                 <ThemedText style={styles.infoText}>{thisStock.name}</ThemedText>
@@ -77,8 +78,14 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
                 <ThemedText style={styles.infoText}>R${thisStock.close}</ThemedText>
               </View>
 
-            ) : (
-              <ThemedText>Informações da ação não carregadas</ThemedText>
+            )}
+            {thisStock?.quantity && thisStock?.average_price && (
+                <View style={styles.stockInfo}>
+                <ThemedText>Na carteira</ThemedText>
+                <ThemedText style={styles.infoText}>{thisStock.quantity} cotas</ThemedText>
+                <ThemedText>Preço médio de compra</ThemedText>
+                <ThemedText style={styles.infoText}>R${thisStock.average_price}</ThemedText>
+              </View>
             )}
           </View>
         </TouchableOpacity>
@@ -181,6 +188,7 @@ const styles = StyleSheet.create({
   infoText: {
     fontWeight: "bold",
     fontSize: 24,
+    resizeMode:'contain'
   },
   logoImg: {
     width: "100%",
