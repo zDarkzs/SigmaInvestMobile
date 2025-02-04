@@ -224,8 +224,8 @@ export default function PortfoliosScreen() {
                   }
 
                   {
-                   currentPortfolio && portfolioAssets && currentPortfolio.assets.length > 0 ? (
-                    currentPortfolio&&portfolioAssets.map((stock:any, index:number) => (
+                   currentPortfolio && currentPortfolio.assets.length > 0 ? (
+                    currentPortfolio&&currentPortfolio.assets.map((stock:any, index:number) => (
                      <StockCard thisStock={stock} portfolio={currentPortfolio} onPress={()=>{handleStockSelect(stock)}} />
                     ))
                   ) : (
