@@ -22,8 +22,7 @@ export default function PortfoliosScreen() {
     fetchStockDetails,
     createPortfolio,
     fetchPortfolioAssets,
-    portfolioAssets,
-    updateAssetsInfo
+    portfolioAssets
     } = useAuth();
 
 
@@ -33,7 +32,6 @@ export default function PortfoliosScreen() {
   const [newPortfolioTitle, setNewPortfolioTitle] = useState<string>('');
   const [isCreationOKModalVisible, setIsCreationOKModalVisible] = useState(false);
   const [isCreationERRORModalVisible, setIsCreationERRORModalVisible] = useState(false);
-  const [areStocksUpdated, setAreStocksUpdated] = useState(false);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [isTransactionModalVisible, setIsTransactionModalVisible] = useState(false);
   const [isStockListModalVisible, setIsStockListModalVisible] = useState(false);
@@ -57,6 +55,19 @@ export default function PortfoliosScreen() {
   const [quantity, setQuantity] = useState<string>('');
   const [price, setPrice] = useState<string>('');
   const [assets, setAssets] = useState<any[]|null>(null);
+
+  const appreciation = (portfolio:any)=>{
+    if(!portfolio.assets){return 0.0}
+    let totalInvest = 0;
+    let currentValue = 0;
+    for(let asset of portfolio.assets){
+      totalInvest+= (asset.average_price * asset.quantity);
+      currentValue+= (asset.average_price * asset.close);
+    }
+    return (((totalInvest/currentValue)-1)*100);
+
+  }
+
   const handleCreateNewPortfolio:()=>Promise<void> = async ():Promise<void> => {
     if(token&&newPortfolioTitle){
       const tryCreation = await createPortfolio(token,newPortfolioTitle);
@@ -119,16 +130,10 @@ export default function PortfoliosScreen() {
 
     setCurrentPortfolio(portfolio);
 
-    await updateAssetsInfo();
-    setAreStocksUpdated(true)
     console.log(portfolioAssets);
     setIsDetailModalVisible(true);
 
   }
-
-
-
-
 
   return (
     <ParallaxScrollView
@@ -143,7 +148,7 @@ export default function PortfoliosScreen() {
 
 
                 {userPortfolios?.map((portfolio,index)=>(
-                   <PortfolioCard thisPortfolio={portfolio} onPress={() =>{handlePortfolioCardPress(portfolio);}} />
+                   <PortfolioCard thisPortfolio={portfolio} appreciation={appreciation(portfolio)} onPress={() =>{handlePortfolioCardPress(portfolio);}} />
                  ))}
 
               <TouchableOpacity style={styles.card} onPress={() => setIsCreateModalVisible(true)}>
@@ -197,8 +202,7 @@ export default function PortfoliosScreen() {
                   {
                     currentPortfolio&&
                       currentPortfolio.title&&
-                      currentPortfolio.total&&
-                      currentPortfolio.appreciation?(
+                      currentPortfolio.total?(
                           <>
                             <View style={styles.infoTable}>
                               <View style={styles.infoRowContainer}>
@@ -211,7 +215,7 @@ export default function PortfoliosScreen() {
                               </View>
                               <View style={styles.infoRowContainer}>
                                 <ThemedText style={styles.portfolioInfoDescription}>Valorização:</ThemedText>
-                                <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.appreciation}</ThemedText>
+                                <ThemedText style={styles.portfolioInfoContent}>{appreciation(currentPortfolio).toFixed(2)+"%"}</ThemedText>
                               </View>
                             </View>
                           </>
@@ -219,8 +223,8 @@ export default function PortfoliosScreen() {
                   }
 
                   {
-                   currentPortfolio && portfolioAssets && currentPortfolio.assets.length > 0 ? (
-                    currentPortfolio&&portfolioAssets.map((stock:any, index:number) => (
+                   currentPortfolio && currentPortfolio.assets.length > 0 ? (
+                    currentPortfolio&&currentPortfolio.assets.map((stock:any, index:number) => (
                      <StockCard thisStock={stock} portfolio={currentPortfolio} onPress={()=>{handleStockSelect(stock)}} />
                     ))
                   ) : (

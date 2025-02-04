@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   variableInfo: {
     flexDirection: "row",
     alignItems: "flex-start",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
     padding: "2%",
     width: "75%",
     height: "90%",

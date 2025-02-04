@@ -4,9 +4,9 @@ import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {Props} from "expo-system-ui/plugin/build/withAndroidUserInterfaceStyle";
 import {ThemedText} from "@/components/ThemedText";
 
+export default function PortfolioCard({thisPortfolio, appreciation,onPress}:any) {
 
 
-export default function PortfolioCard({thisPortfolio, onPress}:any) {
 
     return(
 
@@ -34,7 +34,7 @@ export default function PortfolioCard({thisPortfolio, onPress}:any) {
                     <ThemedText>Total da carteira</ThemedText>
                     <ThemedText style={styles.infoText}>{thisPortfolio.total}$</ThemedText>
                         <ThemedText>Valorização</ThemedText>
-                    <ThemedText style={thisPortfolio.appreciation>=0?(styles.posApprecText):(styles.negApprecText)}>{thisPortfolio.appreciation}%</ThemedText>
+                    <ThemedText style={appreciation>=0?(styles.posApprecText):(styles.negApprecText)}>{appreciation.toFixed(2)}%</ThemedText>
                     </>
                 ):(
                     <ThemedText>Informações da carteira  não carregadas</ThemedText>
