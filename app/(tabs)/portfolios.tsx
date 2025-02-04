@@ -116,6 +116,7 @@ export default function PortfoliosScreen() {
     setIsTransactionModalVisible(false);
     setIsStockListModalVisible(false);
     setCurrentPortfolio(null);
+    console.log(currentPortfolio);
   }
 
   const handleFetchUserPortfolios = async () => {
@@ -223,8 +224,8 @@ export default function PortfoliosScreen() {
                   }
 
                   {
-                   currentPortfolio && currentPortfolio.assets.length > 0 ? (
-                    currentPortfolio&&currentPortfolio.assets.map((stock:any, index:number) => (
+                   currentPortfolio && portfolioAssets && currentPortfolio.assets.length > 0 ? (
+                    currentPortfolio&&portfolioAssets.map((stock:any, index:number) => (
                      <StockCard thisStock={stock} portfolio={currentPortfolio} onPress={()=>{handleStockSelect(stock)}} />
                     ))
                   ) : (
