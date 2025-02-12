@@ -14,7 +14,7 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
   const[isInPortfolio,setIsInPortfolio] = useState((thisStock.quantity&&thisStock.average_price));
   console.log(isInPortfolio);
   // Função para lidar com a compra
-  const handleCompra = async (quantity:string,quotation:string) => {
+  const handleTransaction = async (quantity:string,quotation:string) => {
     //Como cada card tem o portfolio e o ativo já definido então para esta função se passa só as informações variaveis
     try {
       console.log("Tentativa de compra para o portfólio:", portfolio.id);
@@ -112,9 +112,11 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
             />
           </View>
           <View style={styles.cardActionButtonHolder}>
-            <Button title="Vender" color="red" onPress={handleVenda} />
+            <Button title="Vender" color="red" onPress={async()=>{
+              await handleTransaction(('-'+quantity),quotation);
+            }} />
             <Button title="Comprar" color="green" onPress={async () => {
-              await handleCompra(quantity,quotation);
+              await handleTransaction(quantity,quotation);
             }} />
             <Button title="Teste" color="yellow" onPress={testTransaction}/>
           </View>

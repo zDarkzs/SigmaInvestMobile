@@ -62,9 +62,9 @@ export default function PortfoliosScreen() {
     let currentValue = 0;
     for(let asset of portfolio.assets){
       totalInvest+= (asset.average_price * asset.quantity);
-      currentValue+= (asset.average_price * asset.close);
+      currentValue+= (asset.close * asset.quantity);
     }
-    return (((totalInvest/currentValue)-1)*100);
+    return (((currentValue/totalInvest) -1) *100);
 
   }
 
