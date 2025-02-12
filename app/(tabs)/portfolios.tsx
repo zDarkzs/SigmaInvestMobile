@@ -57,15 +57,11 @@ export default function PortfoliosScreen() {
   const [assets, setAssets] = useState<any[]|null>(null);
 
   const appreciation = (portfolio:any)=>{
-    if(!portfolio.assets){return 0.0}
-    let totalInvest = 0;
-    let currentValue = 0;
-    for(let asset of portfolio.assets){
-      totalInvest+= (asset.average_price * asset.quantity);
-      currentValue+= (asset.close * asset.quantity);
+    try{
+      return ((portfolio.total/portfolio.invested)-1)*100;
+    }catch (e) {
+      return 0.0
     }
-    return (((currentValue/totalInvest) -1) *100);
-
   }
 
   const handleCreateNewPortfolio:()=>Promise<void> = async ():Promise<void> => {

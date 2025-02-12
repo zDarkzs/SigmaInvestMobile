@@ -28,10 +28,13 @@ export default function PortfolioCard({thisPortfolio, appreciation,onPress}:any)
             </View>
            <View style={styles.variableInfo}>
                  {thisPortfolio&&
+                thisPortfolio.invested&&
                 thisPortfolio.total&&
                 thisPortfolio.appreciation?(
                     <>
-                    <ThemedText>Total da carteira</ThemedText>
+                    <ThemedText>Total investido</ThemedText>
+                    <ThemedText style={styles.infoText}>{thisPortfolio.invested}$</ThemedText>
+                        <ThemedText>Total da carteira</ThemedText>
                     <ThemedText style={styles.infoText}>{thisPortfolio.total}$</ThemedText>
                         <ThemedText>Valorização</ThemedText>
                     <ThemedText style={appreciation>=0?(styles.posApprecText):(styles.negApprecText)}>{appreciation.toFixed(2)}%</ThemedText>
