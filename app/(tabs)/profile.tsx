@@ -1,5 +1,5 @@
     import Ionicons from '@expo/vector-icons/Ionicons';
-    import {StyleSheet, Image, Platform, TextInput, Button, View} from 'react-native';
+    import {StyleSheet, Image, Platform, TextInput, Button, View, TouchableOpacity} from 'react-native';
 
     import { Collapsible } from '@/components/Collapsible';
     import { ExternalLink } from '@/components/ExternalLink';
@@ -39,9 +39,20 @@
             {isAuthenticated?(
                 <>
                 <ThemedView style={styles.titleContainer}>
-                    <ThemedText type="title">Bem vindo{userData&&userData.username?(","+ userData.username):('')}!</ThemedText>
-                    <ThemedText>{token?(token):("token não carregado")}</ThemedText>
+                    {userData?.username&&(<ThemedText type="title">Bem vindo,{userData.username}!</ThemedText>)}
                 </ThemedView>
+                    <View style={styles.profileInfo}>
+                        <View style={styles.bioTitleTab}>
+                         <ThemedText>bio</ThemedText>
+                         <TouchableOpacity>
+                             aqui
+                         </TouchableOpacity>
+                        </View>
+                        <View style={styles.bioInfoText}>
+                          <ThemedText>{userData?.profile?.bio}</ThemedText>
+                        </View>
+                        <ThemedText>usuario desde:{userData?.profile?.user_since}</ThemedText>
+                    </View>
                 </>
             ):(
                 <>
@@ -132,5 +143,20 @@
       inputFormHolder:{
           flexDirection:'column',
           width:'70%',
+      },
+      profileInfo:{
+          backgroundColor:'#333333',
+          padding:10,
+          borderRadius:5,
+
+      },
+      bioTitleTab:{
+          flexDirection:"row",
+          justifyContent:'space-between'
+      },
+      bioInfoText:{
+          backgroundColor:'#555555',
+          padding:5,
+          borderRadius:3,
       }
     });

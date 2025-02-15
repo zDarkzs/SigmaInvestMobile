@@ -52,7 +52,7 @@ export default function PortfolioCard({thisPortfolio, appreciation,onPress}:any)
 
  const styles = StyleSheet.create({
     card:{
-        height: 150,
+        height: 200,
         width:'100%',
         flexDirection:'row',
         alignItems:'center',

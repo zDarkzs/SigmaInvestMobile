@@ -5,7 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import CustomModal from "@/components/CustomModal";
 
 export default function StockCard({ thisStock, onPress, portfolio, isSelected }: any) {
-  const { fetchPortfolioAssets,transaction } = useAuth();
+  const { transaction } = useAuth();
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [isCompleteModalVisible, setIsCompleteModalVisible] = useState(false);
@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   cardContent: {
-    height: 150,
-    width: "100%",
+    gap:10,
+    width: "90%",
     borderRadius: 10,
     flexDirection: "row",
     backgroundColor: "#555555",
@@ -149,8 +149,10 @@ const styles = StyleSheet.create({
   cardActions: {
     flexDirection: "column",
     width: "80%",
-    marginTop: -10,
-    paddingVertical: 10,
+    marginTop: -20,
+    zIndex:-1,
+    paddingTop: 20,
+    paddingBottom: 10,
     alignItems: "center",
     backgroundColor: "#555555",
     borderRadius: 10,
@@ -167,11 +169,12 @@ const styles = StyleSheet.create({
   },
   basicInfo: {
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "center",
     justifyContent: "center",
     padding: "2%",
-    width: "20%",
+    width: undefined,
     height: "90%",
+    aspectRatio:1,
     borderRadius: 10,
     backgroundColor: "#333333",
   },
@@ -193,7 +196,8 @@ const styles = StyleSheet.create({
     resizeMode:'contain'
   },
   logoImg: {
-    width: "100%",
+    width: undefined,
     height: "100%",
+    aspectRatio:1
   },
 });

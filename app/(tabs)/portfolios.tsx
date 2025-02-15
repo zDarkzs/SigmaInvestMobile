@@ -19,9 +19,7 @@ export default function PortfoliosScreen() {
     userPortfolios,
     fetchUserPortfolios,
     fetchStocks,
-    fetchStockDetails,
     createPortfolio,
-    fetchPortfolioAssets,
     portfolioAssets
     } = useAuth();
 
@@ -131,6 +129,9 @@ export default function PortfoliosScreen() {
     setIsDetailModalVisible(true);
 
   }
+  const toBRL = (value:number) =>{
+    return "R$" + value.toFixed(2).replace('.',',')
+  }
 
   return (
     <ParallaxScrollView
@@ -199,6 +200,7 @@ export default function PortfoliosScreen() {
                   {
                     currentPortfolio&&
                       currentPortfolio.title&&
+                      currentPortfolio.invested&&
                       currentPortfolio.total?(
                           <>
                             <View style={styles.infoTable}>
@@ -207,8 +209,12 @@ export default function PortfoliosScreen() {
                                 <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.title}</ThemedText>
                               </View>
                               <View style={styles.infoRowContainer}>
+                                <ThemedText style={styles.portfolioInfoDescription}>Investido:</ThemedText>
+                                <ThemedText style={styles.portfolioInfoContent}>{toBRL(currentPortfolio.invested)}</ThemedText>
+                              </View>
+                              <View style={styles.infoRowContainer}>
                                 <ThemedText style={styles.portfolioInfoDescription}>Total:</ThemedText>
-                                <ThemedText style={styles.portfolioInfoContent}>{currentPortfolio.total}</ThemedText>
+                                <ThemedText style={styles.portfolioInfoContent}>{toBRL(currentPortfolio.total)}</ThemedText>
                               </View>
                               <View style={styles.infoRowContainer}>
                                 <ThemedText style={styles.portfolioInfoDescription}>Valorização:</ThemedText>
