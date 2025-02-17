@@ -8,9 +8,11 @@
     import { ThemedView } from '@/components/ThemedView';
     import {useState} from "react";
     import {useAuth} from "@/context/AuthContext";
+    import {isLoading} from "expo-font";
 
     export default function TabThreeScreen() {
         const  {token, isAuthenticated,login, register, userData} = useAuth();
+        const [isLoading, setIsloading] = useState(false);
         const  [username, setUsername] = useState<string>('');
         const [password, setPassword] = useState<string>('');
         const [email, setEmail] = useState<string>('');
@@ -36,6 +38,8 @@
                 ):(
             <Ionicons size={310} name="happy-outline" style={styles.headerImage} />
             )}>
+            {isLoading?(''):(<>
+
             {isAuthenticated?(
                 <>
                 <ThemedView style={styles.titleContainer}>
@@ -108,6 +112,8 @@
                     </View>
                     </View>
                 </>
+            )}
+            </>
             )}
 
         </ParallaxScrollView>
