@@ -3,6 +3,7 @@ import {ThemedView} from "@/components/ThemedView";
 import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {Props} from "expo-system-ui/plugin/build/withAndroidUserInterfaceStyle";
 import {ThemedText} from "@/components/ThemedText";
+import {toBRL} from "@/scripts/utils";
 
 export default function PortfolioCard({thisPortfolio, appreciation,onPress}:any) {
 
@@ -33,9 +34,9 @@ export default function PortfolioCard({thisPortfolio, appreciation,onPress}:any)
                 thisPortfolio.appreciation?(
                     <>
                     <ThemedText>Total investido</ThemedText>
-                    <ThemedText style={styles.infoText}>{thisPortfolio.invested}$</ThemedText>
+                    <ThemedText style={styles.infoText}>{toBRL(thisPortfolio.invested)}</ThemedText>
                         <ThemedText>Total da carteira</ThemedText>
-                    <ThemedText style={styles.infoText}>{thisPortfolio.total}$</ThemedText>
+                    <ThemedText style={styles.infoText}>{toBRL(thisPortfolio.total)}</ThemedText>
                         <ThemedText>Valorização</ThemedText>
                     <ThemedText style={appreciation>=0?(styles.posApprecText):(styles.negApprecText)}>{appreciation.toFixed(2)}%</ThemedText>
                     </>

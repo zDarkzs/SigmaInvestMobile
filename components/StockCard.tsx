@@ -3,6 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Image, TextInput, Button } from "re
 import { ThemedText } from "@/components/ThemedText";
 import { useAuth } from "@/context/AuthContext";
 import CustomModal from "@/components/CustomModal";
+import {toBRL} from "@/scripts/utils";
 
 export default function StockCard({ thisStock, onPress, portfolio, isSelected }: any) {
   const { transaction } = useAuth();
@@ -75,16 +76,16 @@ export default function StockCard({ thisStock, onPress, portfolio, isSelected }:
                 <ThemedText>Empresa</ThemedText>
                 <ThemedText style={styles.infoText}>{thisStock.name}</ThemedText>
                 <ThemedText>Último fechamento</ThemedText>
-                <ThemedText style={styles.infoText}>R${thisStock.close}</ThemedText>
+                <ThemedText style={styles.infoText}>{toBRL(thisStock.close)}</ThemedText>
               </View>
 
             )}
             {thisStock?.quantity && thisStock?.average_price && (
                 <View style={styles.stockInfo}>
                 <ThemedText>Na carteira</ThemedText>
-                <ThemedText style={styles.infoText}>{thisStock.quantity} cotas</ThemedText>
+                <ThemedText style={styles.infoText}>{parseInt(thisStock.quantity)} cotas</ThemedText>
                 <ThemedText>Preço médio de compra</ThemedText>
-                <ThemedText style={styles.infoText}>R${thisStock.average_price}</ThemedText>
+                <ThemedText style={styles.infoText}>{toBRL(thisStock.average_price)}</ThemedText>
               </View>
             )}
           </View>

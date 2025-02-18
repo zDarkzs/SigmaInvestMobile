@@ -1,14 +1,12 @@
     import Ionicons from '@expo/vector-icons/Ionicons';
-    import {StyleSheet, Image, Platform, TextInput, Button, View, TouchableOpacity} from 'react-native';
+    import {StyleSheet, Image, TextInput, Button, View, TouchableOpacity} from 'react-native';
 
-    import { Collapsible } from '@/components/Collapsible';
-    import { ExternalLink } from '@/components/ExternalLink';
     import ParallaxScrollView from '@/components/ParallaxScrollView';
     import { ThemedText } from '@/components/ThemedText';
     import { ThemedView } from '@/components/ThemedView';
     import {useState} from "react";
     import {useAuth} from "@/context/AuthContext";
-    import {isLoading} from "expo-font";
+
 
     export default function TabThreeScreen() {
         const  {token, isAuthenticated,login, register, userData} = useAuth();
@@ -19,7 +17,9 @@
         const [debug] = useState<boolean>(true);
 
         const handleLogin = async () => {
+            setIsloading(true);
            await login(username, password);
+           setIsloading(false);
         }
         const debugHandleLogin = async () => {
             await login('fabio','fabio@aluno'); //Todo: apagar isso aqui um dia
@@ -36,9 +36,14 @@
             isAuthenticated?(
                 <Image source={{uri:''}} style={styles.headerImage}/>
                 ):(
-            <Ionicons size={310} name="happy-outline" style={styles.headerImage} />
+            <Image
+          source={require('@/assets/images/sigmainvest outline.png')}
+          style={styles.headerImage}
+        />
             )}>
-            {isLoading?(''):(<>
+            {isLoading?(
+                <ThemedText>Carregando...</ThemedText>
+            ):(<>
 
             {isAuthenticated?(
                 <>
