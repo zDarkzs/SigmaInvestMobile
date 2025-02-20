@@ -5,7 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import CustomModal from "@/components/CustomModal";
 import {toBRL} from "@/scripts/utils";
 
-export default function StockCard({ thisStock, onPress, portfolio, isSelected }: any) {
+export default function StockCard({ thisStock, onPress, onFinishTransaction, portfolio, isSelected }: any) {
   const { transaction } = useAuth();
 
   const [isExpanded, setIsExpanded] = useState(false);

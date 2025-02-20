@@ -98,8 +98,8 @@ export default function PortfoliosScreen() {
     return
   }
 
-  const handleTransactionComplete = async ()=>{
-    setCurrentSearchAssets([]);
+  const onFinishTransaction = async ()=>{
+
   }
 
   const closeAllModals = () =>{ //Evita bugs de mais de um modal ficar aberto

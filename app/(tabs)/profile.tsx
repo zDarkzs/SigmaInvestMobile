@@ -14,7 +14,7 @@
         const  [username, setUsername] = useState<string>('');
         const [password, setPassword] = useState<string>('');
         const [email, setEmail] = useState<string>('');
-        const [debug] = useState<boolean>(false);
+        const [debug] = useState<boolean>(true);
 
         const handleLogin = async () => {
             setIsloading(true);

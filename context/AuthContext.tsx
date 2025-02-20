@@ -27,7 +27,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
     const [userPortfolios, setUserPortfolios] = useState<any[]|null>(null);
     const [portfolioAssets, setPortfolioAssets] = useState<any[]|null>(null);
 
-    const baseUrl = 'https://sigmainvest-production.up.railway.app:8080/'//pode-se alterar pelo ip da maquina
+    const baseUrl = 'http://192.168.55.24:8080/'//pode-se alterar pelo ip da maquina
 
     const fetchUserData:(token:string)=>Promise<void> = async (token:string):Promise<void> =>{
       try{
@@ -91,6 +91,7 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
             if (response.ok){
                 await AsyncStorage.setItem('token', data.token);
                 await fetchUserData(data.token);
+                await AsyncStorage.setItem('key', data.key);
                 setToken(data.token);
                 setApiKey(data.key);
                 return;
