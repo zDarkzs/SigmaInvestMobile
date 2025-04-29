@@ -52,13 +52,13 @@
                 </ThemedView>
                     <View style={styles.profileInfo}>
                         <View style={styles.bioTitleTab}>
-                         <ThemedText>bio</ThemedText>
+                         <ThemedText style={styles.bioTitleText}>Bio</ThemedText>
                          <TouchableOpacity>
-                             aqui
+                             <ThemedText style={styles.bioTitleText}>Editar'1</ThemedText>
                          </TouchableOpacity>
                         </View>
                         <View style={styles.bioInfoText}>
-                          <ThemedText>{userData?.profile?.bio}</ThemedText>
+                          <ThemedText >"{userData?.profile?.bio}"</ThemedText>
                         </View>
                         <ThemedText>usuario desde:{userData?.profile?.user_since}</ThemedText>
                     </View>
@@ -163,7 +163,11 @@
       },
       bioTitleTab:{
           flexDirection:"row",
+          margin:10,
           justifyContent:'space-between'
+      },
+      bioTitleText:{
+          fontSize:32,
       },
       bioInfoText:{
           backgroundColor:'#555555',
