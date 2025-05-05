@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { View,Text,Image, StyleSheet, Platform } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -12,16 +12,9 @@ export default function HomeScreen() {
     const {token} = useAuth();
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/sigmainvest outline.png')}
-          style={styles.reactLogo}
-        />
-      }>
-     <ThemedText>Dashboard</ThemedText>
-    </ParallaxScrollView>
+    <View>
+     <Text style={styles.title}>Dashboard</Text>
+    </View>
   );
 }
 
@@ -30,6 +23,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  title:{
+      fontSize: 48,
   },
   stepContainer: {
     gap: 8,
