@@ -12,20 +12,25 @@ export default function HomeScreen() {
     const {token} = useAuth();
 
   return (
-    <View>
+    <View style={styles.container}>
      <Text style={styles.title}>Dashboard</Text>
+      <View>
+        grafico
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flexDirection: 'column',
     alignItems: 'center',
     gap: 8,
   },
   title:{
       fontSize: 48,
+    fontWeight: 'bold',
+    color: '#1A237E',
   },
   stepContainer: {
     gap: 8,
