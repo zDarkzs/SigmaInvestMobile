@@ -8,7 +8,7 @@ import { ThemedView } from '@/components/ThemedView';
 import {useAuth} from "@/context/AuthContext";
 
 export default function HomeScreen() {
-
+    const total = 0.0
     const {token} = useAuth();
 
   return (
@@ -17,6 +17,9 @@ export default function HomeScreen() {
       <View>
         grafico
       </View>
+      <Text style={styles.sectionTitle}>Dividendos do mês</Text>
+      <Text style={styles.sectionTitle}>R$ {total.toFixed(2).replace('.',',')}</Text>
+
     </View>
   );
 }
@@ -31,6 +34,13 @@ const styles = StyleSheet.create({
       fontSize: 48,
     fontWeight: 'bold',
     color: '#1A237E',
+  },
+
+  sectionTitle:{
+    fontSize: 32,
+    color: '#1A237E',
+    borderBottomWidth:3,
+    borderBottomColor: '#1A237E',
   },
   stepContainer: {
     gap: 8,
