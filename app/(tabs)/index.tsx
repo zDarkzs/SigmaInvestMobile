@@ -4,13 +4,14 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import {mockDividends} from "@/data/mockDividends";
 
 import {useAuth} from "@/context/AuthContext";
 
 export default function HomeScreen() {
     const total = 0.0
     const {token} = useAuth();
-    const stockData =[{name:'petr4',value:0.0},{name:'petr4',value:0.0},{name:'petr4',value:0.0},{name:'petr4',value:0.0}]
+    const dividendData = mockDividends;
   return (
     <View style={styles.container}>
      <View>
@@ -25,10 +26,10 @@ export default function HomeScreen() {
         <Text style={styles.valueText}>R$ {total.toFixed(2).replace('.',',')}</Text>
       </View>
 
-      {stockData?.length>0?(
-        stockData?.map((stock:any, index:number)=>{
-          console.log(stock)
-          return <Text>{stock.name}</Text>
+      {dividendData?.length>0?(
+        dividendData?.map((dividend:any, index:number)=>{
+          console.log(dividend)
+          return <Text>{dividend.stock.name}</Text>
         })
       ):(
         <Text>;-;</Text>
