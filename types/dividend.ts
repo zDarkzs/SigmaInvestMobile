@@ -4,4 +4,6 @@ export interface Dividend{
     payout:number;
     yield: number;
     paydate: Date;
+    //type:'DIVIDENDO'| 'JCP';
+    //status: 'PAGO'| 'AGENDADO';
 }

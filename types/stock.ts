@@ -1,5 +1,4 @@
 export interface Stock{
-    ticker: string;
-    value: number;
+    symbol: string;
     name: string;
 }

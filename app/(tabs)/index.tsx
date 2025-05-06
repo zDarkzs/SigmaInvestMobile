@@ -27,6 +27,7 @@ export default function HomeScreen() {
 
       {stockData?.length>0?(
         stockData?.map((stock:any, index:number)=>{
+          console.log(stock)
           return <Text>{stock.name}</Text>
         })
       ):(
