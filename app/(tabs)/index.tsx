@@ -9,9 +9,12 @@ import {mockDividends} from "@/data/mockDividends";
 import {useAuth} from "@/context/AuthContext";
 
 export default function HomeScreen() {
-    const total = 0.0
-    const {token} = useAuth();
-    const dividendData = mockDividends;
+  const total = 0.0
+  const {token} = useAuth();
+  const dividendData = mockDividends;
+
+
+
   return (
     <View style={styles.container}>
      <View>
@@ -25,15 +28,19 @@ export default function HomeScreen() {
         <Text style={styles.sectionTitle}>Dividendos do mês</Text>
         <Text style={styles.valueText}>R$ {total.toFixed(2).replace('.',',')}</Text>
       </View>
-
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Ativos</Text>
       {dividendData?.length>0?(
         dividendData?.map((dividend:any, index:number)=>{
           console.log(dividend)
-          return <Text>{dividend.stock.name}</Text>
+          return <View style={styles.dividendEvenItem}>
+            {dividend.stock.name}
+          </View>
         })
       ):(
         <Text>;-;</Text>
       )}
+      </View>
     </View>
   );
 }
@@ -43,9 +50,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     gap: 8,
+    borderTopColor:'#1A237E',
+    borderTopWidth:5,
+    borderStyle:"solid"
   },
   header:{
 
+  },
+  dividendEvenItem:{
+    flexDirection:'row',
+    justifyContent:'space-around',
+    backgroundColor:'#1a237e'
   },
   headerText:{
     fontSize: 48,
