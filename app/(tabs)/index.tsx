@@ -10,16 +10,28 @@ import {useAuth} from "@/context/AuthContext";
 export default function HomeScreen() {
     const total = 0.0
     const {token} = useAuth();
-
+    const stockData =[{name:'petr4',value:0.0},{name:'petr4',value:0.0},{name:'petr4',value:0.0},{name:'petr4',value:0.0}]
   return (
     <View style={styles.container}>
-     <Text style={styles.title}>Dashboard</Text>
-      <View>
+     <View>
+         <Text style={styles.headerText}>Dashboard</Text>
+     </View>
+      <View style={styles.graph}>
         grafico
       </View>
-      <Text style={styles.sectionTitle}>Dividendos do mês</Text>
-      <Text style={styles.sectionTitle}>R$ {total.toFixed(2).replace('.',',')}</Text>
 
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Dividendos do mês</Text>
+        <Text style={styles.valueText}>R$ {total.toFixed(2).replace('.',',')}</Text>
+      </View>
+
+      {stockData?.length>0?(
+        stockData?.map((stock:any, index:number)=>{
+          return <Text>{stock.name}</Text>
+        })
+      ):(
+        <Text>;-;</Text>
+      )}
     </View>
   );
 }
@@ -30,12 +42,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
-  title:{
-      fontSize: 48,
+  header:{
+
+  },
+  headerText:{
+    fontSize: 48,
     fontWeight: 'bold',
     color: '#1A237E',
   },
-
+  graph:{
+    width:'80%',
+    backgroundColor:'green',
+    aspectRatio:1
+  },
+  sectionContainer:{
+    flexDirection:'column',
+    alignItems:'center'
+  },
+  valueText:{
+    color:'green',
+    fontWeight:'bold',
+    fontSize:32
+  },
   sectionTitle:{
     fontSize: 32,
     color: '#1A237E',
