@@ -32,9 +32,18 @@ export default function HomeScreen() {
         <Text style={styles.sectionTitle}>Ativos</Text>
       {dividendData?.length>0?(
         dividendData?.map((dividend:any, index:number)=>{
+          const isEvenItem = (index % 2 === 0)
           console.log(dividend)
-          return <View style={styles.dividendEvenItem}>
-            {dividend.stock.name}
+          return <View style={[styles.dividendItem,{
+          backgroundColor: isEvenItem ? '#f8f8f8' : '#1a237e',
+          borderBottomWidth: 1,
+          borderBottomColor: '#ddd'
+        }]}>
+            <Text style={[styles.dividendItemText,{
+              color: isEvenItem ? '#1a237e' : '#f8f8f8'
+            }]}>
+              {dividend.stock.name}
+            </Text>
           </View>
         })
       ):(
@@ -57,11 +66,19 @@ const styles = StyleSheet.create({
   header:{
 
   },
-  dividendEvenItem:{
+  dividendItem:{
     flexDirection:'row',
     justifyContent:'space-around',
-    backgroundColor:'#1a237e'
+    alignItems:'center',
+    backgroundColor:'#1a237e',
+    width:'100%',
+    height:'25%'
   },
+  dividendItemText:{
+    fontSize:16,
+    fontWeight:'bold'
+  },
+
   headerText:{
     fontSize: 48,
     fontWeight: 'bold',
@@ -70,11 +87,13 @@ const styles = StyleSheet.create({
   graph:{
     width:'80%',
     backgroundColor:'green',
-    aspectRatio:1
+    aspectRatio:1.75,
+    maxHeight:400
   },
   sectionContainer:{
     flexDirection:'column',
-    alignItems:'center'
+    alignItems:'center',
+    width:'100%',
   },
   valueText:{
     color:'green',
