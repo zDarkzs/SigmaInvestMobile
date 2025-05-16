@@ -5,6 +5,7 @@ import { API_CONFIGS } from './apiClients';
 export class DividendService {
   static async getStocks(apiConfig:ApiConfig):Promise<string[]>{
     const allStocks: string[] = [];
+    return allStocks;
   }
 
   static async getDividends(
