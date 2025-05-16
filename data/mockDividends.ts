@@ -1,7 +1,7 @@
 import { Stock } from '@/types/stock';
-import {Dividend} from "@/types/dividend";
+import {DividendTypes} from "@/types/dividendTypes";
 
-export const mockDividends: Dividend[] = [
+export const mockDividends: DividendTypes[] = [
   {
     stock: { symbol: "PETR4", name: "Petróleo Brasileiro S.A." },
     payout: 2.15,

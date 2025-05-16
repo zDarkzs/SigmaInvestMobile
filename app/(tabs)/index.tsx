@@ -7,12 +7,14 @@ import { ThemedView } from '@/components/ThemedView';
 import {mockDividends} from "@/data/mockDividends";
 
 import {useAuth} from "@/context/AuthContext";
+import {useDividends} from "@/hooks/useDividends";
 
 export default function HomeScreen() {
   const total = 0.0
   const {token} = useAuth();
   const dividendData = mockDividends;
 
+  const {dividends, loading, error} = useDividends();
 
 
   return (
