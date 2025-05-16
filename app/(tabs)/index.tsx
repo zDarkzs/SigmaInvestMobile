@@ -7,15 +7,16 @@ import { ThemedView } from '@/components/ThemedView';
 import {mockDividends} from "@/data/mockDividends";
 
 import {useAuth} from "@/context/AuthContext";
-import {useDividends} from "@/hooks/useDividends";
+import {useDividends, useStocks} from "@/hooks/useDividends";
 
 export default function HomeScreen() {
   const total = 0.0
-  const {token} = useAuth();
+
   const dividendData = mockDividends;
-
-  const {dividends, loading, error} = useDividends();
-
+  const mockStocks = ["PETR4",'VALE3'];
+  const mockApis = ['BRAPI']
+  const {dividends, loading, error} = useDividends(mockStocks,mockApis);
+  console.log('dividendos'+dividends);
 
   return (
     <View style={styles.container}>
@@ -35,7 +36,6 @@ export default function HomeScreen() {
       {dividendData?.length>0?(
         dividendData?.map((dividend:any, index:number)=>{
           const isEvenItem = (index % 2 === 0)
-          console.log(dividend)
           return <View style={[styles.dividendItem,{
           backgroundColor: isEvenItem ? '#f8f8f8' : '#1a237e',
           borderBottomWidth: 1,

@@ -9,14 +9,16 @@ export const useStocks:(selectApis:string[]) =>string[] = (selectedApis: string[
   const [error, setError] = useState<string | null>(null);
   useEffect(()=>{
     const fetchStocks = async () =>{
-      setLoadingStocks(false);
       setError(null);
+      setLoadingStocks(false);
 
       try{
         const allStocks: string[] = [];
         for(const apiName of selectedApis){
           const apiConfig = API_CONFIGS[apiName as keyof typeof API_CONFIGS];
-          const ap
+          const apiStocks = await DividendService.getStocks(apiConfig);
+          console.log(`apiStocks: ${JSON.stringify(apiStocks)}`);
+
         }
       }catch (e) {
         setError('erro ao carregar stock');
@@ -43,6 +45,7 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
 
         for (const apiName of selectedApis) {
           const apiConfig = API_CONFIGS[apiName as keyof typeof API_CONFIGS];
+          console.log(apiConfig.apiKey)
           const apiDividends = await DividendService.getDividends(tickers, apiConfig);
           allDividends.push(...apiDividends);
         }

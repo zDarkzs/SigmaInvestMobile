@@ -3,9 +3,13 @@ import { Dividend, ApiConfig } from '../types/dividendTypes';
 import { API_CONFIGS } from './apiClients';
 
 export class DividendService {
+
+
   static async getStocks(apiConfig:ApiConfig):Promise<string[]>{
-    const allStocks: string[] = [];
-    return allStocks;
+    const response = await axios.get(
+        `${apiConfig.baseUrl}${apiConfig.getStockListEndpoint}`,
+    )
+    return  apiConfig.stockListParser(response.data);
   }
 
   static async getDividends(
@@ -16,12 +20,15 @@ export class DividendService {
       const allDividends: Dividend[] = [];
 
       for (const ticker of tickers) {
+        if(apiConfig.apiKey){
+
         const response = await axios.get(
           `${apiConfig.baseUrl}${apiConfig.getDividendEndpoint(ticker)}`
         );
 
-        const dividends = apiConfig.responseParser(response.data);
+        const dividends = apiConfig.dividendResponseParser(response.data);
         allDividends.push(...dividends);
+        }
       }
 
       return this.standardizeDividends(allDividends);
