@@ -34,12 +34,13 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
   const [dividends, setDividends] = useState<Dividend[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  let i=0;
   useEffect(() => {
     const fetchDividends = async () => {
       setLoading(true);
       setError(null);
 
+      console.log(i++)
       try {
         const allDividends: Dividend[] = [];
 
