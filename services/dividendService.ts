@@ -25,7 +25,8 @@ export class DividendService {
         const response = await axios.get(
           `${apiConfig.baseUrl}${apiConfig.getDividendEndpoint(ticker)}`
         );
-
+        console.log('...')
+        console.log(response)
         const dividends = apiConfig.dividendResponseParser(response.data);
         allDividends.push(...dividends);
         }
@@ -49,7 +50,6 @@ export class DividendService {
   }
 
   private static formatDate(dateString: string): string {
-    // Implemente sua lógica de formatação de data
-    return formattedDate;
+    return dateString?(dateString.split('T')[0]):('undefined')
   }
 }

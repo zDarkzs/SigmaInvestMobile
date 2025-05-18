@@ -15,7 +15,6 @@ export default function Dashboard() {
     if (newTicker.trim() && !tickers.includes(newTicker.toUpperCase())) {
       setTickers([...tickers, newTicker.toUpperCase()]);
       setNewTicker('');
-      console.log(tickers)
     }
   };
 

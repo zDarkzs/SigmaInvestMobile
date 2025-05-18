@@ -8,6 +8,7 @@ export interface Dividend {
   type?: 'ordinary' | 'special' | 'interest';
   currency: string;
   source: string; // Nome da API de origem
+  description:string;
 }
 export interface ApiConfig{
   name: string;

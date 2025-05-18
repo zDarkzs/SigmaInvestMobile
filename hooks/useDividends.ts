@@ -12,14 +12,11 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
     const fetchDividends = async () => {
       setLoading(true);
       setError(null);
-
-      console.log(i++)
       try {
         const allDividends: Dividend[] = [];
 
         for (const apiName of selectedApis) {
           const apiConfig = API_CONFIGS[apiName as keyof typeof API_CONFIGS];
-          console.log(apiConfig.apiKey)
           const apiDividends = await DividendService.getDividends(tickers, apiConfig);
           allDividends.push(...apiDividends);
         }
