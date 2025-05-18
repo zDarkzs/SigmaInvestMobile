@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TextInput, Button } from 'react-native';
 import { useDividends } from '../../hooks/useDividends';
 import { API_CONFIGS } from '../../services/apiClients';
-import DividendCard from './DividendCard';
+import DividendCard from '../../components/DividendCard';
 
 export default function Dashboard() {
-  const [tickers, setTickers] = useState<string[]>(['PETR4', 'VALE3']);
-  const [selectedApis, setSelectedApis] = useState<string[]>(['ALPHA_VANTAGE']);
+  const [tickers, setTickers] = useState<string[]>([]);
+  const [selectedApis, setSelectedApis] = useState<string[]>([]);
   const [newTicker, setNewTicker] = useState('');
 
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
@@ -15,6 +15,7 @@ export default function Dashboard() {
     if (newTicker.trim() && !tickers.includes(newTicker.toUpperCase())) {
       setTickers([...tickers, newTicker.toUpperCase()]);
       setNewTicker('');
+      console.log(tickers)
     }
   };
 
