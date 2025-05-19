@@ -1,27 +1,20 @@
-export interface Payment{
-    amount: number;
-    paymentDate: string;
-}
+
 export interface Dividend {
   id: string;
   ticker: string;
-  //payments: Payment[];
-  //lastPayment: Payment;//todo: remover essa variavel se possivel
   amount: number;
   paymentDate: string;
   recordDate?: string;
   declaredDate?: string;
   type?: 'ordinary' | 'special' | 'interest';
   currency: string;
-  source: string; // Nome da API de origem
+  source: string;
   description:string;
 }
 export interface ApiConfig{
   name: string;
   baseUrl: string;
   apiKey?: string;
-  getStockListEndpoint: string;
   getDividendEndpoint: (ticker: string) => string;
-  stockListParser:(data:any) => string[];
   dividendResponseParser: (data: any) => Dividend[];
 }

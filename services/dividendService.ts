@@ -4,14 +4,6 @@ import { API_CONFIGS } from './apiClients';
 
 export class DividendService {
 
-
-  static async getStocks(apiConfig:ApiConfig):Promise<string[]>{
-    const response = await axios.get(
-        `${apiConfig.baseUrl}${apiConfig.getStockListEndpoint}`,
-    )
-    return  apiConfig.stockListParser(response.data);
-  }
-
   static async getDividends(
     tickers: string[],
     apiConfig: ApiConfig
@@ -25,8 +17,6 @@ export class DividendService {
         const response = await axios.get(
           `${apiConfig.baseUrl}${apiConfig.getDividendEndpoint(ticker)}`
         );
-        console.log('...')
-        console.log(response)
         const dividends = apiConfig.dividendResponseParser(response.data);
         allDividends.push(...dividends);
         }

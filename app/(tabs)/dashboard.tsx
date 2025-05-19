@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, Button } from 'react-native';
+import {View, Text, StyleSheet, FlatList, TextInput, Button, Dimensions} from 'react-native';
+import {LineChart} from "react-native-chart-kit";
 import { useDividends } from '../../hooks/useDividends';
 import { API_CONFIGS } from '../../services/apiClients';
 import DividendCard from '../../components/DividendCard';
+import DividendLineChart from "@/components/DividendLineChart";
 
 export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
@@ -25,6 +27,7 @@ export default function Dashboard() {
         : [...prev, apiName]
     );
   };
+
 
   return (
     <View style={styles.container}>
@@ -53,7 +56,7 @@ export default function Dashboard() {
 
       {loading && <Text>Carregando...</Text>}
       {error && <Text style={styles.error}>{error}</Text>}
-
+      <DividendLineChart dividends={dividends}/>
       <FlatList
         data={dividends}
         keyExtractor={(item) => item.id}
