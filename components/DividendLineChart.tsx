@@ -5,7 +5,7 @@ import {Dividend} from "@/types/dividendTypes";
 
 export default function DividendLineChart({dividends}:any) {
     console.log(dividends)
-    const paymentDates = dividends.map((dividend:Dividend)=> dividend.paymentDate)
+    const paymentDates = dividends.map((dividend:Dividend)=> dividend.ticker)
     console.log(paymentDates)
     const paymentAmounts = dividends.map((dividend:Dividend)=> dividend.amount)
     console.log(paymentAmounts)
@@ -20,7 +20,7 @@ export default function DividendLineChart({dividends}:any) {
             strokeWidth: 2 // optional
         }
     ],
-    legend: ["Rainy Days"] // optional
+    legend: ["Ultimos pagamentos"] // optional
     };
 
     return (
