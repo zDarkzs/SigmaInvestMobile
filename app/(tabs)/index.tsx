@@ -13,10 +13,6 @@ export default function HomeScreen() {
   const total = 0.0
 
   const dividendData = mockDividends;
-  const mockStocks = ["PETR4",'VALE3'];
-  //const mockApis = ['BRAPI']
-  //const {dividends, loading, error} = useDividends(mockStocks,mockApis);
-  //console.log('dividendos'+dividends);
 
   return (
     <View style={styles.container}>

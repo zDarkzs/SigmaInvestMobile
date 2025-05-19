@@ -1,6 +1,12 @@
+export interface Payment{
+    amount: number;
+    paymentDate: string;
+}
 export interface Dividend {
   id: string;
   ticker: string;
+  //payments: Payment[];
+  //lastPayment: Payment;//todo: remover essa variavel se possivel
   amount: number;
   paymentDate: string;
   recordDate?: string;
