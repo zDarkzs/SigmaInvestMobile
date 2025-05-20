@@ -7,7 +7,6 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
   const [dividends, setDividends] = useState<Dividend[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  let i=0;
   useEffect(() => {
     const fetchDividends = async () => {
       setLoading(true);
@@ -20,7 +19,6 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
           const apiDividends = await DividendService.getDividends(tickers, apiConfig);
           allDividends.push(...apiDividends);
         }
-
         setDividends(allDividends);
       } catch (err) {
         setError('Failed to fetch dividends');
@@ -28,7 +26,6 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
         setLoading(false);
       }
     };
-
     if (tickers.length > 0 && selectedApis.length > 0) {
       fetchDividends();
     }

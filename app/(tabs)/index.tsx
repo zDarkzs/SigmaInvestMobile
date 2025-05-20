@@ -7,7 +7,7 @@ import { ThemedView } from '@/components/ThemedView';
 import {mockDividends} from "@/data/mockDividends";
 
 import {useAuth} from "@/context/AuthContext";
-import {useDividends, useStocks} from "@/hooks/useDividends";
+import {useDividends} from "@/hooks/useDividends";
 
 export default function HomeScreen() {
   const total = 0.0

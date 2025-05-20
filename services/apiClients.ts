@@ -1,9 +1,8 @@
 import {ApiConfig, Dividend} from '../types/dividendTypes';
-import {DividendService} from "@/services/dividendService";
 
 
 
-const createBrapiConfig =()=>{
+const createBrapiConfig:()=>ApiConfig = ()=>{
     const apiKey ='7AYrqS5jDLBXnrturQkFcj';
 
     return{
@@ -24,7 +23,6 @@ const createBrapiConfig =()=>{
 
           for(const dividend of cashDividends){
             if(!dividend.paymentDate) continue;
-
             const type:()=>'ordinary' | 'special' | 'interest' = ()=>{
               if(dividend.label?.includes('JCP')) return 'interest';
               if(dividend.relatedTo?.includes('pecial')) return 'special';
