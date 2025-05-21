@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import { Dividend } from '../types/dividendTypes';
 import { DividendService } from '../services/dividendService';
 import { API_CONFIGS } from '../services/apiClients';
+import {useStocks} from "@/context/StockContext";
 
 export const useDividends = (tickers: string[], selectedApis: string[]) => {
   const [dividends, setDividends] = useState<Dividend[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const {stocks, addStock, showStocks} = useStocks()
+
   useEffect(() => {
     const fetchDividends = async () => {
       setLoading(true);
@@ -18,8 +21,17 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
           const apiConfig = API_CONFIGS[apiName as keyof typeof API_CONFIGS];
           const apiDividends = await DividendService.getDividends(tickers, apiConfig);
           allDividends.push(...apiDividends);
+
         }
         setDividends(allDividends);
+        const dividendTickers = (dividends.map((dividend)=>{return dividend.ticker}))
+        for (const ticker of dividendTickers){
+          if(!(stocks?.includes(ticker))){
+          addStock(ticker);
+          showStocks();
+          }
+        }
+        console.log(dividendTickers)
       } catch (err) {
         setError('Failed to fetch dividends');
       } finally {

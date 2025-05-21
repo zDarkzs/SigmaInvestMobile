@@ -31,10 +31,11 @@ const createBrapiConfig:()=>ApiConfig = ()=>{
             const formatDate = (dateString:string|null)=>{
               return dateString?(dateString.split('T')[0]):('undefined')
             }
+            const amount = dividend.amount;
             parsedDividends.push({
-              id:`${ticker}-${dividend.paymentDate}-${dividend.paymentDate}`,
               ticker:ticker,
               amount:dividend.rate,
+              id:`${ticker}-${dividend.paymentDate}-${dividend.recordDate}`,
               type:type(),
               paymentDate:formatDate(dividend.paymentDate),
               recordDate:formatDate(dividend.lastDatePrior),

@@ -8,8 +8,10 @@ interface StockContextType {
     stocks:string[] |null;
     addStock: (stocks:string) => void;
     apiConfig:ApiConfig|null;
-    saveStocks:()=>void;
-    loadStocks:()=>void;
+    showStocks:()=>void;
+    saveStocks:()=>Promise<void>;
+    loadStocks:()=>Promise<void>;
+
 }
 const StockContext = createContext<StockContextType|undefined>(undefined);
 
@@ -18,24 +20,33 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
     const [stocks, setStocks] = useState<string[]>([]);
     const [apiConfig, setApiConfig] = useState<ApiConfig|null>(null);
 
-    const saveStocks: ()=>void = ()=>{
+    const showStocks = ()=> console.log(stocks);
 
+    const saveStocks: ()=>Promise<void> = async ()=>{
+        try {
+            await AsyncStorage.setItem("stocks", JSON.stringify(stocks));
+        }
+        catch (e) {
+            console.error(e)
+        }
     }
-    const loadStocks: ()=>void = ()=>{
-
+    const loadStocks: ()=>Promise<void> = async ()=>{
+            try {
+                const StoredData = await AsyncStorage.getItem('stocks');
+                setStocks(StoredData != null ? JSON.parse(StoredData) : []);
+            }catch (e) {
+                console.error(e)
+            }
     }
 
     const addStock = (stock:string)=>{
-        try{
-            stocks.push(stock)
-        }catch (e) {
-            console.error(e)
-        }
+        stocks.push(stock)
     }
      return (
         <StockContext.Provider value={{
             stocks,
             apiConfig,
+            showStocks,
             addStock,
             saveStocks,
             loadStocks}}>
@@ -44,7 +55,7 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
     )
 }
 
-export const useStocks:()=> StockContextType = ():StockContextType => {
+export const useStocks:()=> StockContextType = () => {
     const context:StockContextType|undefined = useContext(StockContext);
     if (!context) throw new Error("useAuth must be used within the AuthProvider");
     return context;

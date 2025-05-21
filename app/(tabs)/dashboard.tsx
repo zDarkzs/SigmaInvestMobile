@@ -5,6 +5,7 @@ import { useDividends } from '../../hooks/useDividends';
 import { API_CONFIGS } from '../../services/apiClients';
 import DividendCard from '../../components/DividendCard';
 import DividendLineChart from "@/components/DividendLineChart";
+import {useStocks} from "@/context/StockContext";
 
 export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
@@ -12,6 +13,9 @@ export default function Dashboard() {
   const [newTicker, setNewTicker] = useState('');
 
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
+  const{stocks,addStock} = useStocks();
+
+
 
   const addTicker = () => {
     if (newTicker.trim() && !tickers.includes(newTicker.toUpperCase())) {
@@ -41,6 +45,7 @@ export default function Dashboard() {
           onChangeText={setNewTicker}
         />
         <Button title="Adicionar" onPress={addTicker} />
+        <Button title="Salvar Carteira" onPress={addTicker} />
       </View>
 
       <View style={styles.apiSelector}>
