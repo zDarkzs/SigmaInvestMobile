@@ -11,6 +11,11 @@ export interface Dividend {
   source: string;
   description:string;
 }
+export interface StockShares{
+  [ticker: string]:number;
+}
+
+//export function Stocks
 export interface ApiConfig{
   name: string;
   baseUrl: string;

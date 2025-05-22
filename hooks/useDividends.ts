@@ -45,3 +45,7 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
 
   return { dividends, loading, error };
 };
+
+const UsePayments = () =>{
+
+}
