@@ -11,10 +11,9 @@ export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
   const [selectedApis, setSelectedApis] = useState<string[]>([]);
   const [newTicker, setNewTicker] = useState('');
-
+  const [quantity, setQuantity] = useState('0');
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
   const{stocks,addStock} = useStocks();
-
 
 
   const addTicker = () => {
@@ -44,8 +43,17 @@ export default function Dashboard() {
           value={newTicker}
           onChangeText={setNewTicker}
         />
-        <Button title="Adicionar" onPress={addTicker} />
-        <Button title="Salvar Carteira" onPress={addTicker} />
+        <TextInput
+          keyboardType='numeric'
+          style={styles.input}
+          placeholder={'Quantidade de cotas'}
+          value={quantity}
+          onChangeText={setQuantity}
+        />
+        <View style={styles.buttomContainer}>
+          <Button title="Adicionar" onPress={addTicker} />
+          <Button title="Salvar Carteira" onPress={addTicker} />
+        </View>
       </View>
 
       <View style={styles.apiSelector}>
@@ -83,8 +91,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   inputContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginBottom: 16,
+    justifyContent:'space-between',
+    alignItems: 'center',
+  },
+  buttomContainer:{
+    flexDirection:'row'
   },
   input: {
     flex: 1,

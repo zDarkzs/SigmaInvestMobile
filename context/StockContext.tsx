@@ -1,11 +1,11 @@
 import React, {createContext, useContext, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {string} from "prop-types";
-import {ApiConfig} from "@/types/dividendTypes";
-
+import {ApiConfig, Dividend} from "@/types/dividendTypes";
+import {StockShares} from "@/types/dividendTypes";
 
 interface StockContextType {
-    stocks:string[] |null;
+    stockShares:StockShares |null;
     addStock: (stocks:string) => void;
     apiConfig:ApiConfig|null;
     showStocks:()=>void;
@@ -17,14 +17,14 @@ const StockContext = createContext<StockContextType|undefined>(undefined);
 
 export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) =>{
 
-    const [stocks, setStocks] = useState<string[]>([]);
+    const [stockShares, setStockShares] = useState<StockShares>({});
     const [apiConfig, setApiConfig] = useState<ApiConfig|null>(null);
 
-    const showStocks = ()=> console.log(stocks);
+    const showStocks = ()=> console.log(stockShares);
 
     const saveStocks: ()=>Promise<void> = async ()=>{
         try {
-            await AsyncStorage.setItem("stocks", JSON.stringify(stocks));
+            await AsyncStorage.setItem("stocks", JSON.stringify(stockShares));
         }
         catch (e) {
             console.error(e)
@@ -33,21 +33,23 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
     const loadStocks: ()=>Promise<void> = async ()=>{
             try {
                 const StoredData = await AsyncStorage.getItem('stocks');
-                setStocks(StoredData != null ? JSON.parse(StoredData) : []);
+                setStockShares(StoredData != null ? JSON.parse(StoredData) : []);
             }catch (e) {
                 console.error(e)
             }
     }
 
-    const addStock = (stock:string)=>{
-        stocks.push(stock)
+    const updateStocks = (dividends:Dividend[])=>{
+        //amanha eu mapeio essa poha
+        let newStocks:StockShares;
+        const tickers = []
     }
      return (
         <StockContext.Provider value={{
-            stocks,
+            stockShares,
             apiConfig,
             showStocks,
-            addStock,
+            updateStocks,
             saveStocks,
             loadStocks}}>
             {children}
