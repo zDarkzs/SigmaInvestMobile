@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, FlatList, TextInput, Button, Dimensions} from 'react-native';
 import {LineChart} from "react-native-chart-kit";
 import { useDividends } from '../../hooks/useDividends';
@@ -13,7 +13,7 @@ export default function Dashboard() {
   const [newTicker, setNewTicker] = useState('');
   const [quantity, setQuantity] = useState('0');
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
-  const{stocks,addStock} = useStocks();
+  const{stockShares,updateStockShares} = useStocks();
 
 
   const addTicker = () => {
@@ -30,6 +30,12 @@ export default function Dashboard() {
         : [...prev, apiName]
     );
   };
+
+  useEffect(()=>{
+    updateStockShares(tickers,dividends);
+    console.log(dividends)
+    console.log(stockShares)
+  },[dividends])
 
 
   return (

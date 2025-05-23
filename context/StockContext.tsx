@@ -6,7 +6,7 @@ import {StockShares} from "@/types/dividendTypes";
 
 interface StockContextType {
     stockShares:StockShares |null;
-    addStock: (stocks:string) => void;
+    updateStockShares: (tickers:string[],dividends:Dividend[]) => void;
     apiConfig:ApiConfig|null;
     showStocks:()=>void;
     saveStocks:()=>Promise<void>;
@@ -39,17 +39,22 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
             }
     }
 
-    const updateStocks = (dividends:Dividend[])=>{
-        //amanha eu mapeio essa poha
-        let newStocks:StockShares;
-        const tickers = []
-    }
+    const updateStockShares = (tickers:string[],dividends:Dividend[])=> {
+        const dividendTickers = (dividends.map((dividend) => {
+            return dividend.ticker
+        }))
+
+        console.log(dividendTickers);
+        for (const ticker of tickers) {
+            stockShares[ticker] = dividendTickers.filter(((dividendTicker) => dividendTicker === ticker)).length
+        }
+    };
      return (
         <StockContext.Provider value={{
             stockShares,
             apiConfig,
             showStocks,
-            updateStocks,
+            updateStockShares,
             saveStocks,
             loadStocks}}>
             {children}

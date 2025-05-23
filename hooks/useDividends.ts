@@ -8,7 +8,6 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
   const [dividends, setDividends] = useState<Dividend[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const {stocks, addStock, showStocks} = useStocks()
 
   useEffect(() => {
     const fetchDividends = async () => {
@@ -24,14 +23,6 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
 
         }
         setDividends(allDividends);
-        const dividendTickers = (dividends.map((dividend)=>{return dividend.ticker}))
-        for (const ticker of dividendTickers){
-          if(!(stocks?.includes(ticker))){
-          addStock(ticker);
-          showStocks();
-          }
-        }
-        console.log(dividendTickers)
       } catch (err) {
         setError('Failed to fetch dividends');
       } finally {
