@@ -12,7 +12,7 @@ export interface Dividend {
   description:string;
 }
 export interface StockShares{
-  [ticker: string]:number;
+  [ticker: string]: { quantity:number, payments:Dividend[] };
 }
 
 //export function Stocks

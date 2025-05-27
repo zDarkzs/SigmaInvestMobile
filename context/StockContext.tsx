@@ -3,10 +3,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {string} from "prop-types";
 import {ApiConfig, Dividend} from "@/types/dividendTypes";
 import {StockShares} from "@/types/dividendTypes";
+import {useDividends} from "@/hooks/useDividends";
 
 interface StockContextType {
     stockShares:StockShares |null;
-    updateStockShares: (tickers:string[],dividends:Dividend[]) => void;
+    updateStockShares: (tickers:string[],quantity:number[],dividends:Dividend[]) => void;
     apiConfig:ApiConfig|null;
     showStocks:()=>void;
     saveStocks:()=>Promise<void>;
@@ -21,7 +22,6 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
     const [apiConfig, setApiConfig] = useState<ApiConfig|null>(null);
 
     const showStocks = ()=> console.log(stockShares);
-
     const saveStocks: ()=>Promise<void> = async ()=>{
         try {
             await AsyncStorage.setItem("stocks", JSON.stringify(stockShares));
@@ -39,16 +39,27 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
             }
     }
 
-    const updateStockShares = (tickers:string[],dividends:Dividend[])=> {
+    const updateStockShares = (tickers:string[],quantity:number[],dividends:Dividend[])=> {
         const dividendTickers = (dividends.map((dividend) => {
             return dividend.ticker
         }))
 
         console.log(dividendTickers);
         for (const ticker of tickers) {
-            stockShares[ticker] = dividendTickers.filter(((dividendTicker) => dividendTicker === ticker)).length
+            stockShares[ticker] = {
+                quantity:0,
+                payments:dividends.filter((dividend) => dividend.ticker == ticker )
+            }
         }
     };
+
+    const addStockShare = (ticker:string, quantity:number)=>{
+        const newStockShare:StockShares = {
+            [ticker]={
+                ticker:
+            }
+        }
+    }
      return (
         <StockContext.Provider value={{
             stockShares,
