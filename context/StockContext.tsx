@@ -8,6 +8,7 @@ import {useDividends} from "@/hooks/useDividends";
 interface StockContextType {
     stockShares:StockShares |null;
     updateStockShares: (tickers:string[],quantity:number[],dividends:Dividend[]) => void;
+    addStockShare: (tickers:string,quantity:number,dividends:Dividend[]) => void;
     apiConfig:ApiConfig|null;
     showStocks:()=>void;
     saveStocks:()=>Promise<void>;
@@ -53,12 +54,13 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
         }
     };
 
-    const addStockShare = (ticker:string, quantity:number)=>{
-        const newStockShare:StockShares = {
-            [ticker]={
-                ticker:
-            }
+    const addStockShare = (ticker:string, quantity:number,dividends:Dividend[])=>{
+        stockShares[ticker]= {
+                quantity:quantity,
+                payments:dividends.filter((dividend) => dividend.ticker == ticker)
+
         }
+        console.log(stockShares);
     }
      return (
         <StockContext.Provider value={{
@@ -66,6 +68,7 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
             apiConfig,
             showStocks,
             updateStockShares,
+            addStockShare,
             saveStocks,
             loadStocks}}>
             {children}

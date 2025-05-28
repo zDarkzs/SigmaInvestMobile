@@ -6,6 +6,7 @@ import { API_CONFIGS } from '../../services/apiClients';
 import DividendCard from '../../components/DividendCard';
 import DividendLineChart from "@/components/DividendLineChart";
 import {useStocks} from "@/context/StockContext";
+import {bool} from "prop-types";
 
 export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
@@ -13,14 +14,26 @@ export default function Dashboard() {
   const [newTicker, setNewTicker] = useState('');
   const [quantity, setQuantity] = useState('0');
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
-  const{stockShares,updateStockShares} = useStocks();
+  const{stockShares,updateStockShares,addStockShare} = useStocks();
 
 
   const addTicker = () => {
-    if (newTicker.trim() && !tickers.includes(newTicker.toUpperCase())) {
+    const isTickerValid = ():boolean =>{
+      return !!(newTicker.trim() && !tickers.includes(newTicker.toUpperCase()));
+    }
+    const isQuantityValid = ():boolean =>{
+      try {
+        parseInt(quantity);
+      }catch(e){
+        return false;
+      }
+      return true;
+    }
+    if (isTickerValid() && isQuantityValid()) {
       setTickers([...tickers, newTicker.toUpperCase()]);
       setNewTicker('');
     }
+
   };
 
   const toggleApi = (apiName: string) => {
