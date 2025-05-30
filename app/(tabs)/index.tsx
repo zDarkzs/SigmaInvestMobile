@@ -1,21 +1,32 @@
-import { View,Text,Image, StyleSheet, Platform } from 'react-native';
+import {View, Text, Image, StyleSheet, Platform, ScrollView} from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import {mockDividends} from "@/data/mockDividends";
+import {generateMockStockShares} from "@/data/mockStockShares";
 
 import {useAuth} from "@/context/AuthContext";
 import {useDividends} from "@/hooks/useDividends";
+import {Dividend} from "@/types/dividendTypes";
+import {toBRL} from "@/scripts/utils";
 
 export default function HomeScreen() {
   const total = 0.0
 
-  const dividendData = mockDividends;
+  const mockStockShares = generateMockStockShares();
+  console.log(mockStockShares);
+  const dividendData = Object.values(mockStockShares).flatMap(stock =>
+    stock.payments.map(payment => ({
+      ...payment,
+      totalAmount: payment.amount * stock.quantity
+    }))
+  );
+  console.log(dividendData)
+  return (<ScrollView>
 
-  return (
     <View style={styles.container}>
+
      <View>
          <Text style={styles.headerText}>Dashboard</Text>
      </View>
@@ -29,8 +40,9 @@ export default function HomeScreen() {
       </View>
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>Ativos</Text>
+
       {dividendData?.length>0?(
-        dividendData?.map((dividend:any, index:number)=>{
+        dividendData?.map((dividend, index:number)=>{
           const isEvenItem = (index % 2 === 0)
           return <View style={[styles.dividendItem,{
           backgroundColor: isEvenItem ? '#f8f8f8' : '#1a237e',
@@ -40,7 +52,7 @@ export default function HomeScreen() {
             <Text style={[styles.dividendItemText,{
               color: isEvenItem ? '#1a237e' : '#f8f8f8'
             }]}>
-              {dividend.stock.name}
+              {dividend?.ticker}: {toBRL(dividend?.amount)}
             </Text>
           </View>
         })
@@ -49,6 +61,7 @@ export default function HomeScreen() {
       )}
       </View>
     </View>
+  </ScrollView>
   );
 }
 

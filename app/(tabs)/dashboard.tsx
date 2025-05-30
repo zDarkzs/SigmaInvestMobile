@@ -45,7 +45,7 @@ export default function Dashboard() {
   };
 
   useEffect(()=>{
-    updateStockShares(tickers,dividends);
+    addStockShare(newTicker,parseInt(quantity),dividends);
     console.log(dividends)
     console.log(stockShares)
   },[dividends])
