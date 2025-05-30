@@ -1,4 +1,4 @@
-import {View, Text, Image, StyleSheet, Platform, ScrollView} from 'react-native';
+import {View, Text, Image, StyleSheet, Platform, ScrollView, Button} from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -10,20 +10,28 @@ import {useAuth} from "@/context/AuthContext";
 import {useDividends} from "@/hooks/useDividends";
 import {Dividend} from "@/types/dividendTypes";
 import {toBRL} from "@/scripts/utils";
+import {useState} from "react";
+import CustomModal from "@/components/CustomModal";
 
 export default function HomeScreen() {
   const total = 0.0
-
+  const [isFilterModalVisible,setFilterModalVisible] = useState(false);
   const mockStockShares = generateMockStockShares();
-  console.log(mockStockShares);
+
+  const [selectedYear, setSelectedYear] = useState<string>('Todos');
+  const [selectedMonth, setSelectedMonth] = useState<string>('Todos');
+  const [filteredDividends, setFilteredDividends] = useState<Dividend[]>([]);
+
+  const toggleFilterModal=()=>{setFilterModalVisible(!isFilterModalVisible)}
   const dividendData = Object.values(mockStockShares).flatMap(stock =>
     stock.payments.map(payment => ({
       ...payment,
       totalAmount: payment.amount * stock.quantity
     }))
   );
-  console.log(dividendData)
-  return (<ScrollView>
+
+
+  return (<ScrollView scrollEnabled={!isFilterModalVisible}>
 
     <View style={styles.container}>
 
@@ -40,6 +48,7 @@ export default function HomeScreen() {
       </View>
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>Ativos</Text>
+        <Button title={'filtrar'} onPress={toggleFilterModal}/>
 
       {dividendData?.length>0?(
         dividendData?.map((dividend, index:number)=>{
@@ -61,6 +70,9 @@ export default function HomeScreen() {
       )}
       </View>
     </View>
+    <CustomModal  visible={isFilterModalVisible} onClose={ toggleFilterModal}>
+      <Text>fiLTRADO</Text>
+    </CustomModal>
   </ScrollView>
   );
 }
