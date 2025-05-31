@@ -36,33 +36,31 @@ export default function HomeScreen() {
     <View style={styles.container}>
 
      <View>
-         <Text style={styles.headerText}>Dashboard</Text>
+         <Text style={styles.headerText}>SIGMA INVEST</Text>
      </View>
-      <View style={styles.graph}>
-        grafico
-      </View>
-
+     
       <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>Dividendos do mês</Text>
+        <Text style={styles.sectionTitle}>DIVIDENDOS DO MÊS:</Text>
+        <Button title={'"MÊS"'} onPress={toggleFilterModal}/>
         <Text style={styles.valueText}>R$ {total.toFixed(2).replace('.',',')}</Text>
       </View>
       <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>Ativos</Text>
-        <Button title={'filtrar'} onPress={toggleFilterModal}/>
 
       {dividendData?.length>0?(
         dividendData?.map((dividend, index:number)=>{
-          const isEvenItem = (index % 2 === 0)
           return <View style={[styles.dividendItem,{
-          backgroundColor: isEvenItem ? '#f8f8f8' : '#1a237e',
-          borderBottomWidth: 1,
-          borderBottomColor: '#ddd'
+          backgroundColor:'#f8f8f8',
+          borderWidth: 3,
+          borderColor: '#1A237E',
+          margin: 10,
+          
         }]}>
-            <Text style={[styles.dividendItemText,{
-              color: isEvenItem ? '#1a237e' : '#f8f8f8'
-            }]}>
-              {dividend?.ticker}: {toBRL(dividend?.amount)}
-            </Text>
+            <Text style={[styles.dividendItemText,{color:'#1a237e'}]}>{dividend?.ticker}</Text>
+            <Text style={[styles.dividendItemText,{color:'#1a237e', left: 180}]}>Cotas: </Text>
+            <Text style={[styles.valueItemText,{color: '#1A237E',}]} >Rendimentos:</Text>
+            <Text style={[styles.valueItemText,{color:'green'}]}>{toBRL(dividend?.amount)}</Text>
+            <Text style={[styles.valueItemText,{color: '#1A237E',}]} >Daqui a x Dias:</Text>
+            <Text style={[styles.details,{color: '#1A237E',}]} >Detalhes</Text>
           </View>
         })
       ):(
@@ -71,7 +69,7 @@ export default function HomeScreen() {
       </View>
     </View>
     <CustomModal  visible={isFilterModalVisible} onClose={ toggleFilterModal}>
-      <Text>fiLTRADO</Text>
+      <Text>Filtrado</Text>
     </CustomModal>
   </ScrollView>
   );
@@ -89,23 +87,45 @@ const styles = StyleSheet.create({
   header:{
 
   },
-  dividendItem:{
-    flexDirection:'row',
-    justifyContent:'space-around',
-    alignItems:'center',
-    backgroundColor:'#1a237e',
-    width:'100%',
-    height:'25%'
-  },
+  dividendItem: {
+  width: '100%',
+  height: 180,
+  borderRadius: 30,
+  position: 'relative',
+  backgroundColor: '#1a237e',
+  paddingTop: 25,
+  paddingBottom: 20,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+
   dividendItemText:{
     fontSize:16,
-    fontWeight:'bold'
+    fontWeight:'500',
+    position: 'absolute',
+    top: -9,
+    left: 7,
+    padding: 9,
+
+  },
+  valueItemText:{
+    fontSize:20,
+    fontWeight:'500',
+    position: 'static',
+  },
+  details:{
+    fontSize:20,
+    fontWeight:'500',
+    position: 'relative',
+    top: 30,
   },
 
   headerText:{
     fontSize: 48,
     fontWeight: 'bold',
     color: '#1A237E',
+    borderBottomWidth:1,
+    marginTop: 20
   },
   graph:{
     width:'80%',
@@ -116,18 +136,20 @@ const styles = StyleSheet.create({
   sectionContainer:{
     flexDirection:'column',
     alignItems:'center',
-    width:'100%',
+    width:'70%',
   },
   valueText:{
     color:'green',
-    fontWeight:'bold',
-    fontSize:32
+    fontWeight:'200',
+    fontSize:32,
+    margin: 20,
+
   },
   sectionTitle:{
-    fontSize: 32,
+    fontSize: 20,
     color: '#1A237E',
-    borderBottomWidth:3,
     borderBottomColor: '#1A237E',
+    margin: 20,
   },
   stepContainer: {
     gap: 8,
