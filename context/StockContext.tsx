@@ -58,8 +58,11 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
     };
 
     const addStockShare = (ticker:string, quantity:number,dividends:Dividend[])=>{
-        console.log(dividends.map(dividend => dividend.ticker))
-        const payments = dividends.filter((dividend) => dividend.ticker == ticker)
+        console.log(dividends)
+        const payments = dividends.filter(
+            (dividend) => dividend.ticker.trim().toUpperCase() === ticker.trim().toUpperCase()
+        );
+
         console.log(payments)
         stockShares[ticker]= {
                 quantity:quantity,
