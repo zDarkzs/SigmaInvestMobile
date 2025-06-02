@@ -12,23 +12,26 @@ import {Dividend} from "@/types/dividendTypes";
 import {toBRL} from "@/scripts/utils";
 import {useState} from "react";
 import CustomModal from "@/components/CustomModal";
+import {useStocks} from "@/context/StockContext";
 
 export default function HomeScreen() {
   const total = 0.0
   const [isFilterModalVisible,setFilterModalVisible] = useState(false);
   const mockStockShares = generateMockStockShares();
-
+  const {stockShares,getStocksDividendData} = useStocks();
   const [selectedYear, setSelectedYear] = useState<string>('Todos');
   const [selectedMonth, setSelectedMonth] = useState<string>('Todos');
   const [filteredDividends, setFilteredDividends] = useState<Dividend[]>([]);
 
+
+  console.log(mockStockShares)
+  console.log(stockShares)
+  const dividendData = getStocksDividendData(stockShares? stockShares:mockStockShares);
+  console.log(dividendData, stockShares)
+
+
   const toggleFilterModal=()=>{setFilterModalVisible(!isFilterModalVisible)}
-  const dividendData = Object.values(mockStockShares).flatMap(stock =>
-    stock.payments.map(payment => ({
-      ...payment,
-      totalAmount: payment.amount * stock.quantity
-    }))
-  );
+
 
 
   return (<ScrollView scrollEnabled={!isFilterModalVisible}>

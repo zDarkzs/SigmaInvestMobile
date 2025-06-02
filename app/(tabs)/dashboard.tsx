@@ -31,7 +31,6 @@ export default function Dashboard() {
     }
     if (isTickerValid() && isQuantityValid()) {
       setTickers([...tickers, newTicker.toUpperCase()]);
-      setNewTicker('');
     }
 
   };
@@ -46,8 +45,8 @@ export default function Dashboard() {
 
   useEffect(()=>{
     addStockShare(newTicker,parseInt(quantity),dividends);
-    console.log(dividends)
-    console.log(stockShares)
+    setNewTicker('');
+    setQuantity('0');
   },[dividends])
 
 

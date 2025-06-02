@@ -1,26 +1,29 @@
 import React, {createContext, useContext, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {string} from "prop-types";
-import {ApiConfig, Dividend} from "@/types/dividendTypes";
+import {ApiConfig, Dividend, Stock} from "@/types/dividendTypes";
 import {StockShares} from "@/types/dividendTypes";
-import {useDividends} from "@/hooks/useDividends";
+
 
 interface StockContextType {
     stockShares:StockShares |null;
+    debugMode: boolean;
     updateStockShares: (tickers:string[],quantity:number[],dividends:Dividend[]) => void;
     addStockShare: (tickers:string,quantity:number,dividends:Dividend[]) => void;
     apiConfig:ApiConfig|null;
     showStocks:()=>void;
     saveStocks:()=>Promise<void>;
     loadStocks:()=>Promise<void>;
-
+    getStocksDividendData: (stockSharesData:StockShares) => any[];
 }
 const StockContext = createContext<StockContextType|undefined>(undefined);
 
 export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) =>{
 
     const [stockShares, setStockShares] = useState<StockShares>({});
+    const [debugMode, setDebugMode] = useState(false);
     const [apiConfig, setApiConfig] = useState<ApiConfig|null>(null);
+
+
 
     const showStocks = ()=> console.log(stockShares);
     const saveStocks: ()=>Promise<void> = async ()=>{
@@ -55,22 +58,36 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
     };
 
     const addStockShare = (ticker:string, quantity:number,dividends:Dividend[])=>{
+        console.log(dividends.map(dividend => dividend.ticker))
+        const payments = dividends.filter((dividend) => dividend.ticker == ticker)
+        console.log(payments)
         stockShares[ticker]= {
                 quantity:quantity,
-                payments:dividends.filter((dividend) => dividend.ticker == ticker)
+                payments:payments
 
         }
         console.log(stockShares);
     }
+    const getStocksDividendData = (stockSharesData:StockShares) => {
+        return  Object.values(stockSharesData).flatMap(stock =>
+            stock.payments.map(payment => ({
+            ...payment,
+            totalAmount: payment.amount * stock.quantity
+            }))
+        );
+
+    }
      return (
         <StockContext.Provider value={{
             stockShares,
+            debugMode,
             apiConfig,
             showStocks,
             updateStockShares,
             addStockShare,
             saveStocks,
-            loadStocks}}>
+            loadStocks,
+            getStocksDividendData}}>
             {children}
         </StockContext.Provider>
     )
