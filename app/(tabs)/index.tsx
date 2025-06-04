@@ -39,7 +39,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
 
      <View>
-         <Text style={styles.headerText}>SIGMA INVEST</Text>
+         <Text style={styles.headerText}>SIGMA INVEST - Master</Text>
      </View>
      
       <View style={styles.sectionContainer}>
