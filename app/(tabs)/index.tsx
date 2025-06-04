@@ -71,10 +71,54 @@ export default function HomeScreen() {
       )}
       </View>
     </View>
-    <CustomModal  visible={isFilterModalVisible} onClose={ toggleFilterModal}>
-      <Text>Filtrado</Text>
+   {/* Modal de Filtro */}
+      <CustomModal visible={isFilterModalVisible} onClose={toggleFilterModal}>
+        <View style={modalStyles.container}>
+          <Text style={modalStyles.title}>Filtrar Dividendos</Text>
 
-    </CustomModal>
+          <View style={modalStyles.filterGroup}>
+            <Text style={modalStyles.label}>Ano:</Text>
+            <View style={modalStyles.pickerContainer}>
+              <Picker
+                selectedValue={selectedYear}
+                onValueChange={setSelectedYear}
+                style={modalStyles.picker}>
+                {availableYears.map(year => (
+                  <Picker.Item key={year} label={year} value={year} />
+                ))}
+              </Picker>
+            </View>
+          </View>
+
+          <View style={modalStyles.filterGroup}>
+            <Text style={modalStyles.label}>Mês:</Text>
+            <View style={modalStyles.pickerContainer}>
+              <Picker
+                selectedValue={selectedMonth}
+                onValueChange={setSelectedMonth}
+                style={modalStyles.picker}>
+                {availableMonths.map(month => (
+                  <Picker.Item key={month} label={month} value={month} />
+                ))}
+              </Picker>
+            </View>
+          </View>
+
+          <View style={modalStyles.buttonGroup}>
+            <Button
+              title="Aplicar Filtros"
+              onPress={applyFilters}
+              color="#1A237E"
+            />
+            <View style={{ margin: 5 }} />
+            <Button
+              title="Limpar Filtros"
+              onPress={resetFilters}
+              color="#666"
+            />
+          </View>
+        </View>
+      </CustomModal>
   </ScrollView>
   );
 }
