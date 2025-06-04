@@ -72,12 +72,15 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
         console.log(stockShares);
     }
     const getStocksDividendData = (stockSharesData:StockShares) => {
-        return  Object.values(stockSharesData).flatMap(stock =>
+        console.log(stockSharesData)
+        const dividends = Object.values(stockSharesData).flatMap(stock =>
             stock.payments.map(payment => ({
             ...payment,
             totalAmount: payment.amount * stock.quantity
-            }))
-        );
+            })
+            ));
+        console.log(dividends);
+        return dividends
 
     }
      return (

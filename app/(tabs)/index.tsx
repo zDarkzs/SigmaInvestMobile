@@ -73,6 +73,7 @@ export default function HomeScreen() {
     </View>
     <CustomModal  visible={isFilterModalVisible} onClose={ toggleFilterModal}>
       <Text>Filtrado</Text>
+
     </CustomModal>
   </ScrollView>
   );
