@@ -36,7 +36,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
 
      <View>
-         <Text style={styles.headerText}>SIGMA INVEST</Text>
+         <Text style={styles.headerText}>SIGMA INVEST - PI4</Text>
      </View>
      
       <View style={styles.sectionContainer}>
@@ -64,7 +64,7 @@ export default function HomeScreen() {
           </View>
         })
       ):(
-        <Text>;-;</Text>
+        <Text>PI4</Text>
       )}
       </View>
     </View>
