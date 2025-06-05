@@ -71,7 +71,6 @@ export default function Dashboard() {
         />
         <View style={styles.buttomContainer}>
           <Button title="Adicionar" onPress={addTicker} />
-          <Button title="Salvar Carteira" onPress={addTicker} />
         </View>
       </View>
 
@@ -96,6 +95,7 @@ export default function Dashboard() {
         contentContainerStyle={styles.list}
       />
     </View>
+    
   );
 };
 

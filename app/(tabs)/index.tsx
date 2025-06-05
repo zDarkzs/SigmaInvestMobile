@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   valueText:{
     color:'green',
-    fontWeight:'200',
+    fontWeight:'400',
     fontSize:32,
     margin: 20,
 
