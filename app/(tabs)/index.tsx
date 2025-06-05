@@ -19,8 +19,8 @@ import { Picker } from '@react-native-picker/picker';
 // ... (outros imports permanecem iguais)
 
 export default function HomeScreen() {
-  const total = 0.0;
-  const [isFilterModalVisible, setFilterModalVisible] = useState(false);
+  const total = 0.0
+  const [isFilterModalVisible,setFilterModalVisible] = useState(false);
   const mockStockShares = generateMockStockShares();
   const { stockShares, getStocksDividendData } = useStocks();
   const [selectedYear, setSelectedYear] = useState<string>('Todos');
