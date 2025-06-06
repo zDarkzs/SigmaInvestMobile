@@ -26,6 +26,7 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
 
 
     const showStocks = ()=> console.log(stockShares);
+
     const saveStocks: ()=>Promise<void> = async ()=>{
         try {
             await AsyncStorage.setItem("stocks", JSON.stringify(stockShares));
@@ -37,7 +38,7 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
     const loadStocks: ()=>Promise<void> = async ()=>{
             try {
                 const StoredData = await AsyncStorage.getItem('stocks');
-                setStockShares(StoredData != null ? JSON.parse(StoredData) : []);
+                setStockShares(StoredData != null ? JSON.parse(StoredData) : {});
             }catch (e) {
                 console.error(e)
             }
@@ -70,14 +71,18 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
 
         }
         console.log(stockShares);
+        saveStocks();
     }
     const getStocksDividendData = (stockSharesData:StockShares) => {
-        return  Object.values(stockSharesData).flatMap(stock =>
+        console.log(stockSharesData)
+        const dividends = Object.values(stockSharesData).flatMap(stock =>
             stock.payments.map(payment => ({
             ...payment,
             totalAmount: payment.amount * stock.quantity
-            }))
-        );
+            })
+            ));
+        console.log(dividends);
+        return dividends
 
     }
      return (

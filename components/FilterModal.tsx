@@ -9,11 +9,11 @@ export default function FilterModal({ visible, onClose, children, title }: {
 }) {
     return (
     <Modal animationType="slide" transparent={true} visible={visible} onRequestClose={onClose}>
-      <ScrollView >
+      <ScrollView contentContainerStyle={styles.modalContent} >
         <Button title="Fechar" color="red" onPress={onClose} />
         {title && (
-          <View >
-            <ThemedText>{title}</ThemedText>
+          <View style={styles.modalTitleHolder}>
+            <ThemedText style={styles.modalTitleText}>{title}</ThemedText>
           </View>
         )}
         {children}

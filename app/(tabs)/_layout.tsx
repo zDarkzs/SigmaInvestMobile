@@ -42,37 +42,42 @@
           <Tabs.Screen
             name="index"
             options={{
-              title: 'Home',
+              title: 'Proventos',
               tabBarIcon: ({ color, focused }) => (
-                <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+                <TabBarIcon name={focused ? 'download' : 'download-outline'} color={color} />
               ),
             }}
           />
           <Tabs.Screen
             name="portfolios"
             options={{
-              title: 'Portfolios',
+              title: 'Ativos',
               tabBarIcon: ({ color, focused }) => (
-                <TabBarIcon name={focused ? 'briefcase' : 'briefcase-outline'} color={color} />
+                <TabBarIcon name={focused ? 'business' : 'business-outline'} color={color} />
               ),
             }}
           />
+
+          <Tabs.Screen
+            name="dashboard"
+            options={{
+              // title: `${'Dashboard'}`,
+              title: 'Historico',
+              tabBarIcon: ({ color, focused }) => (
+                  <TabBarIcon name={focused ? 'stats-chart' : 'stats-chart-outline'} color={color} />
+              ),
+            }}/>
+
           <Tabs.Screen
             name="profile"
             options={{
-              title: `${userData?('Profile'):('Login/SignUp')}`,
+              // title: `${userData?('Profile'):('Login/SignUp')}`,
+              title: 'Configuração' ,
               tabBarIcon: ({ color, focused }) => (
-                  <TabBarIcon name={focused? 'happy' : 'happy-outline'} color={color} />
+                  <TabBarIcon name={focused ? 'settings' : 'settings-outline'} color={color} />
               ),
             }}/>
-           <Tabs.Screen
-            name="dashboard"
-            options={{
-              title: `${'Dashboard'}`,
-              tabBarIcon: ({ color, focused }) => (
-                  <TabBarIcon name={focused? 'happy' : 'happy-outline'} color={color} />
-              ),
-            }}/>
+
 
         </Tabs>
       );

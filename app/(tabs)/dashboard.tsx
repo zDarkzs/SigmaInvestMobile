@@ -70,7 +70,6 @@ export default function Dashboard() {
         />
         <View style={styles.buttomContainer}>
           <Button title="Adicionar" onPress={addTicker} />
-          <Button title="Salvar Carteira" onPress={addTicker} />
         </View>
       </View>
 
@@ -90,7 +89,7 @@ export default function Dashboard() {
       <DividendLineChart dividends={dividends}/>
       <FlatList
         data={dividends}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id + item.amount}
         renderItem={({ item }) => <DividendCard dividend={item} />}
         contentContainerStyle={styles.list}
       />
