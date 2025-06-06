@@ -94,7 +94,7 @@ const getFilteredDividends = () => {
     setFilteredDividends(dividends);
     toggleFilterModal();
     console.log("dividends")
-    console.log(dividends)
+    console.log(stockShares)
   };
 
   // Reseta os filtros
@@ -136,16 +136,16 @@ const getFilteredDividends = () => {
                 margin: 10,
               }]}>
                 <Text style={[styles.dividendItemText, {color: '#1a237e'}]}>
-                  {dividend?.ticker}
+                  {dividend.ticker}
                 </Text>
                 <Text style={[styles.dividendItemText, {color: '#1a237e', left: 180}]}>
-                  Cotas: {stockShares?.[dividend.ticker]?.quantity || mockStockShares[dividend.ticker]?.quantity}
+                  Cotas: {stockShares?.[dividend.ticker]?.quantity}
                 </Text>
                 <Text style={[styles.valueItemText, {color: '#1A237E'}]}>
                   Rendimentos:
                 </Text>
                 <Text style={[styles.valueItemText, {color: 'green'}]}>
-                  {toBRL(dividend.amount * (stockShares?.[dividend.ticker]?.quantity || mockStockShares[dividend.ticker]?.quantity || 0))}
+                  {toBRL(dividend.amount * (stockShares?.[dividend.ticker]?.quantity|| 0))}
                 </Text>
                 <Text style={[styles.valueItemText, {color: '#1A237E'}]}>
                   Data: {new Date(dividend.paymentDate).toLocaleDateString('pt-BR')}
