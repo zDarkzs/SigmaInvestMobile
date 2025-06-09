@@ -10,7 +10,7 @@ import { db } from '@/services/firebaseConfig';
 import { Alert } from 'react-native';
 
 export default function SettingsScreen() {
-  const { token, isAuthenticated, login, register, userData, logout } = useAuth();
+  const { isAuthenticated, login, register, userData, logout } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -18,7 +18,7 @@ export default function SettingsScreen() {
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<boolean>(true);
   const [bio, setBio] = useState<string>(userData?.profile?.bio || '');
-
+  const [hasAccount, setHasAccount] = useState<boolean>(true);
   const handleLogin = async () => {
     setIsLoading(true);
     try {
@@ -31,6 +31,9 @@ export default function SettingsScreen() {
   const handleRegister = async () => {
     setIsLoading(true);
     try {
+      console.log(username)
+      console.log(email)
+      console.log(password)
       await register(username, email, password);
       // Salva dados adicionais no Firebase após registro
       if (userData?.uid) {
@@ -154,7 +157,16 @@ export default function SettingsScreen() {
                 <ThemedText type="title" style={styles.authTitle}>
                   Acesse sua conta
                 </ThemedText>
-
+                {!hasAccount&&(
+                    <TextInput
+                  style={styles.input}
+                  placeholder="Nome de usuário"
+                  value={username}
+                  onChangeText={setUsername}
+                  keyboardType="default"
+                  autoCapitalize="none"
+                />
+                )}
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
@@ -171,18 +183,36 @@ export default function SettingsScreen() {
                   onChangeText={setPassword}
                   secureTextEntry
                 />
-
                 <View style={styles.authButtons}>
-                  <Button 
-                    title="Entrar" 
+                {hasAccount ? (
+                  <>
+                  <Button
+                    title="Entrar"
                     onPress={handleLogin}
-
                   />
-                  <Button 
-                    title="Registrar" 
+
+                  <Button
+                    title='Criar conta...'
+                    onPress={()=> {setHasAccount(!hasAccount)}}
+                  />
+                  </>
+
+                ):(
+                    <>
+                  <Button
+                    title="Registrar"
                     onPress={handleRegister}
                   />
+
+                  <Button
+                    title='Entrar em conta existente...'
+                    onPress={()=> {setHasAccount(!hasAccount)}}
+                  />
+                  </>
+                )
+                }
                 </View>
+
               </ThemedView>
             </>
           )}
