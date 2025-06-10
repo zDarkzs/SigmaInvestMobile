@@ -1,54 +1,49 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, FlatList, TextInput, Button, Dimensions} from 'react-native';
-import {LineChart} from "react-native-chart-kit";
-import { useDividends } from '../../hooks/useDividends';
-import { API_CONFIGS } from '../../services/apiClients';
-import DividendCard from '../../components/DividendCard';
-import DividendLineChart from "@/components/DividendLineChart";
-import {useStocks} from "@/context/StockContext";
-import {bool} from "prop-types";
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TextInput,
+  Button,
+} from 'react-native';
+import { useDividends } from '@/hooks/useDividends';
+import { API_CONFIGS } from '@/services/apiClients';
+import DividendCard from '@/components/DividendCard';
+import DividendLineChart from '@/components/DividendLineChart';
+import { useStocks } from '@/context/StockContext';
 
 export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
   const [selectedApis, setSelectedApis] = useState<string[]>([]);
   const [newTicker, setNewTicker] = useState('');
   const [quantity, setQuantity] = useState('0');
+
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
-  const{stockShares,updateStockShares,addStockShare} = useStocks();
+  const { addStockShare } = useStocks();
 
+  const isTickerValid = () =>
+    newTicker.trim() !== '' && !tickers.includes(newTicker.toUpperCase());
 
-  const addTicker = () => {
-    const isTickerValid = ():boolean =>{
-      return !!(newTicker.trim() && !tickers.includes(newTicker.toUpperCase()));
-    }
-    const isQuantityValid = ():boolean =>{
-      try {
-        parseInt(quantity);
-      }catch(e){
-        return false;
-      }
-      return true;
-    }
+  const isQuantityValid = () => !isNaN(parseInt(quantity));
+
+  const handleAddTicker = () => {
     if (isTickerValid() && isQuantityValid()) {
-      setTickers([...tickers, newTicker.toUpperCase()]);
+      const upperTicker = newTicker.toUpperCase();
+      setTickers([...tickers, upperTicker]);
+      addStockShare(upperTicker, parseInt(quantity), dividends);
+      setNewTicker('');
+      setQuantity('0');
     }
-
   };
 
-  const toggleApi = (apiName: string) => {
-    setSelectedApis(prev =>
+  const handleToggleApi = (apiName: string) => {
+    setSelectedApis((prev) =>
       prev.includes(apiName)
-        ? prev.filter(api => api !== apiName)
+        ? prev.filter((api) => api !== apiName)
         : [...prev, apiName]
     );
   };
-
-  useEffect(()=>{
-    addStockShare(newTicker,parseInt(quantity),dividends);
-    setNewTicker('');
-    setQuantity('0');
-  },[dividends])
-
 
   return (
     <View style={styles.container}>
@@ -62,23 +57,23 @@ export default function Dashboard() {
           onChangeText={setNewTicker}
         />
         <TextInput
-          keyboardType='numeric'
           style={styles.input}
-          placeholder={'Quantidade de cotas'}
+          placeholder="Quantidade de cotas"
           value={quantity}
           onChangeText={setQuantity}
+          keyboardType="numeric"
         />
-        <View style={styles.buttomContainer}>
-          <Button title="Adicionar" onPress={addTicker} />
+        <View style={styles.buttonContainer}>
+          <Button title="Adicionar" onPress={handleAddTicker} />
         </View>
       </View>
 
       <View style={styles.apiSelector}>
-        {Object.keys(API_CONFIGS).map(apiName => (
+        {Object.keys(API_CONFIGS).map((apiName) => (
           <Button
             key={apiName}
             title={API_CONFIGS[apiName as keyof typeof API_CONFIGS].name}
-            onPress={() => toggleApi(apiName)}
+            onPress={() => handleToggleApi(apiName)}
             color={selectedApis.includes(apiName) ? 'green' : 'gray'}
           />
         ))}
@@ -86,7 +81,9 @@ export default function Dashboard() {
 
       {loading && <Text>Carregando...</Text>}
       {error && <Text style={styles.error}>{error}</Text>}
-      <DividendLineChart dividends={dividends}/>
+
+      <DividendLineChart dividends={dividends} />
+
       <FlatList
         data={dividends}
         keyExtractor={(item) => item.id + item.amount}
@@ -95,7 +92,7 @@ export default function Dashboard() {
       />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -110,22 +107,24 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'column',
     marginBottom: 16,
-    justifyContent:'space-between',
     alignItems: 'center',
   },
-  buttomContainer:{
-    flexDirection:'row'
+  buttonContainer: {
+    marginTop: 8,
   },
   input: {
-    flex: 1,
+    width: '100%',
     borderWidth: 1,
     borderColor: '#ccc',
-    padding: 8,
-    marginRight: 8,
+    padding: 12,
+    marginBottom: 8,
+    borderRadius: 8,
+    backgroundColor: 'white',
   },
   apiSelector: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    flexWrap: 'wrap',
     marginBottom: 16,
   },
   list: {
