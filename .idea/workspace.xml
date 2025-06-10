@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Added firebase">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Authentication implemented">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,12 +35,12 @@
     &quot;assignee&quot;: &quot;lukksRhyan&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/zDarkzs/SigmaInvestMobile.git",
-    "accountId": "0cff4a20-2eb9-4eaf-9dfb-c61fc46215e4"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/zDarkzs/SigmaInvestMobile.git&quot;,
+    &quot;accountId&quot;: &quot;0cff4a20-2eb9-4eaf-9dfb-c61fc46215e4&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -82,7 +83,10 @@
       <workItem from="1749144571894" duration="1777000" />
       <workItem from="1749146628014" duration="273000" />
       <workItem from="1749170155451" duration="2333000" />
-      <workItem from="1749234518068" duration="2078000" />
+      <workItem from="1749234518068" duration="2867000" />
+      <workItem from="1749482833256" duration="1665000" />
+      <workItem from="1749499041924" duration="2026000" />
+      <workItem from="1749562592055" duration="5464000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -100,7 +104,23 @@
       <option name="project" value="LOCAL" />
       <updated>1749223850357</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added firebase">
+      <option name="closed" value="true" />
+      <created>1749240991005</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1749240991005</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Authentication implemented">
+      <option name="closed" value="true" />
+      <created>1749501067116</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1749501067116</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +141,7 @@
     <MESSAGE value="forced to commit" />
     <MESSAGE value="Merged with pi4 branch" />
     <MESSAGE value="Added firebase" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added firebase" />
+    <MESSAGE value="Authentication implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="Authentication implemented" />
   </component>
 </project>

@@ -61,7 +61,6 @@
           <Tabs.Screen
             name="dashboard"
             options={{
-              // title: `${'Dashboard'}`,
               title: 'Historico',
               tabBarIcon: ({ color, focused }) => (
                   <TabBarIcon name={focused ? 'stats-chart' : 'stats-chart-outline'} color={color} />
@@ -69,9 +68,8 @@
             }}/>
 
           <Tabs.Screen
-            name="profile"
+            name="configs"
             options={{
-              // title: `${userData?('Profile'):('Login/SignUp')}`,
               title: 'Configuração' ,
               tabBarIcon: ({ color, focused }) => (
                   <TabBarIcon name={focused ? 'settings' : 'settings-outline'} color={color} />

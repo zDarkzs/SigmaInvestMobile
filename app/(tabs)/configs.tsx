@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Image, TextInput, View, TouchableOpacity, Switch, Button } from 'react-native';
+import {StyleSheet, Image, TextInput, View, TouchableOpacity, Switch, Button, ScrollView} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -17,12 +17,11 @@ export default function SettingsScreen() {
   const [email, setEmail] = useState<string>('');
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<boolean>(true);
-  const [bio, setBio] = useState<string>(userData?.profile?.bio || '');
   const [hasAccount, setHasAccount] = useState<boolean>(true);
   const handleLogin = async () => {
     setIsLoading(true);
     try {
-      await login(username, password);
+      await login(email, password);
     } finally {
       setIsLoading(false);
     }
@@ -35,7 +34,6 @@ export default function SettingsScreen() {
       console.log(email)
       console.log(password)
       await register(username, email, password);
-      // Salva dados adicionais no Firebase após registro
       if (userData?.uid) {
         await setDoc(doc(db, "users", userData.uid), {
           username,
@@ -57,168 +55,130 @@ export default function SettingsScreen() {
     }
   };
 
-  const updateProfile = async () => {
-    if (!userData?.uid) return;
-    
-    setIsLoading(true);
-    try {
-      await updateDoc(doc(db, "users", userData.uid), {
-        "profile.bio": bio,
-        preferences: {
-          darkMode,
-          notifications
-        }
-      });
-      Alert.alert("Sucesso", "Configurações salvas!");
-    } catch (error) {
-      Alert.alert("Erro", "Falha ao salvar: " + error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#1A237E', dark: '#121858' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/sigmainvest outline.png')}
-          style={styles.headerImage}
-        />
-      }>
-      
-      {isLoading ? (
-        <ThemedView style={styles.loadingContainer}>
-          <ThemedText>Carregando...</ThemedText>
-        </ThemedView>
-      ) : (
-        <ThemedView style={styles.container}>
-          {isAuthenticated ? (
-            <>
-              <ThemedView style={styles.profileHeader}>
-                <Ionicons name="person-circle" size={80} color="#1A237E" />
-                <ThemedText type="title" style={styles.username}>
-                  {userData?.username}
-                </ThemedText>
-                <ThemedText style={styles.email}>{userData?.email}</ThemedText>
-              </ThemedView>
-
-              <ThemedView style={styles.section}>
-                <ThemedText type="subtitle">Preferências</ThemedText>
-                
-                <View style={styles.preferenceItem}>
-                  <ThemedText>Modo Escuro</ThemedText>
-                  <Switch
-                    value={darkMode}
-                    onValueChange={setDarkMode}
-                    thumbColor="#1A237E"
-                    trackColor={{ false: '#767577', true: '#81b0ff' }}
-                  />
-                </View>
-
-                <View style={styles.preferenceItem}>
-                  <ThemedText>Notificações</ThemedText>
-                  <Switch
-                    value={notifications}
-                    onValueChange={setNotifications}
-                    thumbColor="#1A237E"
-                    trackColor={{ false: '#767577', true: '#81b0ff' }}
-                  />
-                </View>
-              </ThemedView>
-
-              <ThemedView style={styles.section}>
-                <ThemedText type="subtitle">Perfil</ThemedText>
-                <TextInput
-                  style={styles.bioInput}
-                  placeholder="Escreva algo sobre você"
-                  value={bio}
-                  onChangeText={setBio}
-                  multiline
-                />
-              </ThemedView>
-
-              <View style={styles.buttonsContainer}>
-                <Button 
-                  title="Salvar Configurações" 
-                  onPress={updateProfile}
-
-                />
-                <Button 
-                  title="Sair" 
-                  onPress={logout}
-
-                />
-              </View>
-            </>
-          ) : (
-            <>
-              <ThemedView style={styles.authSection}>
-                <ThemedText type="title" style={styles.authTitle}>
-                  Acesse sua conta
-                </ThemedText>
-                {!hasAccount&&(
-                    <TextInput
-                  style={styles.input}
-                  placeholder="Nome de usuário"
-                  value={username}
-                  onChangeText={setUsername}
-                  keyboardType="default"
-                  autoCapitalize="none"
-                />
-                )}
-                <TextInput
-                  style={styles.input}
-                  placeholder="Email"
-                  value={email}
-                  onChangeText={setEmail}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                />
-
-                <TextInput
-                  style={styles.input}
-                  placeholder="Senha"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry
-                />
-                <View style={styles.authButtons}>
-                {hasAccount ? (
+      <ScrollView
+          style={styles.container}
+      >
+        {isLoading ? (
+            <ThemedView style={styles.loadingContainer}>
+              <ThemedText>Carregando...</ThemedText>
+            </ThemedView>
+        ) : (
+            <ThemedView style={styles.container}>
+              {isAuthenticated ? (
                   <>
-                  <Button
-                    title="Entrar"
-                    onPress={handleLogin}
-                  />
+                    <ThemedView style={styles.profileHeader}>
+                      <Ionicons name="person-circle" size={80} color="#1A237E"/>
+                      <ThemedText type="title" style={styles.username}>
+                        {userData?.username}
+                      </ThemedText>
+                      <ThemedText style={styles.email}>{userData?.email}</ThemedText>
+                    </ThemedView>
 
-                  <Button
-                    title='Criar conta...'
-                    onPress={()=> {setHasAccount(!hasAccount)}}
-                  />
+                    <ThemedView style={styles.section}>
+                      <ThemedText type="subtitle">Preferências</ThemedText>
+
+                      <View style={styles.preferenceItem}>
+                        <ThemedText>Modo Escuro</ThemedText>
+                        <Switch
+                            value={darkMode}
+                            onValueChange={setDarkMode}
+                            thumbColor="#1A237E"
+                            trackColor={{false: '#767577', true: '#81b0ff'}}
+                        />
+                      </View>
+
+                      <View style={styles.preferenceItem}>
+                        <ThemedText>Notificações</ThemedText>
+                        <Switch
+                            value={notifications}
+                            onValueChange={setNotifications}
+                            thumbColor="#1A237E"
+                            trackColor={{false: '#767577', true: '#81b0ff'}}
+                        />
+                      </View>
+                    </ThemedView>
+
+
+                    <Button
+                        title="Sair"
+                        onPress={logout}
+
+                    />
                   </>
+              ) : (
+                  <>
+                    <ThemedView style={styles.authSection}>
+                      <ThemedText type="title" style={styles.authTitle}>
+                        Acesse sua conta
+                      </ThemedText>
+                      {!hasAccount && (
+                          <TextInput
+                              style={styles.input}
+                              placeholder="Nome de usuário"
+                              value={username}
+                              onChangeText={setUsername}
+                              keyboardType="default"
+                              autoCapitalize="none"
+                          />
+                      )}
+                      <TextInput
+                          style={styles.input}
+                          placeholder="Email"
+                          value={email}
+                          onChangeText={setEmail}
+                          keyboardType="email-address"
+                          autoCapitalize="none"
+                      />
 
-                ):(
-                    <>
-                  <Button
-                    title="Registrar"
-                    onPress={handleRegister}
-                  />
+                      <TextInput
+                          style={styles.input}
+                          placeholder="Senha"
+                          value={password}
+                          onChangeText={setPassword}
+                          secureTextEntry
+                      />
+                      <View style={styles.authButtons}>
+                        {hasAccount ? (
+                            <>
+                              <Button
+                                  title="Entrar"
+                                  onPress={handleLogin}
+                              />
 
-                  <Button
-                    title='Entrar em conta existente...'
-                    onPress={()=> {setHasAccount(!hasAccount)}}
-                  />
+                              <Button
+                                  title='Criar conta...'
+                                  onPress={() => {
+                                    setHasAccount(!hasAccount)
+                                  }}
+                              />
+                            </>
+
+                        ) : (
+                            <>
+                              <Button
+                                  title="Registrar"
+                                  onPress={handleRegister}
+                              />
+
+                              <Button
+                                  title='Entrar em conta existente...'
+                                  onPress={() => {
+                                    setHasAccount(!hasAccount)
+                                  }}
+                              />
+                            </>
+                        )
+                        }
+                      </View>
+
+                    </ThemedView>
                   </>
-                )
-                }
-                </View>
-
-              </ThemedView>
-            </>
-          )}
-        </ThemedView>
-      )}
-    </ParallaxScrollView>
+              )}
+            </ThemedView>
+        )}
+      </ScrollView>
   );
 }
 
@@ -251,7 +211,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   email: {
-    color: '#666',
+    color: '#000000',
     fontSize: 16,
   },
   section: {
