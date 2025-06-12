@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { useAuth } from "@/context/AuthContext";
+import {AuthProvider, useAuth} from "@/context/AuthContext";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -13,6 +13,7 @@ export default function TabLayout() {
 
   if (logged) {
     return (
+
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors.primary,
@@ -42,6 +43,7 @@ export default function TabLayout() {
     );
   }
 
+
   return (
     <Tabs
       screenOptions={{
@@ -56,9 +58,9 @@ export default function TabLayout() {
         options={{
           title: 'Proventos',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon 
-              name={focused ? 'download' : 'download-outline'} 
-              color={color} 
+            <TabBarIcon
+              name={focused ? 'download' : 'download-outline'}
+              color={color}
               style={styles.tabBarIcon}
             />
           ),
@@ -69,9 +71,9 @@ export default function TabLayout() {
         options={{
           title: 'Ativos',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon 
-              name={focused ? 'business' : 'business-outline'} 
-              color={color} 
+            <TabBarIcon
+              name={focused ? 'business' : 'business-outline'}
+              color={color}
               style={styles.tabBarIcon}
             />
           ),
@@ -82,9 +84,9 @@ export default function TabLayout() {
         options={{
           title: 'Histórico',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon 
-              name={focused ? 'stats-chart' : 'stats-chart-outline'} 
-              color={color} 
+            <TabBarIcon
+              name={focused ? 'stats-chart' : 'stats-chart-outline'}
+              color={color}
               style={styles.tabBarIcon}
             />
           ),
@@ -95,9 +97,9 @@ export default function TabLayout() {
         options={{
           title: 'Configuração',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon 
-              name={focused ? 'settings' : 'settings-outline'} 
-              color={color} 
+            <TabBarIcon
+              name={focused ? 'settings' : 'settings-outline'}
+              color={color}
               style={styles.tabBarIcon}
             />
           ),

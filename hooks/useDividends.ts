@@ -20,6 +20,9 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
           const apiConfig = API_CONFIGS[apiName as keyof typeof API_CONFIGS];
           const apiDividends = await DividendService.getDividends(tickers, apiConfig);
           allDividends.push(...apiDividends);
+          console.log(apiName)
+          console.log(allDividends)
+          console.log(dividends)
 
         }
         setDividends(allDividends);
@@ -32,7 +35,7 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
     if (tickers.length > 0 && selectedApis.length > 0) {
       fetchDividends();
     }
-  }, [tickers, selectedApis]);
+  }, [tickers]);
 
   return { dividends, loading, error };
 };

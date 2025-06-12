@@ -1,16 +1,16 @@
 import React, {createContext, useContext, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {string} from "prop-types";
 import {ApiConfig} from "@/types/dividendTypes";
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "@/services/firebaseConfig";
+import {UserData} from "@/types/userTypes";
 
 interface AuthContextType {
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (username: string, email: string, password: string) => Promise<void>;
+  register: (username: string, email: string, password: string) => Promise<UserData>;
   logout: () => Promise<void>;
-  userData: { uid: string; email: string; username: string } | null;
+  userData: UserData | null;
   stocks: string[] | null;
   apiConfig: ApiConfig | null;
 }
@@ -27,10 +27,21 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+
+    // Tenta buscar username do AsyncStorage (se tiver sido salvo no register)
+    const username = await AsyncStorage.getItem("user_username");
+
+    setUserData({
+      uid: user.uid,
+      email: user.email ?? "",
+      username: username ?? "", // fallback caso não tenha username
+    });
+
+    setIsAuthenticated(true);
     console.log("Usuário logado:", user.uid);
-    setIsAuthenticated(true)
   } catch (error) {
     console.error("Erro no login:", error);
+    throw error;
   }
 };
     const logout = async () => {
@@ -40,23 +51,30 @@ export const AuthProvider: React.FC<{children:React.ReactNode}> = ({children}) =
   setUserData(null);
 };
 
-   const register = async (username: string, email: string, password: string) => {
+const register = async (username: string, email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    console.log("Usuário registrado:", user.uid);
 
-    // Agora salva o nome de usuário no AsyncStorage, se quiser
     await AsyncStorage.setItem("user_uid", user.uid);
     await AsyncStorage.setItem("user_email", user.email ?? "");
     await AsyncStorage.setItem("user_username", username);
 
+    const userInfo = {
+      uid: user.uid,
+      email: user.email ?? "",
+      username,
+    };
+
+    setUserData(userInfo);
     setIsAuthenticated(true);
+    console.log("Usuário registrado:", user.uid);
+
+    return userInfo;  // <--- Retorne os dados do usuário
   } catch (error) {
     console.error("Erro no registro:", error);
-    throw error; // para que o `Alert` da tela pegue
-  }
-};
+    throw error;
+  }};
 
 
      return (

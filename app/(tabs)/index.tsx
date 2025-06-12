@@ -15,11 +15,11 @@ export default function HomeScreen() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
   const [selectedYear, setSelectedYear] = useState('Todos');
   const [selectedMonth, setSelectedMonth] = useState('Todos');
-  const [filteredDividends, setFilteredDividends] = useState<Dividend[]>([]);
 
   const { stockShares, getStocksDividendData } = useStocks();
   const mockStockShares = generateMockStockShares();
-  const data = getStocksDividendData(stockShares || mockStockShares);
+  const data = getStocksDividendData(stockShares);
+  const [filteredDividends, setFilteredDividends] = useState<Dividend[]>(data||[]);
 
   const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
 

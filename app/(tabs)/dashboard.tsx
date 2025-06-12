@@ -15,7 +15,7 @@ import { useStocks } from '@/context/StockContext';
 
 export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
-  const [selectedApis, setSelectedApis] = useState<string[]>([]);
+  const [selectedApis, setSelectedApis] = useState<string[]>(['BRAPI']);
   const [newTicker, setNewTicker] = useState('');
   const [quantity, setQuantity] = useState('0');
 

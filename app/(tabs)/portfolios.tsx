@@ -8,7 +8,7 @@ import { CommonStyles } from '@/constants/ConstantStyles';
 
 export default function PortfoliosScreen() {
   const [tickers, setTickers] = useState<string[]>([]);
-  const [selectedApis, setSelectedApis] = useState<string[]>([]);
+  const [selectedApis, setSelectedApis] = useState<string[]>(['BRAPI']);
   const [newTicker, setNewTicker] = useState('');
   const [quantity, setQuantity] = useState('0');
 
@@ -18,26 +18,17 @@ export default function PortfoliosScreen() {
   const addTicker = () => {
     const isTickerValid = () => newTicker.trim() && !tickers.includes(newTicker.toUpperCase());
     const isQuantityValid = () => !isNaN(parseInt(quantity));
-
+    console.log(isTickerValid());
+    console.log(isQuantityValid());
     if (isTickerValid() && isQuantityValid()) {
+      const upperTicker = newTicker.toUpperCase();
       setTickers([...tickers, newTicker.toUpperCase()]);
+      addStockShare(upperTicker, parseInt(quantity), dividends);
       setNewTicker('');
+      setQuantity('0');
     }
   };
 
-  const toggleApi = (apiName: string) => {
-    setSelectedApis(prev =>
-      prev.includes(apiName)
-        ? prev.filter(api => api !== apiName)
-        : [...prev, apiName]
-    );
-  };
-
-  useEffect(() => {
-    addStockShare(newTicker, parseInt(quantity), dividends);
-    console.log(dividends);
-    console.log(stockShares);
-  }, [dividends]);
 
   return (
     <View style={[CommonStyles.container, styles.container]}>
