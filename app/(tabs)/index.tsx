@@ -17,7 +17,6 @@ export default function HomeScreen() {
   const [selectedMonth, setSelectedMonth] = useState('Todos');
 
   const { stockShares, getStocksDividendData } = useStocks();
-  const mockStockShares = generateMockStockShares();
   const data = getStocksDividendData(stockShares);
   const [filteredDividends, setFilteredDividends] = useState<Dividend[]>(data||[]);
 
