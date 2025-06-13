@@ -6,6 +6,12 @@ export const CommonStyles = {
     padding: 20,
     backgroundColor: Colors.background,
   },
+    loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
   headerText: {
     fontSize: 48,
     fontWeight: 'bold' as const,

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Dividend } from '../types/dividendTypes';
 import { DividendService } from '../services/dividendService';
 import { API_CONFIGS } from '../services/apiClients';
-import {useStocks} from "@/context/StockContext";
 
 export const useDividends = (tickers: string[], selectedApis: string[]) => {
   const [dividends, setDividends] = useState<Dividend[]>([]);
@@ -20,26 +19,27 @@ export const useDividends = (tickers: string[], selectedApis: string[]) => {
           const apiConfig = API_CONFIGS[apiName as keyof typeof API_CONFIGS];
           const apiDividends = await DividendService.getDividends(tickers, apiConfig);
           allDividends.push(...apiDividends);
-          console.log(apiName)
-          console.log(allDividends)
-          console.log(dividends)
-
         }
-        setDividends(allDividends);
+
+        setDividends(allDividends); // <- atualiza uma vez só, no final
       } catch (err) {
         setError('Failed to fetch dividends');
       } finally {
         setLoading(false);
       }
     };
+
     if (tickers.length > 0 && selectedApis.length > 0) {
       fetchDividends();
+    } else {
+      setDividends([]);
     }
-  }, [tickers]);
+  }, [tickers, selectedApis]);
+
+  // Observa quando o estado `dividends` realmente muda
+  useEffect(() => {
+    console.log('Dividends atualizados:', dividends);
+  }, [dividends]);
 
   return { dividends, loading, error };
 };
-
-const UsePayments = () =>{
-
-}
