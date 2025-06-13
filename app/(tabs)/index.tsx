@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, ScrollView, Button, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
@@ -26,9 +26,14 @@ export default function HomeScreen() {
     ['Todos', ...Array.from(new Set(dividends.map(d => d.paymentDate.split('-')[0])))]
       .sort((a, b) => b.localeCompare(a));
 
-  const getAvailableMonths = (dividends: Dividend[]) =>
-    ['Todos', ...Array.from(new Set(dividends.map(d => d.paymentDate.split('-')[1])))]
-      .sort((a, b) => parseInt(a) - parseInt(b));
+  const getAvailableMonths = (dividends: Dividend[], year: string) => {
+  const filtered = year === 'Todos'
+    ? dividends
+    : dividends.filter(d => d.paymentDate.startsWith(`${year}-`));
+
+  return ['Todos', ...Array.from(new Set(filtered.map(d => d.paymentDate.split('-')[1])))
+    .sort((a, b) => parseInt(a) - parseInt(b))];
+};
 
   const applyFilters = () => {
     let dividends = data;
@@ -44,7 +49,9 @@ export default function HomeScreen() {
     setFilteredDividends(dividends);
     toggleFilterModal();
   };
-
+  useEffect(() => {
+    setSelectedMonth('Todos')
+  }, [selectedYear]);
   const resetFilters = () => {
     setSelectedYear('Todos');
     setSelectedMonth('Todos');
@@ -113,9 +120,13 @@ export default function HomeScreen() {
             <Text style={styles.label}>Mês:</Text>
             <View style={styles.pickerWrapper}>
               <Picker selectedValue={selectedMonth} onValueChange={setSelectedMonth}>
-                {getAvailableMonths(data).map(month => (
-                  <Picker.Item key={month} label={month === 'Todos' ? 'Todos' : `${month}/2024`} value={month} />
-                ))}
+               {getAvailableMonths(data, selectedYear).map(month => (
+                   <Picker.Item
+                    key={month}
+                    label={month === 'Todos' ? 'Todos' : `${month}/${selectedYear === 'Todos' ? '' : selectedYear}`}
+                    value={month}
+                   />
+              ))}
               </Picker>
             </View>
           </View>

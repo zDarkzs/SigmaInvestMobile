@@ -1,8 +1,10 @@
-import React, {createContext, useContext, useState} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ApiConfig, Dividend, Stock} from "@/types/dividendTypes";
 import {StockShares} from "@/types/dividendTypes";
-
+import { useAuth } from './AuthContext'; // ou o caminho correto
+import { db } from '@/services/firebaseConfig';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 interface StockContextType {
     stockShares:StockShares |null;
@@ -23,7 +25,62 @@ export const StockProvider: React.FC<{children:React.ReactNode}> = ({children}) 
     const [debugMode, setDebugMode] = useState(false);
     const [apiConfig, setApiConfig] = useState<ApiConfig|null>(null);
 
+    const { userData } = useAuth();
+ useEffect(() => {
+    const loadFromFirebase = async () => {
+      if (userData) {
+        try {
+          const ref = doc(db, 'users', userData.uid);
+          const snap = await getDoc(ref);
 
+          if (snap.exists() && snap.data().stockShares) {
+            setStockShares(snap.data().stockShares);
+            await AsyncStorage.setItem('@stockShares', JSON.stringify(snap.data().stockShares));
+          } else {
+            console.log('Nenhum stockShare encontrado no Firestore');
+          }
+        } catch (error) {
+          console.error('Erro ao carregar do Firebase:', error);
+        }
+      }
+    };
+
+    loadFromFirebase();
+  }, [userData]);
+
+  useEffect(() => {
+    const loadFromStorage = async () => {
+      try {
+        const json = await AsyncStorage.getItem('@stockShares');
+        if (json) {
+          setStockShares(JSON.parse(json));
+        }
+      } catch (error) {
+        console.error('Erro ao carregar do AsyncStorage:', error);
+      }
+    };
+
+    loadFromStorage();
+  }, []);
+useEffect(() => {
+  const saveShares = async () => {
+    try {
+      const json = JSON.stringify(stockShares);
+      await AsyncStorage.setItem('@stockShares', json);
+
+      if (userData) {
+        const ref = doc(db, 'users', userData.uid);
+        await setDoc(ref, { stockShares }, { merge: true });
+      }
+    } catch (err) {
+      console.error('Erro ao salvar dados:', err);
+    }
+  };
+
+  if (Object.keys(stockShares).length > 0) {
+    saveShares();
+  }
+}, [stockShares]);
 
     const showStocks = ()=> console.log(stockShares);
 
