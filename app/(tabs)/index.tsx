@@ -10,12 +10,14 @@ import CustomModal from "@/components/CustomModal";
 
 import { CommonStyles } from "@/constants/ConstantStyles";
 import { Colors } from "@/constants/Colors";
+import {useAuth} from "@/context/AuthContext";
 
 export default function HomeScreen() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
   const [selectedYear, setSelectedYear] = useState("Todos");
   const [selectedMonth, setSelectedMonth] = useState("Todos");
 
+  const userData = useAuth();
   const { stockShares, getStocksDividendData } = useStocks();
   const data = getStocksDividendData(stockShares);
   const [filteredDividends, setFilteredDividends] = useState<Dividend[]>(
@@ -80,10 +82,15 @@ export default function HomeScreen() {
   );
 
   return (
+
+
     <ScrollView scrollEnabled={!isFilterModalVisible}>
       <View style={[CommonStyles.container, styles.container]}>
         <Text style={CommonStyles.headerText}>SIGMA INVEST</Text>
 
+        {!userData && stockShares &&
+            <Text>Dados Locais, faça login para sincronizar com a nuvem</Text>
+        }
         <View style={styles.section}>
           <Text style={CommonStyles.sectionTitle}>DIVIDENDOS DO MÊS:</Text>
           <Button

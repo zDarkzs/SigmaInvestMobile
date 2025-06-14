@@ -73,8 +73,9 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
         console.error("Erro ao carregar do AsyncStorage:", error);
       }
     };
-
+    if(!userData){
     loadFromStorage();
+    }
   }, []);
 
     const saveShares = async () => {
