@@ -1,24 +1,29 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
-  StyleSheet, TextInput, View,
-  TouchableOpacity, Switch, Button,
-  ScrollView, Alert
-} from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+  StyleSheet,
+  TextInput,
+  View,
+  TouchableOpacity,
+  Switch,
+  Button,
+  ScrollView,
+  Alert,
+} from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useAuth } from "@/context/AuthContext";
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from '@/services/firebaseConfig';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { Colors } from '@/constants/Colors';
-import { CommonStyles } from '@/constants/ConstantStyles';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/services/firebaseConfig";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { Colors } from "@/constants/Colors";
+import { CommonStyles } from "@/constants/ConstantStyles";
 
 export default function SettingsScreen() {
   const { isAuthenticated, login, register, userData, logout } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [darkMode, setDarkMode] = useState(false);
   const [notifications, setNotifications] = useState(true);
   const [hasAccount, setHasAccount] = useState(true);
@@ -43,8 +48,8 @@ export default function SettingsScreen() {
           preferences: { darkMode, notifications },
           profile: {
             bio: "",
-            user_since: new Date().toISOString()
-          }
+            user_since: new Date().toISOString(),
+          },
         });
       }
     } catch (error) {
@@ -65,7 +70,11 @@ export default function SettingsScreen() {
           {isAuthenticated ? (
             <>
               <View style={styles.profileHeader}>
-                <Ionicons name="person-circle" size={80} color={Colors.primary} />
+                <Ionicons
+                  name="person-circle"
+                  size={80}
+                  color={Colors.primary}
+                />
                 <ThemedText type="title" style={styles.username}>
                   {userData?.username}
                 </ThemedText>
@@ -73,25 +82,31 @@ export default function SettingsScreen() {
               </View>
 
               <View style={styles.section}>
-                <ThemedText type="subtitle" style={styles.preferenceItemText}>Preferências</ThemedText>
+                <ThemedText type="subtitle" style={styles.preferenceItemText}>
+                  Preferências
+                </ThemedText>
 
                 <View style={styles.preferenceItem}>
-                  <ThemedText style={styles.preferenceItemText}>Modo Escuro</ThemedText>
+                  <ThemedText style={styles.preferenceItemText}>
+                    Modo Escuro
+                  </ThemedText>
                   <Switch
                     value={darkMode}
                     onValueChange={setDarkMode}
                     thumbColor={Colors.primary}
-                    trackColor={{ false: '#767577', true: '#81b0ff' }}
+                    trackColor={{ false: "#767577", true: "#81b0ff" }}
                   />
                 </View>
 
                 <View style={styles.preferenceItem}>
-                  <ThemedText style={styles.preferenceItemText}>Notificações</ThemedText>
+                  <ThemedText style={styles.preferenceItemText}>
+                    Notificações
+                  </ThemedText>
                   <Switch
                     value={notifications}
                     onValueChange={setNotifications}
                     thumbColor={Colors.primary}
-                    trackColor={{ false: '#767577', true: '#81b0ff' }}
+                    trackColor={{ false: "#767577", true: "#81b0ff" }}
                   />
                 </View>
               </View>
@@ -129,20 +144,46 @@ export default function SettingsScreen() {
               <View style={styles.authButtons}>
                 {hasAccount ? (
                   <>
-                    <TouchableOpacity style={CommonStyles.button} onPress={handleLogin}>
-                      <ThemedText style={CommonStyles.buttonText}>Entrar</ThemedText>
+                    <TouchableOpacity
+                      style={CommonStyles.button}
+                      onPress={handleLogin}
+                    >
+                      <ThemedText style={CommonStyles.buttonText}>
+                        Entrar
+                      </ThemedText>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[CommonStyles.button, { backgroundColor: Colors.success }]} onPress={() => setHasAccount(false)}>
-                      <ThemedText style={CommonStyles.buttonText}>Criar conta...</ThemedText>
+                    <TouchableOpacity
+                      style={[
+                        CommonStyles.button,
+                        { backgroundColor: Colors.success },
+                      ]}
+                      onPress={() => setHasAccount(false)}
+                    >
+                      <ThemedText style={CommonStyles.buttonText}>
+                        Criar conta...
+                      </ThemedText>
                     </TouchableOpacity>
                   </>
                 ) : (
                   <>
-                    <TouchableOpacity style={CommonStyles.button} onPress={handleRegister}>
-                      <ThemedText style={CommonStyles.buttonText}>Registrar</ThemedText>
+                    <TouchableOpacity
+                      style={CommonStyles.button}
+                      onPress={handleRegister}
+                    >
+                      <ThemedText style={CommonStyles.buttonText}>
+                        Registrar
+                      </ThemedText>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[CommonStyles.button, { backgroundColor: Colors.warning }]} onPress={() => setHasAccount(true)}>
-                      <ThemedText style={CommonStyles.buttonText}>Entrar em conta existente...</ThemedText>
+                    <TouchableOpacity
+                      style={[
+                        CommonStyles.button,
+                        { backgroundColor: Colors.warning },
+                      ]}
+                      onPress={() => setHasAccount(true)}
+                    >
+                      <ThemedText style={CommonStyles.buttonText}>
+                        Entrar em conta existente...
+                      </ThemedText>
                     </TouchableOpacity>
                   </>
                 )}
@@ -158,12 +199,12 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   profileHeader: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 30,
   },
   username: {
@@ -182,9 +223,9 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   preferenceItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 10,
   },
   preferenceItemText: {
@@ -196,7 +237,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   authTitle: {
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 20,
     color: Colors.primary,
   },

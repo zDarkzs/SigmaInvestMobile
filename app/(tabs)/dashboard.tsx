@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,24 +6,24 @@ import {
   FlatList,
   TextInput,
   Button,
-} from 'react-native';
-import { useDividends } from '@/hooks/useDividends';
-import { API_CONFIGS } from '@/services/apiClients';
-import DividendCard from '@/components/DividendCard';
-import DividendLineChart from '@/components/DividendLineChart';
-import { useStocks } from '@/context/StockContext';
+} from "react-native";
+import { useDividends } from "@/hooks/useDividends";
+import { API_CONFIGS } from "@/services/apiClients";
+import DividendCard from "@/components/DividendCard";
+import DividendLineChart from "@/components/DividendLineChart";
+import { useStocks } from "@/context/StockContext";
 
 export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
-  const [selectedApis, setSelectedApis] = useState<string[]>(['BRAPI']);
-  const [newTicker, setNewTicker] = useState('');
-  const [quantity, setQuantity] = useState('0');
+  const [selectedApis, setSelectedApis] = useState<string[]>(["BRAPI"]);
+  const [newTicker, setNewTicker] = useState("");
+  const [quantity, setQuantity] = useState("0");
 
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
   const { addStockShare } = useStocks();
 
   const isTickerValid = () =>
-    newTicker.trim() !== '' && !tickers.includes(newTicker.toUpperCase());
+    newTicker.trim() !== "" && !tickers.includes(newTicker.toUpperCase());
 
   const isQuantityValid = () => !isNaN(parseInt(quantity));
 
@@ -32,8 +32,8 @@ export default function Dashboard() {
       const upperTicker = newTicker.toUpperCase();
       setTickers([...tickers, upperTicker]);
       addStockShare(upperTicker, parseInt(quantity), dividends);
-      setNewTicker('');
-      setQuantity('0');
+      setNewTicker("");
+      setQuantity("0");
     }
   };
 
@@ -74,7 +74,7 @@ export default function Dashboard() {
             key={apiName}
             title={API_CONFIGS[apiName as keyof typeof API_CONFIGS].name}
             onPress={() => handleToggleApi(apiName)}
-            color={selectedApis.includes(apiName) ? 'green' : 'gray'}
+            color={selectedApis.includes(apiName) ? "green" : "gray"}
           />
         ))}
       </View>
@@ -101,37 +101,37 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16,
   },
   inputContainer: {
-    flexDirection: 'column',
+    flexDirection: "column",
     marginBottom: 16,
-    alignItems: 'center',
+    alignItems: "center",
   },
   buttonContainer: {
     marginTop: 8,
   },
   input: {
-    width: '100%',
+    width: "100%",
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     padding: 12,
     marginBottom: 8,
     borderRadius: 8,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   apiSelector: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    flexWrap: "wrap",
     marginBottom: 16,
   },
   list: {
     paddingBottom: 16,
   },
   error: {
-    color: 'red',
+    color: "red",
     marginBottom: 16,
   },
 });

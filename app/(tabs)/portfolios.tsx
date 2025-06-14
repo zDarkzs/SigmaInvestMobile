@@ -1,87 +1,91 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, Button, View, TextInput } from 'react-native';
+import { Text, StyleSheet, Button, View, TextInput } from "react-native";
 
-import { useDividends } from '@/hooks/useDividends';
-import { useStocks } from '@/context/StockContext';
-import { Colors } from '@/constants/Colors';
-import { CommonStyles } from '@/constants/ConstantStyles';
-import {ThemedView} from "@/components/ThemedView";
-import {ThemedText} from "@/components/ThemedText";
+import { useDividends } from "@/hooks/useDividends";
+import { useStocks } from "@/context/StockContext";
+import { Colors } from "@/constants/Colors";
+import { CommonStyles } from "@/constants/ConstantStyles";
+import { ThemedView } from "@/components/ThemedView";
+import { ThemedText } from "@/components/ThemedText";
 
 export default function PortfoliosScreen() {
   const [tickers, setTickers] = useState<string[]>([]);
   const [pendingTicker, setPendingTicker] = useState<string | null>(null);
   const [pendingQuantity, setPendingQuantity] = useState<number | null>(null);
 
-  const [selectedApis, setSelectedApis] = useState<string[]>(['BRAPI']);
-  const [newTicker, setNewTicker] = useState('');
-  const [quantity, setQuantity] = useState('0');
+  const [selectedApis, setSelectedApis] = useState<string[]>(["BRAPI"]);
+  const [newTicker, setNewTicker] = useState("");
+  const [quantity, setQuantity] = useState("0");
 
   const { dividends, loading } = useDividends(tickers, selectedApis);
   const { stockShares, addStockShare } = useStocks();
 
   const addTicker = () => {
-  const isTickerValid = () => newTicker.trim() && !tickers.includes(newTicker.toUpperCase());
-  const isQuantityValid = () => !isNaN(parseInt(quantity));
+    const isTickerValid = () =>
+      newTicker.trim() && !tickers.includes(newTicker.toUpperCase());
+    const isQuantityValid = () => !isNaN(parseInt(quantity));
 
-  if (isTickerValid() && isQuantityValid()) {
-    const upperTicker = newTicker.toUpperCase();
-    setTickers(prev => [...prev, upperTicker]); // isso aciona useEffect do hook useDividends
+    if (isTickerValid() && isQuantityValid()) {
+      const upperTicker = newTicker.toUpperCase();
+      setTickers((prev) => [...prev, upperTicker]); // isso aciona useEffect do hook useDividends
 
-    setPendingTicker(upperTicker); // guarda para uso após dividends atualizarem
-    setPendingQuantity(parseInt(quantity));
+      setPendingTicker(upperTicker); // guarda para uso após dividends atualizarem
+      setPendingQuantity(parseInt(quantity));
 
-    setNewTicker('');
-    setQuantity('0');
-  }
-};
-  useEffect(() => {
-  if (pendingTicker && pendingQuantity && dividends.length > 0) {
-    // Verifica se os dividendos do ticker que foi adicionado já estão prontos
-    const hasDividends = dividends.some(div => div.ticker === pendingTicker);
-    if (hasDividends) {
-      addStockShare(pendingTicker, pendingQuantity, dividends);
-      console.log(stockShares)
-      setPendingTicker(null);
-      setPendingQuantity(null);
+      setNewTicker("");
+      setQuantity("0");
     }
-  }
-}, [dividends]);
-
+  };
+  useEffect(() => {
+    if (pendingTicker && pendingQuantity && dividends.length > 0) {
+      // Verifica se os dividendos do ticker que foi adicionado já estão prontos
+      const hasDividends = dividends.some(
+        (div) => div.ticker === pendingTicker
+      );
+      if (hasDividends) {
+        addStockShare(pendingTicker, pendingQuantity, dividends);
+        console.log(stockShares);
+        setPendingTicker(null);
+        setPendingQuantity(null);
+      }
+    }
+  }, [dividends]);
 
   return (
-      <View>
-
+    <View>
       {loading ? (
         <View style={styles.loadingContainer}>
           <ThemedText>Carregando...</ThemedText>
         </View>
-      ):(
+      ) : (
+        <View style={[CommonStyles.container, styles.container]}>
+          <Text style={CommonStyles.headerText}>Dividend Tracker</Text>
 
-    <View style={[CommonStyles.container, styles.container]}>
-      <Text style={CommonStyles.headerText}>Dividend Tracker</Text>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Adicionar novo ticker (ex: ITUB4)"
-          value={newTicker}
-          onChangeText={setNewTicker}
-        />
-        <TextInput
-          keyboardType="numeric"
-          style={styles.input}
-          placeholder="Quantidade de cotas"
-          value={quantity}
-          onChangeText={setQuantity}
-        />
-        <View style={styles.buttonContainer}>
-          <Button title="Adicionar" onPress={addTicker} color={Colors.primary} />
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Adicionar novo ticker (ex: ITUB4)"
+              value={newTicker}
+              onChangeText={setNewTicker}
+            />
+            <TextInput
+              keyboardType="numeric"
+              style={styles.input}
+              placeholder="Quantidade de cotas"
+              value={quantity}
+              onChangeText={setQuantity}
+            />
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Adicionar"
+                onPress={addTicker}
+                color={Colors.primary}
+              />
+            </View>
+          </View>
         </View>
-      </View>
+      )}
     </View>
-        )}
-      </View>
   );
 }
 
@@ -89,19 +93,19 @@ const styles = StyleSheet.create({
   container: {
     gap: 16,
   },
-    loadingContainer: {
+  loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   inputContainer: {
-    flexDirection: 'column',
+    flexDirection: "column",
     gap: 12,
-    width: '100%',
+    width: "100%",
   },
   input: {
-    width: '100%',
+    width: "100%",
     borderWidth: 1,
     borderColor: Colors.divider,
     borderRadius: 8,
@@ -109,7 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   buttonContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 8,
   },
 });

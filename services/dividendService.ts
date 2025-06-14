@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { Dividend, ApiConfig } from '../types/dividendTypes';
-import { API_CONFIGS } from './apiClients';
+import axios from "axios";
+import { Dividend, ApiConfig } from "../types/dividendTypes";
+import { API_CONFIGS } from "./apiClients";
 
 export class DividendService {
-
   static async getDividends(
     tickers: string[],
     apiConfig: ApiConfig
@@ -12,13 +11,12 @@ export class DividendService {
       const allDividends: Dividend[] = [];
 
       for (const ticker of tickers) {
-        if(apiConfig.apiKey){
-
-        const response = await axios.get(
-          `${apiConfig.baseUrl}${apiConfig.getDividendEndpoint(ticker)}`
-        );
-        const dividends = apiConfig.dividendResponseParser(response.data);
-        allDividends.push(...dividends);
+        if (apiConfig.apiKey) {
+          const response = await axios.get(
+            `${apiConfig.baseUrl}${apiConfig.getDividendEndpoint(ticker)}`
+          );
+          const dividends = apiConfig.dividendResponseParser(response.data);
+          allDividends.push(...dividends);
         }
       }
 
@@ -30,16 +28,18 @@ export class DividendService {
   }
 
   private static standardizeDividends(dividends: Dividend[]): Dividend[] {
-    return dividends.map(dividend => ({
+    return dividends.map((dividend) => ({
       ...dividend,
       amount: Number(dividend.amount.toFixed(2)), // Padroniza casas decimais
       currency: dividend.currency.toUpperCase(),
       paymentDate: this.formatDate(dividend.paymentDate),
-      recordDate: dividend.recordDate ? this.formatDate(dividend.recordDate) : undefined
+      recordDate: dividend.recordDate
+        ? this.formatDate(dividend.recordDate)
+        : undefined,
     }));
   }
 
   private static formatDate(dateString: string): string {
-    return dateString?(dateString.split('T')[0]):('undefined')
+    return dateString ? dateString.split("T")[0] : "undefined";
   }
 }
