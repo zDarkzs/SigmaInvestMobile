@@ -54,7 +54,9 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
         } catch (error) {
           console.error("Erro ao carregar do Firebase:", error);
         }
+        return;
       }
+      setStockShares({});
     };
 
     loadFromFirebase();
@@ -74,7 +76,7 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
 
     loadFromStorage();
   }, []);
-  useEffect(() => {
+
     const saveShares = async () => {
       try {
         const json = JSON.stringify(stockShares);
@@ -88,7 +90,8 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
         console.error("Erro ao salvar dados:", err);
       }
     };
-
+  useEffect(() => {
+    console.log("StockShares alterado")
     if (Object.keys(stockShares).length > 0) {
       saveShares();
     }
@@ -143,6 +146,7 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
       quantity: quantity,
       payments: payments,
     };
+    saveShares()
     saveStocks();
   };
   const getStocksDividendData = (stockSharesData: StockShares) => {
@@ -175,6 +179,6 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
 
 export const useStocks: () => StockContextType = () => {
   const context: StockContextType | undefined = useContext(StockContext);
-  if (!context) throw new Error("useAuth must be used within the AuthProvider");
+  if (!context) throw new Error("useStock must be used within the StockProvider");
   return context;
 };
