@@ -176,30 +176,26 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const exportStockSharesToJSON = async () => {
-  try {
+  if (Platform.OS === 'web') {
     const jsonData = JSON.stringify(stockShares, null, 2);
-    const fileName = 'stockShares_backup.json';
-    const fileUri = `${FileSystem.documentDirectory}${fileName}`;
+    const blob = new Blob([jsonData], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
 
-    // Salvar o arquivo localmente
-    await FileSystem.writeAsStringAsync(fileUri, jsonData, {
-      encoding: FileSystem.EncodingType.UTF8,
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'stockShares_backup.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  } else {
+    const jsonData = JSON.stringify(stockShares, null, 2);
+    const fileUri = `${FileSystem.documentDirectory}stockShares_backup.json`;
+    await FileSystem.writeAsStringAsync(fileUri, jsonData, { encoding: FileSystem.EncodingType.UTF8 });
+    await Sharing.shareAsync(fileUri, {
+      mimeType: 'application/json',
+      dialogTitle: 'Exportar seus dados',
     });
-
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
-      // Compartilhar ou salvar usando o menu do sistema
-      await Sharing.shareAsync(fileUri, {
-        mimeType: 'application/json',
-        dialogTitle: 'Exportar seus dados',
-      });
-    } else {
-      console.log('Arquivo salvo:', fileUri);
-    }
-
-    return fileUri;
-  } catch (error) {
-    console.error('Erro ao exportar dados:', error);
-    throw error;
   }
 };
 
