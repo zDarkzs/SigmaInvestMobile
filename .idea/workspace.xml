@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Ativos sendo carregados da/para a nuvem">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Correção em detalhes de lógica ao carregar os dados locais">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +58,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;ts.external.directory.path&quot;: &quot;D:\\rhyan\\SigmaInvestMobile\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -93,6 +93,8 @@
       <workItem from="1749841455318" duration="4345000" />
       <workItem from="1749898172032" duration="2130000" />
       <workItem from="1749901562589" duration="66000" />
+      <workItem from="1749901972187" duration="5998000" />
+      <workItem from="1750089463602" duration="315000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -150,7 +152,23 @@
       <option name="project" value="LOCAL" />
       <updated>1749845176408</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Salva automaticamente para nuvem ao adicionar">
+      <option name="closed" value="true" />
+      <created>1749907380148</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1749907380148</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Correção em detalhes de lógica ao carregar os dados locais">
+      <option name="closed" value="true" />
+      <created>1749911343168</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1749911343168</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +192,8 @@
     <MESSAGE value="Authentication implemented" />
     <MESSAGE value="Ativos voltam a aparcer na tela inicial, agora a partir do menu &quot;ativos&quot;" />
     <MESSAGE value="Ativos sendo carregados da/para a nuvem" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ativos sendo carregados da/para a nuvem" />
+    <MESSAGE value="Salva automaticamente para nuvem ao adicionar" />
+    <MESSAGE value="Correção em detalhes de lógica ao carregar os dados locais" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correção em detalhes de lógica ao carregar os dados locais" />
   </component>
 </project>

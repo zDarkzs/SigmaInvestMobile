@@ -23,6 +23,7 @@ interface StockContextType {
   showStocks: () => void;
   saveStocks: () => Promise<void>;
   loadStocks: () => Promise<void>;
+  resetLocalData: () => Promise<void>;
   getStocksDividendData: (stockSharesData: StockShares) => any[];
 }
 const StockContext = createContext<StockContextType | undefined>(undefined);
@@ -159,6 +160,16 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
     );
     return dividends;
   };
+
+  const resetLocalData = async () =>{
+    try {
+      setStockShares({})
+      await AsyncStorage.removeItem("stocks");
+    } catch (e) {
+      console.error(e);
+    }
+
+  }
   return (
     <StockContext.Provider
       value={{
@@ -170,6 +181,7 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
         addStockShare,
         saveStocks,
         loadStocks,
+        resetLocalData,
         getStocksDividendData,
       }}
     >

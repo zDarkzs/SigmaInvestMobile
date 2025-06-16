@@ -46,6 +46,11 @@ export const CommonStyles = {
     fontWeight: 'bold' as const,
     fontSize: 16,
   },
+  warningText:{
+    color: Colors.warning,
+    fontWeight: 'bold' as const,
+    fontSize: 22,
+  },
   card: {
     backgroundColor: Colors.white,
     borderRadius: 10,

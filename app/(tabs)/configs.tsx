@@ -17,9 +17,11 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { Colors } from "@/constants/Colors";
 import { CommonStyles } from "@/constants/ConstantStyles";
+import {useStocks} from "@/context/StockContext";
 
 export default function SettingsScreen() {
   const { isAuthenticated, login, register, userData, logout } = useAuth();
+  const {resetLocalData} = useStocks();
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -58,6 +60,18 @@ export default function SettingsScreen() {
       setIsLoading(false);
     }
   };
+
+  const handleReset = async () =>{
+    setIsLoading(true);
+    try {
+      await resetLocalData()
+    }catch (e) {
+      console.error(e);
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <ScrollView style={CommonStyles.container}>
@@ -187,10 +201,20 @@ export default function SettingsScreen() {
                     </TouchableOpacity>
                   </>
                 )}
+              <ThemedText  style={CommonStyles.warningText}>Modo offline</ThemedText>
               </View>
+
             </View>
           )}
+
+          <View style={styles.utilButtonGroup}>
+            <Button title={'Apagar dados locais'} color={'red'} onPress={handleReset}/>
+            <Button title={'Apagar dados..'} color={'red'} onPress={handleReset}/>
+            <Button title={'Apagar dados..'} color={'red'} onPress={handleReset}/>
+          </View>
         </ThemedView>
+
+
       )}
     </ScrollView>
   );
@@ -206,6 +230,9 @@ const styles = StyleSheet.create({
   profileHeader: {
     alignItems: "center",
     marginBottom: 30,
+  },
+  utilButtonGroup:{
+    flexDirection: 'row'
   },
   username: {
     marginTop: 10,
