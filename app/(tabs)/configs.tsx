@@ -18,10 +18,13 @@ import { ThemedView } from "@/components/ThemedView";
 import { Colors } from "@/constants/Colors";
 import { CommonStyles } from "@/constants/ConstantStyles";
 import {useStocks} from "@/context/StockContext";
+import CustomModal from "@/components/CustomModal";
+
+
 
 export default function SettingsScreen() {
   const { isAuthenticated, login, register, userData, logout } = useAuth();
-  const {resetLocalData} = useStocks();
+  const {resetLocalData,exportStockSharesToJSON} = useStocks();
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +32,7 @@ export default function SettingsScreen() {
   const [darkMode, setDarkMode] = useState(false);
   const [notifications, setNotifications] = useState(true);
   const [hasAccount, setHasAccount] = useState(true);
-
+  const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
   const handleLogin = async () => {
     setIsLoading(true);
     try {
@@ -210,12 +213,16 @@ export default function SettingsScreen() {
           <View style={styles.utilButtonGroup}>
             <Button title={'Apagar dados locais'} color={'red'} onPress={handleReset}/>
             <Button title={'Apagar dados..'} color={'red'} onPress={handleReset}/>
-            <Button title={'Apagar dados..'} color={'red'} onPress={handleReset}/>
+            <Button title={'Exportar dados..'} color={'green'} onPress={()=>setIsExportDialogOpen(true)}/>
           </View>
         </ThemedView>
 
 
       )}
+      <CustomModal visible={isExportDialogOpen} onClose={()=>console.log('Pare de investir e vá ler Umineko.')}>
+        <Button title={'Para Json...'} onPress={exportStockSharesToJSON}/>
+        <Button title={'Sair'} onPress={()=>setIsExportDialogOpen(false)}/>
+      </CustomModal>
     </ScrollView>
   );
 }
@@ -232,7 +239,10 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   utilButtonGroup:{
-    flexDirection: 'row'
+    flexDirection: 'row',
+    gap:15,
+    justifyContent: "center",
+    backgroundColor:'blue'
   },
   username: {
     marginTop: 10,

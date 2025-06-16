@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Correção em detalhes de lógica ao carregar os dados locais">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Criada Lógica para remover dados locais">
+      <change afterPath="$PROJECT_DIR$/services/exportStockShare.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/context/StockContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/StockContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/utils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +22,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript JSX File" />
-        <option value="TypeScript File" />
         <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -94,7 +100,8 @@
       <workItem from="1749898172032" duration="2130000" />
       <workItem from="1749901562589" duration="66000" />
       <workItem from="1749901972187" duration="5998000" />
-      <workItem from="1750089463602" duration="315000" />
+      <workItem from="1750089463602" duration="1860000" />
+      <workItem from="1750098708098" duration="3992000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -168,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749911343168</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Criada Lógica para remover dados locais">
+      <option name="closed" value="true" />
+      <created>1750091336078</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1750091336078</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,6 +209,7 @@
     <MESSAGE value="Ativos sendo carregados da/para a nuvem" />
     <MESSAGE value="Salva automaticamente para nuvem ao adicionar" />
     <MESSAGE value="Correção em detalhes de lógica ao carregar os dados locais" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correção em detalhes de lógica ao carregar os dados locais" />
+    <MESSAGE value="Criada Lógica para remover dados locais" />
+    <option name="LAST_COMMIT_MESSAGE" value="Criada Lógica para remover dados locais" />
   </component>
 </project>

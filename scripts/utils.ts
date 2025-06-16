@@ -6,5 +6,6 @@ export function toBRL(value:any):string {
     }
 }
 export function cotas(value:number):string {
-
+    return ''
 }
+

@@ -5,6 +5,9 @@ import { StockShares } from "@/types/dividendTypes";
 import { useAuth } from "./AuthContext"; // ou o caminho correto
 import { db } from "@/services/firebaseConfig";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import * as FileSystem from "expo-file-system";
+import {Platform} from "react-native";
+import * as Sharing from "expo-sharing";
 
 interface StockContextType {
   stockShares: StockShares | null;
@@ -23,8 +26,9 @@ interface StockContextType {
   showStocks: () => void;
   saveStocks: () => Promise<void>;
   loadStocks: () => Promise<void>;
-  resetLocalData: () => Promise<void>;
   getStocksDividendData: (stockSharesData: StockShares) => any[];
+  resetLocalData: () => Promise<void>;
+  exportStockSharesToJSON: () => Promise<string>;
 }
 const StockContext = createContext<StockContextType | undefined>(undefined);
 
@@ -164,12 +168,41 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
   const resetLocalData = async () =>{
     try {
       setStockShares({})
-      await AsyncStorage.removeItem("stocks");
+      await AsyncStorage.clear();
     } catch (e) {
       console.error(e);
     }
 
   }
+
+  const exportStockSharesToJSON = async () => {
+  try {
+    const jsonData = JSON.stringify(stockShares, null, 2);
+    const fileName = 'stockShares_backup.json';
+    const fileUri = `${FileSystem.documentDirectory}${fileName}`;
+
+    // Salvar o arquivo localmente
+    await FileSystem.writeAsStringAsync(fileUri, jsonData, {
+      encoding: FileSystem.EncodingType.UTF8,
+    });
+
+    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+      // Compartilhar ou salvar usando o menu do sistema
+      await Sharing.shareAsync(fileUri, {
+        mimeType: 'application/json',
+        dialogTitle: 'Exportar seus dados',
+      });
+    } else {
+      console.log('Arquivo salvo:', fileUri);
+    }
+
+    return fileUri;
+  } catch (error) {
+    console.error('Erro ao exportar dados:', error);
+    throw error;
+  }
+};
+
   return (
     <StockContext.Provider
       value={{
@@ -181,8 +214,9 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
         addStockShare,
         saveStocks,
         loadStocks,
-        resetLocalData,
         getStocksDividendData,
+        resetLocalData,
+        exportStockSharesToJSON,
       }}
     >
       {children}
