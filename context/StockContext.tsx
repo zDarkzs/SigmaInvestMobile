@@ -28,7 +28,8 @@ interface StockContextType {
   loadStocks: () => Promise<void>;
   getStocksDividendData: (stockSharesData: StockShares) => any[];
   resetLocalData: () => Promise<void>;
-  exportStockSharesToJSON: () => Promise<string>;
+  exportStockSharesToJSON: () => Promise<void>;
+  exportStockSharesToCSV: () => Promise<void>;
 }
 const StockContext = createContext<StockContextType | undefined>(undefined);
 
@@ -198,6 +199,52 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   }
 };
+const exportStockSharesToCSV = async () => {
+  try {
+    let csvContent = 'sep=;\n'; // Faz o Excel entender que o separador é ";"
+    csvContent += 'Ticker;Quantidade;Tipo de Pagamento;Valor por Cota;Data de Pagamento;Total Recebido\n';
+
+    Object.keys(stockShares).forEach((ticker) => {
+      const stock = stockShares[ticker];
+
+      stock.payments.forEach((payment) => {
+        const totalReceived = (payment.amount || 0) * stock.quantity;
+        const paymentType =
+          payment.type === 'ordinary'
+            ? 'Dividendo'
+            : payment.type === 'special'
+            ? 'Dividendo Especial'
+            : 'JCP';
+
+        csvContent += `${ticker};${stock.quantity};${paymentType};${payment.amount.toFixed(4).replace('.', ',')};${payment.paymentDate};${totalReceived.toFixed(2).replace('.', ',')}\n`;
+      });
+    });
+
+    if (Platform.OS === 'web') {
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'stockShares_payments.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } else {
+      const fileUri = `${FileSystem.documentDirectory}stockShares_payments.csv`;
+      await FileSystem.writeAsStringAsync(fileUri, csvContent, { encoding: FileSystem.EncodingType.UTF8 });
+      await Sharing.shareAsync(fileUri, {
+        mimeType: 'text/csv',
+        dialogTitle: 'Exportar Dividendos em CSV',
+      });
+    }
+  } catch (error) {
+    console.error('Erro ao exportar CSV:', error);
+  }
+};
+
+
 
   return (
     <StockContext.Provider
@@ -213,6 +260,8 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
         getStocksDividendData,
         resetLocalData,
         exportStockSharesToJSON,
+        exportStockSharesToCSV,
+
       }}
     >
       {children}

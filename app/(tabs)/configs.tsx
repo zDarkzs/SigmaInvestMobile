@@ -23,8 +23,18 @@ import CustomModal from "@/components/CustomModal";
 
 
 export default function SettingsScreen() {
-  const { isAuthenticated, login, register, userData, logout } = useAuth();
-  const {resetLocalData,exportStockSharesToJSON} = useStocks();
+  const {
+    isAuthenticated,
+    login,
+    register,
+    userData,
+    logout
+  } = useAuth();
+  const {
+    resetLocalData,
+    exportStockSharesToJSON,
+    exportStockSharesToCSV
+  } = useStocks();
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -221,6 +231,7 @@ export default function SettingsScreen() {
       )}
       <CustomModal visible={isExportDialogOpen} onClose={()=>console.log('Pare de investir e vá ler Umineko.')}>
         <Button title={'Para Json...'} onPress={exportStockSharesToJSON}/>
+        <Button title={'Para CSV...'} onPress={exportStockSharesToCSV}/>
         <Button title={'Sair'} onPress={()=>setIsExportDialogOpen(false)}/>
       </CustomModal>
     </ScrollView>
