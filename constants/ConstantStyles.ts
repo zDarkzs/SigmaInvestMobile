@@ -68,7 +68,7 @@ export const CommonStyles = {
     margin: '10%',
     backgroundColor: Colors.background,
     borderRadius: 10,
-    padding: 16,
+    padding: 5,
     alignItems: 'center' as const,
     justifyContent: 'flex-start' as const,
     gap: 12,

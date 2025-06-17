@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   modalTitleText: {
     fontWeight: "bold",
     fontSize: 30,
+    color: Colors.white,
   },
   modalTitleHolder: {
     width: "100%",

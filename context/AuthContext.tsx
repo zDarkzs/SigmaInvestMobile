@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ApiConfig } from "@/types/dividendTypes";
 import {
@@ -35,6 +35,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     username: string;
   } | null>(null);
   const baseUrl = "http://192.168.55.24:8080/"; //pode-se alterar pelo ip da maquina
+  useEffect(() => {
+  const loadFromStorage = async () => {
+    try {
+      const json = await AsyncStorage.getItem("@userData");
+      if (json) {
+        const storedUser: UserData = JSON.parse(json);
+        setUserData(storedUser);
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar do AsyncStorage:", error);
+    }
+  };
+
+  loadFromStorage();
+}, []);
+  const setSession = async () => {
+   if (userData) {
+      try {
+        const json = JSON.stringify(userData);
+        await AsyncStorage.setItem("@userData", json);
+      } catch (e) {
+        console.error("Erro ao salvar sessão", e);
+      }
+    }
+};
+
+useEffect(() => {
+  if (userData) {
+    setSession();
+  }
+}, [userData]);
 
   const login = async (email: string, password: string) => {
     try {
@@ -61,9 +93,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       throw error;
     }
   };
+
   const logout = async () => {
     await auth.signOut();
-    await AsyncStorage.clear();
+    await AsyncStorage.removeItem("@userData");
     setIsAuthenticated(false);
     setUserData(null);
   };
