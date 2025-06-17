@@ -16,6 +16,7 @@ export default function HomeScreen() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
   const [selectedYear, setSelectedYear] = useState("Todos");
   const [selectedMonth, setSelectedMonth] = useState("Todos");
+  const [selectedTicker, setSelectedTicker] = useState("Todos");
 
   const userData = useAuth();
   const { stockShares, getStocksDividendData } = useStocks();
@@ -23,8 +24,13 @@ export default function HomeScreen() {
   const [filteredDividends, setFilteredDividends] = useState<Dividend[]>(
     data || []
   );
-
   const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
+
+  const getAvailableTickers = (dividends: Dividend[]) =>
+    [
+      "Todos",
+      ...Array.from(new Set(dividends.map((d) => d.ticker))).sort(),
+    ];
 
   const getAvailableYears = (dividends: Dividend[]) =>
     [
@@ -60,6 +66,9 @@ export default function HomeScreen() {
         (d) => d.paymentDate.split("-")[1] === selectedMonth
       );
     }
+    if (selectedTicker !== "Todos") {
+      dividends = dividends.filter((d) => d.ticker === selectedTicker);
+    }
 
     setFilteredDividends(dividends);
     toggleFilterModal();
@@ -70,6 +79,7 @@ export default function HomeScreen() {
   const resetFilters = () => {
     setSelectedYear("Todos");
     setSelectedMonth("Todos");
+    setSelectedTicker("Todos")
     setFilteredDividends(data);
     toggleFilterModal();
   };
@@ -80,7 +90,22 @@ export default function HomeScreen() {
     (sum, d) => sum + d.amount * (stockShares?.[d.ticker]?.quantity || 0),
     0
   );
-
+  const getFilterButtonDisplayText = ()=>{
+    const tickerPart = ()=>{
+    if(selectedTicker==="Todos"){return ""}
+    if(selectedMonth==="Todos"){return selectedTicker}
+    return selectedTicker + ' : '
+    }
+    const monthYearPart = ()=>{
+      if(selectedMonth!== "Todos" && selectedYear !== "Todos"){return selectedMonth + ' / ' + selectedYear}
+      return ""
+    }
+    const result = tickerPart()+monthYearPart();
+    if(result == ''){
+    return "Filtrar"
+    }
+    return result;
+  }
   return (
 
 
@@ -94,9 +119,7 @@ export default function HomeScreen() {
         <View style={styles.section}>
           <Text style={CommonStyles.sectionTitle}>DIVIDENDOS DO MÊS:</Text>
           <Button
-            title={`${
-              selectedMonth === "Todos" ? "Todos os meses" : selectedMonth
-            } ${selectedYear === "Todos" ? "" : selectedYear}`}
+            title={getFilterButtonDisplayText()}
             onPress={toggleFilterModal}
             color={Colors.primary}
           />
@@ -141,7 +164,7 @@ export default function HomeScreen() {
       </View>
 
       {/* Modal de Filtro */}
-      <CustomModal visible={isFilterModalVisible} onClose={toggleFilterModal}>
+      <CustomModal title={'Filtrar Ativos'} visible={isFilterModalVisible} onClose={toggleFilterModal}>
         <View style={styles.modal}>
           <Text style={styles.modalTitle}>Filtrar Dividendos</Text>
 
@@ -183,6 +206,19 @@ export default function HomeScreen() {
             </View>
           </View>
 
+          <View style={styles.filterGroup}>
+  <Text style={styles.label}>Ticker:</Text>
+  <View style={styles.pickerWrapper}>
+    <Picker
+      selectedValue={selectedTicker}
+      onValueChange={setSelectedTicker}
+    >
+      {getAvailableTickers(data).map((ticker) => (
+        <Picker.Item key={ticker} label={ticker} value={ticker} />
+      ))}
+    </Picker>
+  </View>
+</View>
           <View>
             <Button
               title="Aplicar Filtros"

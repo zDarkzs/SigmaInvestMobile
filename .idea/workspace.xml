@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Criada Lógica para remover dados locais">
-      <change afterPath="$PROJECT_DIR$/services/exportStockShare.ts" afterDir="false" />
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Exportando com sucesso para csv.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/context/StockContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/StockContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CustomModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CustomModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/Colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/Colors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/ConstantStyles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/ConstantStyles.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +100,9 @@
       <workItem from="1749901562589" duration="66000" />
       <workItem from="1749901972187" duration="5998000" />
       <workItem from="1750089463602" duration="1860000" />
-      <workItem from="1750098708098" duration="3992000" />
+      <workItem from="1750098708098" duration="4085000" />
+      <workItem from="1750105915803" duration="285000" />
+      <workItem from="1750163894522" duration="5538000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -183,7 +184,31 @@
       <option name="project" value="LOCAL" />
       <updated>1750091336078</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Iniciada a lógica para exportar dados">
+      <option name="closed" value="true" />
+      <created>1750105275451</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1750105275451</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Iniciada a lógica para exportar dados">
+      <option name="closed" value="true" />
+      <created>1750106183721</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1750106183721</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Exportando com sucesso para csv.">
+      <option name="closed" value="true" />
+      <created>1750164914385</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1750164914385</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,6 +235,8 @@
     <MESSAGE value="Salva automaticamente para nuvem ao adicionar" />
     <MESSAGE value="Correção em detalhes de lógica ao carregar os dados locais" />
     <MESSAGE value="Criada Lógica para remover dados locais" />
-    <option name="LAST_COMMIT_MESSAGE" value="Criada Lógica para remover dados locais" />
+    <MESSAGE value="Iniciada a lógica para exportar dados" />
+    <MESSAGE value="Exportando com sucesso para csv." />
+    <option name="LAST_COMMIT_MESSAGE" value="Exportando com sucesso para csv." />
   </component>
 </project>

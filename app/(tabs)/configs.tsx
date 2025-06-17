@@ -137,8 +137,6 @@ export default function SettingsScreen() {
                   />
                 </View>
               </View>
-
-              <Button title="Sair" onPress={logout} color={Colors.secondary} />
             </>
           ) : (
             <View style={styles.authSection}>
@@ -224,15 +222,18 @@ export default function SettingsScreen() {
             <Button title={'Apagar dados locais'} color={'red'} onPress={handleReset}/>
             <Button title={'Apagar dados..'} color={'red'} onPress={handleReset}/>
             <Button title={'Exportar dados..'} color={'green'} onPress={()=>setIsExportDialogOpen(true)}/>
+            {isAuthenticated &&
+            <Button title="Sair" onPress={logout} color={Colors.secondary} />
+            }
           </View>
         </ThemedView>
 
 
       )}
-      <CustomModal visible={isExportDialogOpen} onClose={()=>console.log('Pare de investir e vá ler Umineko.')}>
+
+      <CustomModal visible={isExportDialogOpen} onClose={()=>setIsExportDialogOpen(false)}>
         <Button title={'Para Json...'} onPress={exportStockSharesToJSON}/>
         <Button title={'Para CSV...'} onPress={exportStockSharesToCSV}/>
-        <Button title={'Sair'} onPress={()=>setIsExportDialogOpen(false)}/>
       </CustomModal>
     </ScrollView>
   );
@@ -251,9 +252,9 @@ const styles = StyleSheet.create({
   },
   utilButtonGroup:{
     flexDirection: 'row',
+    flexWrap:'wrap',
     gap:15,
     justifyContent: "center",
-    backgroundColor:'blue'
   },
   username: {
     marginTop: 10,

@@ -6,7 +6,7 @@ export const CommonStyles = {
     padding: 20,
     backgroundColor: Colors.background,
   },
-    loadingContainer: {
+  loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -46,7 +46,7 @@ export const CommonStyles = {
     fontWeight: 'bold' as const,
     fontSize: 16,
   },
-  warningText:{
+  warningText: {
     color: Colors.warning,
     fontWeight: 'bold' as const,
     fontSize: 22,
@@ -62,5 +62,38 @@ export const CommonStyles = {
     shadowRadius: 4,
     elevation: 3,
   },
-  // Adicione mais estilos comuns conforme necessário
+
+  modalContainer: {
+    maxWidht:'50%',
+    margin: '10%',
+    backgroundColor: Colors.backgroundDark,
+    borderRadius: 10,
+    padding: 16,
+    alignItems: 'center' as const,
+    justifyContent: 'flex-start' as const,
+    gap: 12,
+    elevation: 5,
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+  },
+  borderRadius: 10,
+
+  modalTopRight: {
+  position: 'absolute' as const,
+  top: 40,
+  right: 20,
+  width: '80%',
+  backgroundColor: Colors.backgroundDark,
+  borderRadius: 10,
+  padding: 16,
+  shadowColor: Colors.black,
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.3,
+  shadowRadius: 4,
+  elevation: 5,
+},
+
 };
+
