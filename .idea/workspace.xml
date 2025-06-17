@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Adicionado FIltros por ticker">
-      <change beforePath="$PROJECT_DIR$/components/CustomModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CustomModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/ConstantStyles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/ConstantStyles.ts" afterDir="false" />
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Consertados os estilos do CustomModal.tsx">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DividendLineChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DividendLineChart.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +100,7 @@
       <workItem from="1750089463602" duration="1860000" />
       <workItem from="1750098708098" duration="4085000" />
       <workItem from="1750105915803" duration="285000" />
-      <workItem from="1750163894522" duration="5845000" />
+      <workItem from="1750163894522" duration="7411000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -212,7 +214,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750170724993</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Consertados os estilos do CustomModal.tsx">
+      <option name="closed" value="true" />
+      <created>1750171108870</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1750171108870</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +252,19 @@
     <MESSAGE value="Iniciada a lógica para exportar dados" />
     <MESSAGE value="Exportando com sucesso para csv." />
     <MESSAGE value="Adicionado FIltros por ticker" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adicionado FIltros por ticker" />
+    <MESSAGE value="Consertados os estilos do CustomModal.tsx" />
+    <option name="LAST_COMMIT_MESSAGE" value="Consertados os estilos do CustomModal.tsx" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/components/CustomModal.tsx</url>
+          <line>24</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

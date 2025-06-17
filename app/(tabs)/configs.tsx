@@ -228,7 +228,6 @@ export default function SettingsScreen() {
           </View>
         </ThemedView>
 
-
       )}
 
       <CustomModal visible={isExportDialogOpen} title={"Exportar Dados"} onClose={()=>setIsExportDialogOpen(false)}>

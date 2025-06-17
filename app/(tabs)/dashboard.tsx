@@ -13,14 +13,18 @@ import DividendCard from "@/components/DividendCard";
 import DividendLineChart from "@/components/DividendLineChart";
 import { useStocks } from "@/context/StockContext";
 
+type DailyTotal = { [date: string]: number };
+
 export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
   const [selectedApis, setSelectedApis] = useState<string[]>(["BRAPI"]);
   const [newTicker, setNewTicker] = useState("");
   const [quantity, setQuantity] = useState("0");
 
+
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
   const { addStockShare } = useStocks();
+  const { stockShares } = useStocks();
 
   const isTickerValid = () =>
     newTicker.trim() !== "" && !tickers.includes(newTicker.toUpperCase());
@@ -45,6 +49,32 @@ export default function Dashboard() {
     );
   };
 
+
+const dailyTotals: DailyTotal = {};
+
+Object.keys(stockShares).forEach((ticker) => {
+  const share = stockShares[ticker];
+  const quantity = share.quantity;
+
+  share.payments.forEach((payment) => {
+    const date = payment.paymentDate;
+    const totalForThisPayment = payment.amount * quantity;
+
+    if (dailyTotals[date]) {
+      dailyTotals[date] += totalForThisPayment;
+    } else {
+      dailyTotals[date] = totalForThisPayment;
+    }
+  });
+});
+
+
+const chartData = Object.keys(dailyTotals)
+  .sort()
+  .map((date) => ({
+    date,
+    total: dailyTotals[date],
+  }));
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Dividend Tracker</Text>
@@ -82,7 +112,7 @@ export default function Dashboard() {
       {loading && <Text>Carregando...</Text>}
       {error && <Text style={styles.error}>{error}</Text>}
 
-      <DividendLineChart dividends={dividends} />
+      <DividendLineChart data={chartData} />
 
       <FlatList
         data={dividends}
