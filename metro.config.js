@@ -1,23 +1,15 @@
-                                                             const { getDefaultConfig } = require('expo/metro-config');
+// metro.config.js
+const { getDefaultConfig } = require("expo/metro-config");
 
-/** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
-config.resolver.resolveRequest = function packageExportsResolver(context, moduleImport, platform) {
-  // Use the browser version of the package for React Native
-  if (moduleImport === '<package>' || moduleImport.startsWith('<package>/')) {
-    return context.resolveRequest(
-      {
-        ...context,
-        unstable_conditionNames: ['browser'],
-      },
-      moduleImport,
-      platform,
-    );
-  }
+// Allow .cjs files
+config.resolver.sourceExts = config.resolver.sourceExts || [];
+if (!config.resolver.sourceExts.includes("cjs")) {
+  config.resolver.sourceExts.push("cjs");
+}
 
-  // Fall back to normal resolution
-  return context.resolveRequest(context, moduleImport, platform);
-};
+// Work around stricter package.json "exports" behavior in Metro
+config.resolver.unstable_enablePackageExports = false;
 
 module.exports = config;

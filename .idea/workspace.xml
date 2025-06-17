@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Consertados os estilos do CustomModal.tsx">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/DividendLineChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DividendLineChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metro.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/metro.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,7 +261,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/components/CustomModal.tsx</url>
           <line>24</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
