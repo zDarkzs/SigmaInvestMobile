@@ -66,7 +66,7 @@ export const CommonStyles = {
   modalContainer: {
     maxWidht:'50%',
     margin: '10%',
-    backgroundColor: Colors.backgroundDark,
+    backgroundColor: Colors.background,
     borderRadius: 10,
     padding: 16,
     alignItems: 'center' as const,
@@ -79,21 +79,6 @@ export const CommonStyles = {
     shadowRadius: 4,
   },
   borderRadius: 10,
-
-  modalTopRight: {
-  position: 'absolute' as const,
-  top: 40,
-  right: 20,
-  width: '80%',
-  backgroundColor: Colors.backgroundDark,
-  borderRadius: 10,
-  padding: 16,
-  shadowColor: Colors.black,
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.3,
-  shadowRadius: 4,
-  elevation: 5,
-},
 
 };
 

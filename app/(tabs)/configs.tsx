@@ -231,7 +231,7 @@ export default function SettingsScreen() {
 
       )}
 
-      <CustomModal visible={isExportDialogOpen} onClose={()=>setIsExportDialogOpen(false)}>
+      <CustomModal visible={isExportDialogOpen} title={"Exportar Dados"} onClose={()=>setIsExportDialogOpen(false)}>
         <Button title={'Para Json...'} onPress={exportStockSharesToJSON}/>
         <Button title={'Para CSV...'} onPress={exportStockSharesToCSV}/>
       </CustomModal>

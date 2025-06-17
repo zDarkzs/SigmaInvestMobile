@@ -1,6 +1,7 @@
 import { Modal, ScrollView, StyleSheet, View, Button, Platform } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { CommonStyles } from "@/constants/ConstantStyles";
+import {Colors} from "@/constants/Colors";
 
 export default function CustomModal({
   visible,
@@ -21,14 +22,14 @@ export default function CustomModal({
       onRequestClose={onClose}
     >
       <View style={styles.overlay}>
-        <View style={styles.modalContent}>
-          <Button title="Fechar" color="red" onPress={onClose} />
+        <View style={CommonStyles.modalContainer}>
           {title && (
             <View style={styles.modalTitleHolder}>
               <ThemedText style={styles.modalTitleText}>{title}</ThemedText>
             </View>
           )}
           {children}
+          <Button title="Fechar" color="red" onPress={onClose} />
         </View>
       </View>
     </Modal>
@@ -40,17 +41,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
-  modalContent: {
-    ...CommonStyles.modalTopRight,
-    width:'50%'// <- AQUI usa o novo estilo de canto superior direito
-  },
   modalTitleText: {
     fontWeight: "bold",
     fontSize: 30,
   },
   modalTitleHolder: {
     width: "100%",
-    backgroundColor: "#555555",
+    backgroundColor: Colors.primaryLight,
     alignItems: "center",
     padding: 10,
     borderTopLeftRadius: 6,
