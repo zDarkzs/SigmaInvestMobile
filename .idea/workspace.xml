@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Consertados os estilos do CustomModal.tsx">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Primeira versão compativel com android">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metro.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/metro.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
@@ -101,6 +100,7 @@
       <workItem from="1750098708098" duration="4085000" />
       <workItem from="1750105915803" duration="285000" />
       <workItem from="1750163894522" duration="7411000" />
+      <workItem from="1750243357517" duration="1354000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -222,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750171108870</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Primeira versão compativel com android">
+      <option name="closed" value="true" />
+      <created>1750191951048</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1750191951048</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,7 +261,8 @@
     <MESSAGE value="Exportando com sucesso para csv." />
     <MESSAGE value="Adicionado FIltros por ticker" />
     <MESSAGE value="Consertados os estilos do CustomModal.tsx" />
-    <option name="LAST_COMMIT_MESSAGE" value="Consertados os estilos do CustomModal.tsx" />
+    <MESSAGE value="Primeira versão compativel com android" />
+    <option name="LAST_COMMIT_MESSAGE" value="Primeira versão compativel com android" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
