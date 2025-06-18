@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+// Dashboard.tsx
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -12,8 +13,8 @@ import { API_CONFIGS } from "@/services/apiClients";
 import DividendCard from "@/components/DividendCard";
 import DividendLineChart from "@/components/DividendLineChart";
 import { useStocks } from "@/context/StockContext";
-
-type DailyTotal = { [date: string]: number };
+import { CommonStyles } from "@/constants/ConstantStyles";
+import {Colors} from "@/constants/Colors";
 
 export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
@@ -21,10 +22,8 @@ export default function Dashboard() {
   const [newTicker, setNewTicker] = useState("");
   const [quantity, setQuantity] = useState("0");
 
-
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
-  const { addStockShare } = useStocks();
-  const { stockShares } = useStocks();
+  const { addStockShare, stockShares } = useStocks();
 
   const isTickerValid = () =>
     newTicker.trim() !== "" && !tickers.includes(newTicker.toUpperCase());
@@ -49,32 +48,9 @@ export default function Dashboard() {
     );
   };
 
+  // Extrair todos os payments de todas as ações
+  const allPayments = Object.values(stockShares).flatMap((share) => share.payments);
 
-const dailyTotals: DailyTotal = {};
-
-Object.keys(stockShares).forEach((ticker) => {
-  const share = stockShares[ticker];
-  const quantity = share.quantity;
-
-  share.payments.forEach((payment) => {
-    const date = payment.paymentDate;
-    const totalForThisPayment = payment.amount * quantity;
-
-    if (dailyTotals[date]) {
-      dailyTotals[date] += totalForThisPayment;
-    } else {
-      dailyTotals[date] = totalForThisPayment;
-    }
-  });
-});
-
-
-const chartData = Object.keys(dailyTotals)
-  .sort()
-  .map((date) => ({
-    date,
-    total: dailyTotals[date],
-  }));
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Dividend Tracker</Text>
@@ -112,7 +88,11 @@ const chartData = Object.keys(dailyTotals)
       {loading && <Text>Carregando...</Text>}
       {error && <Text style={styles.error}>{error}</Text>}
 
-      <DividendLineChart data={chartData} />
+      {allPayments.length > 0 ? (
+        <DividendLineChart payments={allPayments} />
+      ) : (
+        <Text style={CommonStyles.warningText}>Sem dados de dividendos no momento.</Text>
+      )}
 
       <FlatList
         data={dividends}
@@ -126,6 +106,7 @@ const chartData = Object.keys(dailyTotals)
 
 const styles = StyleSheet.create({
   container: {
+    ...CommonStyles.container,
     flex: 1,
     padding: 16,
   },

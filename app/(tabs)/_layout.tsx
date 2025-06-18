@@ -1,47 +1,13 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const logged = false;
   const { userData } = useAuth();
-
-  if (logged) {
-    return (
-      <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: Colors.primary,
-          headerShown: false,
-          tabBarStyle: styles.tabBar,
-          tabBarLabelStyle: styles.tabBarLabel,
-        }}
-      >
-        <Tabs.Screen
-          name="login"
-          options={{
-            title: "Login",
-            tabBarIcon: ({ color }) => (
-              <TabBarIcon name="log-in" color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="signup"
-          options={{
-            title: "Sign Up",
-            tabBarIcon: ({ color }) => (
-              <TabBarIcon name="person-add" color={color} />
-            ),
-          }}
-        />
-      </Tabs>
-    );
-  }
 
   return (
     <Tabs
@@ -108,7 +74,10 @@ export default function TabLayout() {
     </Tabs>
   );
 }
-
+const getMargin = ()=>{
+    if(Platform.OS !== "web") return 50;
+    return 0;
+}
 const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: Colors.white,
@@ -116,6 +85,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     height: 60,
     paddingBottom: 5,
+      marginBottom:getMargin(),
   },
   tabBarLabel: {
     fontSize: 12,

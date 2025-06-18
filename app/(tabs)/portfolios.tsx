@@ -52,7 +52,7 @@ export default function PortfoliosScreen() {
   }, [dividends]);
 
   return (
-    <View>
+    <View style={CommonStyles.container}>
       {loading ? (
         <View style={styles.loadingContainer}>
           <ThemedText>Carregando...</ThemedText>

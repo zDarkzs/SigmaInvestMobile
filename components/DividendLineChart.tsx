@@ -1,23 +1,41 @@
+// DividendLineChart.tsx
 import React from "react";
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, Text } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { Colors } from "@/constants/Colors";
 
-type ChartDataPoint = {
-  date: string;
-  total: number;
+type Payment = {
+  paymentDate: string;
+  amount: number;
 };
 
 interface DividendLineChartProps {
-  data: ChartDataPoint[];
+  payments: Payment[];
 }
 
-const DividendLineChart: React.FC<DividendLineChartProps> = ({ data }) => {
+const DividendLineChart: React.FC<DividendLineChartProps> = ({ payments }) => {
+  if (payments.length === 0) {
+    return <Text style={{ textAlign: "center", marginVertical: 8 }}>Nenhum pagamento para exibir no gráfico.</Text>;
+  }
+
+  // Calcular os totais por dia
+  const dailyTotals: { [date: string]: number } = {};
+
+  payments.forEach((payment) => {
+    if (dailyTotals[payment.paymentDate]) {
+      dailyTotals[payment.paymentDate] += payment.amount;
+    } else {
+      dailyTotals[payment.paymentDate] = payment.amount;
+    }
+  });
+
   const chartData = {
-    labels: data.map((d) => d.date),
+    labels: Object.keys(dailyTotals).sort(),
     datasets: [
       {
-        data: data.map((d) => d.total),
+        data: Object.keys(dailyTotals)
+          .sort()
+          .map((date) => dailyTotals[date]),
         strokeWidth: 2,
       },
     ],

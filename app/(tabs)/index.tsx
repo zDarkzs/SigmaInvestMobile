@@ -109,15 +109,15 @@ export default function HomeScreen() {
   return (
 
 
+      <View style={styles.container}>
     <ScrollView scrollEnabled={!isFilterModalVisible}>
-      <View style={[CommonStyles.container, styles.container]}>
         <Text style={CommonStyles.headerText}>SIGMA INVEST</Text>
 
         {!userData && stockShares &&
             <Text>Dados Locais, faça login para sincronizar com a nuvem</Text>
         }
         <View style={styles.section}>
-          <Text style={CommonStyles.sectionTitle}>DIVIDENDOS DO MÊS:</Text>
+          <Text style={CommonStyles.sectionTitle}>RENDIMENTOS DO PERIODO:</Text>
           <Button
             title={getFilterButtonDisplayText()}
             onPress={toggleFilterModal}
@@ -161,7 +161,6 @@ export default function HomeScreen() {
             <Text>Nenhum dividendo encontrado</Text>
           )}
         </View>
-      </View>
 
       {/* Modal de Filtro */}
       <CustomModal title={'Filtrar Ativos'} visible={isFilterModalVisible} onClose={toggleFilterModal}>
@@ -235,13 +234,16 @@ export default function HomeScreen() {
         </View>
       </CustomModal>
     </ScrollView>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    ...CommonStyles.container,
     alignItems: "center",
     gap: 8,
+    flex:1
   },
   section: {
     width: "90%",
