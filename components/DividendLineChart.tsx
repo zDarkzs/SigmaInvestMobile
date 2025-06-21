@@ -23,7 +23,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({ payments }) => {
 
   payments.forEach((payment) => {
     if (dailyTotals[payment.paymentDate]) {
-      dailyTotals[payment.paymentDate] += payment.amount;
+      dailyTotals[payment.paymentDate] += (payment.amount);
     } else {
       dailyTotals[payment.paymentDate] = payment.amount;
     }
@@ -35,7 +35,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({ payments }) => {
       {
         data: Object.keys(dailyTotals)
           .sort()
-          .map((date) => dailyTotals[date]),
+          .map((date) => (dailyTotals[date])),
         strokeWidth: 2,
       },
     ],

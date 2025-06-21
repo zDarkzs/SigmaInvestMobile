@@ -14,7 +14,6 @@ import DividendCard from "@/components/DividendCard";
 import DividendLineChart from "@/components/DividendLineChart";
 import { useStocks } from "@/context/StockContext";
 import { CommonStyles } from "@/constants/ConstantStyles";
-import {Colors} from "@/constants/Colors";
 
 export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
