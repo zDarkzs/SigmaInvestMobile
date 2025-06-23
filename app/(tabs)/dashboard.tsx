@@ -1,5 +1,5 @@
 // Dashboard.tsx
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   View,
   Text,
@@ -17,85 +17,122 @@ import { CommonStyles } from "@/constants/ConstantStyles";
 import {Dividend} from "@/types/dividendTypes";
 
 export default function Dashboard() {
-  const [tickers, setTickers] = useState<string[]>([]);
-  const [selectedApis, setSelectedApis] = useState<string[]>(["BRAPI"]);
-  const [newTicker, setNewTicker] = useState("");
-  const [quantity, setQuantity] = useState("0");
-
+  const [isFilterModalVisible, setFilterModalVisible] = useState(false);
+  const [selectedYear, setSelectedYear] = useState("Todos");
+  const [selectedMonth, setSelectedMonth] = useState("Todos");
+  const [selectedTicker, setSelectedTicker] = useState("Todos");
+  const [tickers] = useState<string[]>([]);
+  const [selectedApis] = useState<string[]>(["BRAPI"]);
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
-  const { addStockShare, stockShares } = useStocks();
+  const { stockShares,getStocksDividendData } = useStocks();
+  const data = stockShares? getStocksDividendData(stockShares) : [];
+  const [filteredDividends, setFilteredDividends] = useState<Dividend[]>(
+    data || []
+  );
+    const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
+  const getAvailableTickers = (dividends: Dividend[]) =>
+    [
+      "Todos",
+      ...Array.from(new Set(dividends.map((d) => d.ticker))).sort(),
+    ];
 
-  const isTickerValid = () =>
-    newTicker.trim() !== "" && !tickers.includes(newTicker.toUpperCase());
+  const getAvailableYears = (dividends: Dividend[]) =>
+    [
+      "Todos",
+      ...Array.from(new Set(dividends.map((d) => d.paymentDate.split("-")[0]))),
+    ].sort((a, b) => b.localeCompare(a));
 
-  const isQuantityValid = () => !isNaN(parseInt(quantity));
+  const getAvailableMonths = (dividends: Dividend[], year: string) => {
 
-  const handleAddTicker = () => {
-    if (isTickerValid() && isQuantityValid()) {
-      const upperTicker = newTicker.toUpperCase();
-      setTickers([...tickers, upperTicker]);
-      addStockShare(upperTicker, parseInt(quantity), dividends);
-      setNewTicker("");
-      setQuantity("0");
+    const filtered =
+      year === "Todos"
+        ? dividends
+        : dividends.filter((d) => d.paymentDate.startsWith(`${year}-`));
+
+    return [
+      "Todos",
+      ...Array.from(
+        new Set(filtered.map((d) => d.paymentDate.split("-")[1]))
+      ).sort((a, b) => parseInt(a) - parseInt(b)),
+    ];
+  };
+
+  const applyFilters = () => {
+    let dividends = data;
+
+    if (selectedYear !== "Todos") {
+      dividends = dividends.filter((d) =>
+        d.paymentDate.startsWith(`${selectedYear}-`)
+      );
     }
+
+    if (selectedMonth !== "Todos") {
+      dividends = dividends.filter(
+        (d) => d.paymentDate.split("-")[1] === selectedMonth
+      );
+    }
+    if (selectedTicker !== "Todos") {
+      dividends = dividends.filter((d) => d.ticker === selectedTicker);
+    }
+
+    setFilteredDividends(dividends);
+    toggleFilterModal();
+  };
+  useEffect(() => {
+    setSelectedMonth("Todos");
+  }, [selectedYear]);
+  const resetFilters = () => {
+    setSelectedYear("Todos");
+    setSelectedMonth("Todos");
+    setSelectedTicker("Todos")
+    setFilteredDividends(data);
+    toggleFilterModal();
   };
 
-  const handleToggleApi = (apiName: string) => {
-    setSelectedApis((prev) =>
-      prev.includes(apiName)
-        ? prev.filter((api) => api !== apiName)
-        : [...prev, apiName]
-    );
-  };
+  const displayDividends =
+    filteredDividends.length > 0 ? filteredDividends : data;
+  const total = displayDividends.reduce(
+    (sum, d) => sum + d.amount * (stockShares?.[d.ticker]?.quantity || 0),
+    0
+  );
+  const getFilterButtonDisplayText = ()=>{
+    const tickerPart = ()=>{
+    if(selectedTicker==="Todos"){return ""}
+    if(selectedMonth==="Todos"){return selectedTicker}
+    return selectedTicker + ' : '
+    }
+    const monthYearPart = ()=>{
+      if(selectedYear!== "Todos"){
+        if(selectedMonth !== "Todos")return selectedMonth + ' / ' + selectedYear;
+        return selectedYear;
+      }
+      return ""
+    }
+    const result = tickerPart()+monthYearPart();
+    if(result == ''){
+    return "Filtrar"
+    }
+    return result;
+  }
 
-  // Extrair todos os payments de todas as ações
-  const allPayments:Dividend[]  = stockShares ? Object.values(stockShares).flatMap((share) => share.payments):[]
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Dividend Tracker</Text>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Adicionar novo ticker (ex: ITUB4)"
-          value={newTicker}
-          onChangeText={setNewTicker}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Quantidade de cotas"
-          value={quantity}
-          onChangeText={setQuantity}
-          keyboardType="numeric"
-        />
-        <View style={styles.buttonContainer}>
-          <Button title="Adicionar" onPress={handleAddTicker} />
-        </View>
-      </View>
-
-      <View style={styles.apiSelector}>
-        {Object.keys(API_CONFIGS).map((apiName) => (
-          <Button
-            key={apiName}
-            title={API_CONFIGS[apiName as keyof typeof API_CONFIGS].name}
-            onPress={() => handleToggleApi(apiName)}
-            color={selectedApis.includes(apiName) ? "green" : "gray"}
-          />
-        ))}
-      </View>
+      <Text style={styles.title}>Histórico de dividendos</Text>
 
       {loading && <Text>Carregando...</Text>}
       {error && <Text style={styles.error}>{error}</Text>}
 
-      {allPayments.length > 0 ? (
-        <DividendLineChart payments={allPayments} />
+      {data.length > 0 ? (
+        <DividendLineChart payments={data} />
       ) : (
         <Text style={CommonStyles.warningText}>Sem dados de dividendos no momento.</Text>
       )}
 
+
+
       <FlatList
-        data={dividends}
+        data={data}
         keyExtractor={(item) => item.id + item.amount}
         renderItem={({ item }) => <DividendCard dividend={item} />}
         contentContainerStyle={styles.list}

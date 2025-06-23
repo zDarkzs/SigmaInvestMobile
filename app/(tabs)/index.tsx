@@ -11,6 +11,7 @@ import CustomModal from "@/components/CustomModal";
 import { CommonStyles } from "@/constants/ConstantStyles";
 import { Colors } from "@/constants/Colors";
 import {useAuth} from "@/context/AuthContext";
+import {ThemedText} from "@/components/ThemedText";
 
 export default function HomeScreen() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
@@ -39,6 +40,7 @@ export default function HomeScreen() {
     ].sort((a, b) => b.localeCompare(a));
 
   const getAvailableMonths = (dividends: Dividend[], year: string) => {
+
     const filtered =
       year === "Todos"
         ? dividends
@@ -97,7 +99,10 @@ export default function HomeScreen() {
     return selectedTicker + ' : '
     }
     const monthYearPart = ()=>{
-      if(selectedMonth!== "Todos" && selectedYear !== "Todos"){return selectedMonth + ' / ' + selectedYear}
+      if(selectedYear!== "Todos"){
+        if(selectedMonth !== "Todos")return selectedMonth + ' / ' + selectedYear;
+        return selectedYear;
+      }
       return ""
     }
     const result = tickerPart()+monthYearPart();
@@ -113,8 +118,8 @@ export default function HomeScreen() {
     <ScrollView scrollEnabled={!isFilterModalVisible}>
         <Text style={CommonStyles.headerText}>SIGMA INVEST</Text>
 
-        {!userData && stockShares &&
-            <Text>Dados Locais, faça login para sincronizar com a nuvem</Text>
+        {!userData.isAuthenticated && stockShares &&
+            <ThemedText style={CommonStyles.warningText}>Dados Locais, faça login para sincronizar com a nuvem</ThemedText>
         }
         <View style={styles.section}>
           <Text style={CommonStyles.sectionTitle}>RENDIMENTOS DO PERIODO:</Text>
@@ -180,6 +185,7 @@ export default function HomeScreen() {
               </Picker>
             </View>
           </View>
+          {selectedYear !== "Todos" &&
 
           <View style={styles.filterGroup}>
             <Text style={styles.label}>Mês:</Text>
@@ -187,6 +193,7 @@ export default function HomeScreen() {
               <Picker
                 selectedValue={selectedMonth}
                 onValueChange={setSelectedMonth}
+                enabled={selectedYear !== "Todos"}
               >
                 {getAvailableMonths(data, selectedYear).map((month) => (
                   <Picker.Item
@@ -204,6 +211,7 @@ export default function HomeScreen() {
               </Picker>
             </View>
           </View>
+          }
 
           <View style={styles.filterGroup}>
   <Text style={styles.label}>Ticker:</Text>

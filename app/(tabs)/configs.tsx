@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {
   StyleSheet,
   TextInput,
@@ -43,11 +43,25 @@ export default function SettingsScreen() {
   const [notifications, setNotifications] = useState(true);
   const [hasAccount, setHasAccount] = useState(true);
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
+  const [errorMessage, setErrorMessage] =  useState<string|null>(null);
+
+  const handleAuthError = ()=>{
+    setErrorMessage("Houve um erro ao fazer sua autenticação, tente novamente.");
+  }
+
+  //Só para o usuário saber que houve uma nova solicitação.
+  useEffect(() => {
+    if (isLoading) setErrorMessage(null)
+  }, [isLoading]);
+
   const handleLogin = async () => {
     setIsLoading(true);
     try {
       await login(email, password);
-    } finally {
+    }catch (e) {
+      handleAuthError()
+    }
+    finally {
       setIsLoading(false);
     }
   };
@@ -68,6 +82,7 @@ export default function SettingsScreen() {
         });
       }
     } catch (error) {
+      handleAuthError();
       Alert.alert("Erro", "Falha ao registrar: " + error);
     } finally {
       setIsLoading(false);
@@ -143,6 +158,9 @@ export default function SettingsScreen() {
               <ThemedText type="title" style={styles.authTitle}>
                 Acesse sua conta
               </ThemedText>
+              {errorMessage &&
+                  <ThemedText style={CommonStyles.warningText}>{errorMessage}</ThemedText>
+              }
               {!hasAccount && (
                 <TextInput
                   style={CommonStyles.input}
