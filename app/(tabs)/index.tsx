@@ -20,7 +20,7 @@ export default function HomeScreen() {
 
   const userData = useAuth();
   const { stockShares, getStocksDividendData } = useStocks();
-  const data = getStocksDividendData(stockShares);
+  const data = stockShares? getStocksDividendData(stockShares) : [];
   const [filteredDividends, setFilteredDividends] = useState<Dividend[]>(
     data || []
   );

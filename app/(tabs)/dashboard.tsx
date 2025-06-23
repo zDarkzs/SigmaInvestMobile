@@ -14,6 +14,7 @@ import DividendCard from "@/components/DividendCard";
 import DividendLineChart from "@/components/DividendLineChart";
 import { useStocks } from "@/context/StockContext";
 import { CommonStyles } from "@/constants/ConstantStyles";
+import {Dividend} from "@/types/dividendTypes";
 
 export default function Dashboard() {
   const [tickers, setTickers] = useState<string[]>([]);
@@ -48,7 +49,7 @@ export default function Dashboard() {
   };
 
   // Extrair todos os payments de todas as ações
-  const allPayments = Object.values(stockShares).flatMap((share) => share.payments);
+  const allPayments:Dividend[]  = stockShares ? Object.values(stockShares).flatMap((share) => share.payments):[]
 
   return (
     <View style={styles.container}>
