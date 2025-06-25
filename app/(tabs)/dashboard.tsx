@@ -49,8 +49,8 @@ export default function Dashboard() {
       {loading && <Text>Carregando...</Text>}
       {error && <Text style={styles.error}>{error}</Text>}
 
-      {data.length > 0 ? (
-        <DividendLineChart payments={data} />
+      {currentDividends.length > 0 ? (
+        <DividendLineChart payments={currentDividends} />
       ) : (
         <Text style={CommonStyles.warningText}>Sem dados de dividendos no momento.</Text>
       )}
@@ -58,7 +58,7 @@ export default function Dashboard() {
 
 
       <FlatList
-        data={data}
+        data={currentDividends}
         keyExtractor={(item) => item.id + item.amount}
         renderItem={({ item }) => <DividendCard dividend={item} />}
         contentContainerStyle={styles.list}
