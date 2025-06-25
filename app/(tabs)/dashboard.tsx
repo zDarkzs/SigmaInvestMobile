@@ -15,6 +15,10 @@ import DividendLineChart from "@/components/DividendLineChart";
 import { useStocks } from "@/context/StockContext";
 import { CommonStyles } from "@/constants/ConstantStyles";
 import {Dividend} from "@/types/dividendTypes";
+import {FilterParams, InitializeFilter, Variables} from "@/scripts/dividendFiltering";
+import CustomModal from "@/components/CustomModal";
+import {Picker} from "@react-native-picker/picker";
+import {Colors} from "@/constants/Colors";
 
 export default function Dashboard() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
@@ -25,97 +29,19 @@ export default function Dashboard() {
   const [selectedApis] = useState<string[]>(["BRAPI"]);
   const { dividends, loading, error } = useDividends(tickers, selectedApis);
   const { stockShares,getStocksDividendData } = useStocks();
-  const data = stockShares? getStocksDividendData(stockShares) : [];
-  const [filteredDividends, setFilteredDividends] = useState<Dividend[]>(
-    data || []
-  );
-    const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
-  const getAvailableTickers = (dividends: Dividend[]) =>
-    [
-      "Todos",
-      ...Array.from(new Set(dividends.map((d) => d.ticker))).sort(),
-    ];
-
-  const getAvailableYears = (dividends: Dividend[]) =>
-    [
-      "Todos",
-      ...Array.from(new Set(dividends.map((d) => d.paymentDate.split("-")[0]))),
-    ].sort((a, b) => b.localeCompare(a));
-
-  const getAvailableMonths = (dividends: Dividend[], year: string) => {
-
-    const filtered =
-      year === "Todos"
-        ? dividends
-        : dividends.filter((d) => d.paymentDate.startsWith(`${year}-`));
-
-    return [
-      "Todos",
-      ...Array.from(
-        new Set(filtered.map((d) => d.paymentDate.split("-")[1]))
-      ).sort((a, b) => parseInt(a) - parseInt(b)),
-    ];
-  };
-
-  const applyFilters = () => {
-    let dividends = data;
-
-    if (selectedYear !== "Todos") {
-      dividends = dividends.filter((d) =>
-        d.paymentDate.startsWith(`${selectedYear}-`)
-      );
-    }
-
-    if (selectedMonth !== "Todos") {
-      dividends = dividends.filter(
-        (d) => d.paymentDate.split("-")[1] === selectedMonth
-      );
-    }
-    if (selectedTicker !== "Todos") {
-      dividends = dividends.filter((d) => d.ticker === selectedTicker);
-    }
-
-    setFilteredDividends(dividends);
-    toggleFilterModal();
-  };
-  useEffect(() => {
-    setSelectedMonth("Todos");
-  }, [selectedYear]);
-  const resetFilters = () => {
-    setSelectedYear("Todos");
-    setSelectedMonth("Todos");
-    setSelectedTicker("Todos")
-    setFilteredDividends(data);
-    toggleFilterModal();
-  };
-
-  const displayDividends =
-    filteredDividends.length > 0 ? filteredDividends : data;
-  const total = displayDividends.reduce(
-    (sum, d) => sum + d.amount * (stockShares?.[d.ticker]?.quantity || 0),
-    0
-  );
-  const getFilterButtonDisplayText = ()=>{
-    const tickerPart = ()=>{
-    if(selectedTicker==="Todos"){return ""}
-    if(selectedMonth==="Todos"){return selectedTicker}
-    return selectedTicker + ' : '
-    }
-    const monthYearPart = ()=>{
-      if(selectedYear!== "Todos"){
-        if(selectedMonth !== "Todos")return selectedMonth + ' / ' + selectedYear;
-        return selectedYear;
+  const toggleFilterModal = ()=> setFilterModalVisible(!isFilterModalVisible);
+  const [data,setData] = useState<FilterParams>(
+      {
+        unfilteredDividends:stockShares?getStocksDividendData(stockShares):[],
+        selectedYear:"Todos",
+        selectedMonth:"Todos",
+        selectedTicker:"Todos",
       }
-      return ""
-    }
-    const result = tickerPart()+monthYearPart();
-    if(result == ''){
-    return "Filtrar"
-    }
-    return result;
-  }
-
-
+  );
+  const [filterVariables, setFilterVariables] = useState<Variables>(InitializeFilter(data));
+  const [currentDividends,setCurrenteDividends]= useState<Dividend[]>([])
+  const applyFilters = ()=>{}
+  const resetFilters = ()=>{}
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Histórico de dividendos</Text>
@@ -137,6 +63,80 @@ export default function Dashboard() {
         renderItem={({ item }) => <DividendCard dividend={item} />}
         contentContainerStyle={styles.list}
       />
+       {/* Modal de Filtro */}
+      <CustomModal title={'Filtrar Ativos'} visible={isFilterModalVisible} onClose={toggleFilterModal}>
+        <View style={styles.modal}>
+          <Text style={styles.modalTitle}>Filtrar Dividendos</Text>
+
+          <View style={styles.filterGroup}>
+            <Text style={styles.label}>Ano:</Text>
+            <View style={styles.pickerWrapper}>
+              <Picker
+                selectedValue={selectedYear}
+                onValueChange={setSelectedYear}
+              >
+                {filterVariables.availableYears.map((year) => (
+                  <Picker.Item key={year} label={year} value={year} />
+                ))}
+              </Picker>
+            </View>
+          </View>
+          {selectedYear !== "Todos" &&
+
+          <View style={styles.filterGroup}>
+            <Text style={styles.label}>Mês:</Text>
+            <View style={styles.pickerWrapper}>
+              <Picker
+                selectedValue={selectedMonth}
+                onValueChange={setSelectedMonth}
+                enabled={selectedYear !== "Todos"}
+              >
+                {filterVariables.availableMonths.map((month) => (
+                  <Picker.Item
+                    key={month}
+                    label={
+                      month === "Todos"
+                        ? "Todos"
+                        : `${month}/${
+                            selectedYear === "Todos" ? "" : selectedYear
+                          }`
+                    }
+                    value={month}
+                  />
+                ))}
+              </Picker>
+            </View>
+          </View>
+          }
+
+          <View style={styles.filterGroup}>
+  <Text style={styles.label}>Ticker:</Text>
+  <View style={styles.pickerWrapper}>
+    <Picker
+      selectedValue={selectedTicker}
+      onValueChange={setSelectedTicker}
+    >
+      {filterVariables.availableTickers.map((ticker) => (
+        <Picker.Item key={ticker} label={ticker} value={ticker} />
+      ))}
+    </Picker>
+  </View>
+</View>
+          <View>
+            <Button
+              title="Aplicar Filtros"
+              onPress={applyFilters}
+              color={Colors.primary}
+            />
+            <View style={{ margin: 5 }} />
+            <Button
+              title="Limpar Filtros"
+              onPress={resetFilters}
+              color="#666"
+            />
+          </View>
+        </View>
+      </CustomModal>
     </View>
   );
 }
@@ -181,5 +181,66 @@ const styles = StyleSheet.create({
   error: {
     color: "red",
     marginBottom: 16,
+  },
+  section: {
+    width: "90%",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  totalText: {
+    color: "green",
+    fontSize: 32,
+    fontWeight: "500",
+    marginTop: 10,
+  },
+  dividendItem: {
+    width: "100%",
+    borderLeftWidth: 5,
+    borderLeftColor: Colors.primary,
+  },
+  ticker: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: Colors.primary,
+  },
+  quantity: {
+    fontSize: 16,
+    color: Colors.primary,
+  },
+  value: {
+    fontSize: 18,
+    color: "green",
+    fontWeight: "bold",
+  },
+  label: {
+    fontSize: 16,
+    color: Colors.primary,
+  },
+  type: {
+    fontSize: 16,
+    marginTop: 10,
+    fontStyle: "italic",
+    color: Colors.primary,
+  },
+  modal: {
+    backgroundColor: Colors.white,
+    padding: 20,
+    borderRadius: 10,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Colors.primary,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  filterGroup: {
+    marginBottom: 15,
+  },
+  pickerWrapper: {
+    borderWidth: 1,
+    borderColor: Colors.divider,
+    borderRadius: 8,
+    overflow: "hidden",
   },
 });
