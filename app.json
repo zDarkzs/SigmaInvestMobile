@@ -2,7 +2,7 @@
   "expo": {
     "name": "SigmaInvest",
     "slug": "SigmaInvest",
-    "version": "1.0.0",
+    "version": "0.0.4beta",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
