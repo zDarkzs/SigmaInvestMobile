@@ -1,5 +1,4 @@
-// Dashboard.tsx
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -13,141 +12,109 @@ import DividendCard from "@/components/DividendCard";
 import DividendLineChart from "@/components/DividendLineChart";
 import { useStocks } from "@/context/StockContext";
 import { CommonStyles } from "@/constants/ConstantStyles";
-import {Dividend} from "@/types/dividendTypes";
-import {filterDividends, FilterParams, updateFilter, Variables} from "@/scripts/dividendFiltering";
 import CustomModal from "@/components/CustomModal";
-import {Picker} from "@react-native-picker/picker";
-import {Colors} from "@/constants/Colors";
+import { Picker } from "@react-native-picker/picker";
+import { Colors } from "@/constants/Colors";
+import { useDividendFilter } from "@/hooks/useDividendFilter";
 
 export default function Dashboard() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
-  const [selectedYear, setSelectedYear] = useState("Todos");
-  const [selectedMonth, setSelectedMonth] = useState("Todos");
-  const [selectedTicker, setSelectedTicker] = useState("Todos");
+  const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
+
   const [tickers] = useState<string[]>([]);
   const [selectedApis] = useState<string[]>(["BRAPI"]);
-  const {dividends, loading, error} = useDividends(tickers, selectedApis);
-  const {stockShares, getStocksDividendData} = useStocks();
-  const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
-  const [data, setData] = useState<FilterParams>(
-      {
-        unfilteredDividends: stockShares ? getStocksDividendData(stockShares) : [],
-        selectedYear: "Todos",
-        selectedMonth: "Todos",
-        selectedTicker: "Todos",
-      }
-  );
-  useEffect(() => {
-    updateFilter(data)
-  }, []);
-  const [filterVariables, setFilterVariables] = useState<Variables>(updateFilter(data));
-  const [currentDividends, setCurrentDividends] = useState<Dividend[]>(data.unfilteredDividends)
-  const applyFilters = () => {
-    setCurrentDividends(filterDividends(data, filterVariables));
-  }
-  const resetFilters = () => {
-  }
+  const { stockShares, getStocksDividendData } = useStocks();
+  const dividends = stockShares ? getStocksDividendData(stockShares) : [];
+
+  const {
+    selectedYear,
+    selectedMonth,
+    selectedTicker,
+    setSelectedYear,
+    setSelectedMonth,
+    setSelectedTicker,
+    filteredDividends,
+    availableYears,
+    availableMonths,
+    availableTickers,
+    resetFilters,
+  } = useDividendFilter(dividends);
+
   return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Histórico de dividendos</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Histórico de dividendos</Text>
 
-        {loading && <Text>Carregando...</Text>}
-        {error && <Text style={styles.error}>{error}</Text>}
+      {filteredDividends.length > 0 ? (
+        <DividendLineChart payments={filteredDividends} />
+      ) : (
+        <Text style={CommonStyles.warningText}>Sem dados de dividendos no momento.</Text>
+      )}
 
-        {currentDividends.length > 0 ? (
-            <DividendLineChart payments={currentDividends}/>
-        ) : (
-            <Text style={CommonStyles.warningText}>Sem dados de dividendos no momento.</Text>
-        )}
-        <Button
-            title={"Filtrar"}
-            onPress={toggleFilterModal}
-            color={Colors.primary}
-          />
+      <Button
+        title="Filtrar"
+        onPress={toggleFilterModal}
+        color={Colors.primary}
+      />
 
-        <FlatList
-            data={currentDividends}
-            keyExtractor={(item) => item.id + item.amount}
-            renderItem={({item}) => <DividendCard dividend={item}/>}
-            contentContainerStyle={styles.list}
-        />
-        {/* Modal de Filtro */}
-        <CustomModal title={'Filtrar Ativos'} visible={isFilterModalVisible} onClose={toggleFilterModal}>
-          <View style={styles.modal}>
-            <Text style={styles.modalTitle}>Filtrar Dividendos</Text>
+      <FlatList
+        data={filteredDividends}
+        keyExtractor={(item) => item.id + item.amount}
+        renderItem={({ item }) => <DividendCard dividend={item} />}
+        contentContainerStyle={styles.list}
+      />
 
-            <View style={styles.filterGroup}>
-              <Text style={styles.label}>Ano:</Text>
-              <View style={styles.pickerWrapper}>
-                <Picker
-                    selectedValue={selectedYear}
-                    onValueChange={setSelectedYear}
-                >
-                  {filterVariables.availableYears.map((year) => (
-                      <Picker.Item key={year} label={year} value={year}/>
-                  ))}
-                </Picker>
-              </View>
-            </View>
-            {selectedYear !== "Todos" &&
+      <CustomModal title="Filtrar Ativos" visible={isFilterModalVisible} onClose={toggleFilterModal}>
+        <View style={styles.modal}>
+          <Text style={styles.modalTitle}>Filtrar Dividendos</Text>
 
-                <View style={styles.filterGroup}>
-                  <Text style={styles.label}>Mês:</Text>
-                  <View style={styles.pickerWrapper}>
-                    <Picker
-                        selectedValue={selectedMonth}
-                        onValueChange={setSelectedMonth}
-                        enabled={selectedYear !== "Todos"}
-                    >
-                      {filterVariables.availableMonths.map((month) => (
-                          <Picker.Item
-                              key={month}
-                              label={
-                                month === "Todos"
-                                    ? "Todos"
-                                    : `${month}/${
-                                        selectedYear === "Todos" ? "" : selectedYear
-                                    }`
-                              }
-                              value={month}
-                          />
-                      ))}
-                    </Picker>
-                  </View>
-                </View>
-            }
-
-            <View style={styles.filterGroup}>
-              <Text style={styles.label}>Ticker:</Text>
-              <View style={styles.pickerWrapper}>
-                <Picker
-                    selectedValue={selectedTicker}
-                    onValueChange={setSelectedTicker}
-                >
-                  {filterVariables.availableTickers.map((ticker) => (
-                      <Picker.Item key={ticker} label={ticker} value={ticker}/>
-                  ))}
-                </Picker>
-              </View>
-            </View>
-            <View>
-              <Button
-                  title="Aplicar Filtros"
-                  onPress={applyFilters}
-                  color={Colors.primary}
-              />
-              <View style={{margin: 5}}/>
-              <Button
-                  title="Limpar Filtros"
-                  onPress={resetFilters}
-                  color="#666"
-              />
+          <View style={styles.filterGroup}>
+            <Text style={styles.label}>Ano:</Text>
+            <View style={styles.pickerWrapper}>
+              <Picker selectedValue={selectedYear} onValueChange={setSelectedYear}>
+                {availableYears.map((year) => (
+                  <Picker.Item key={year} label={year} value={year} />
+                ))}
+              </Picker>
             </View>
           </View>
-        </CustomModal>
-      </View>
+
+          {selectedYear !== "Todos" && (
+            <View style={styles.filterGroup}>
+              <Text style={styles.label}>Mês:</Text>
+              <View style={styles.pickerWrapper}>
+                <Picker selectedValue={selectedMonth} onValueChange={setSelectedMonth}>
+                  {availableMonths.map((month) => (
+                    <Picker.Item
+                      key={month}
+                      label={month === "Todos" ? "Todos" : `${month}/${selectedYear}`}
+                      value={month}
+                    />
+                  ))}
+                </Picker>
+              </View>
+            </View>
+          )}
+
+          <View style={styles.filterGroup}>
+            <Text style={styles.label}>Ticker:</Text>
+            <View style={styles.pickerWrapper}>
+              <Picker selectedValue={selectedTicker} onValueChange={setSelectedTicker}>
+                {availableTickers.map((ticker) => (
+                  <Picker.Item key={ticker} label={ticker} value={ticker} />
+                ))}
+              </Picker>
+            </View>
+          </View>
+
+          <View>
+            <Button title="Limpar Filtros" onPress={resetFilters} color="#666" />
+          </View>
+        </View>
+      </CustomModal>
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,

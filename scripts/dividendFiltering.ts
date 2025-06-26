@@ -23,6 +23,7 @@ export function getAvailableMonths(params:FilterParams){
       ).sort((a, b) => parseInt(a) - parseInt(b)),
     ];
 }
+
 export function updateFilter(params:FilterParams):Variables {
     let dividends = params.unfilteredDividends;
 

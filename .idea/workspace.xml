@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Inicio da separação da logida de filtragem">
+      <change afterPath="$PROJECT_DIR$/hooks/useDividendFilter.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dividendFiltering.ts" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dividendFiltering.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +115,9 @@
       <workItem from="1750515709145" duration="1649000" />
       <workItem from="1750678846195" duration="10612000" />
       <workItem from="1750699369358" duration="12000" />
-      <workItem from="1750847923961" duration="13483000" />
+      <workItem from="1750847923961" duration="13848000" />
+      <workItem from="1750934552657" duration="5320000" />
+      <workItem from="1750964058203" duration="1827000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -314,7 +319,31 @@
       <option name="project" value="LOCAL" />
       <updated>1750876343992</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Inicio da separação da logida de filtragem">
+      <option name="closed" value="true" />
+      <created>1750883205048</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1750883205048</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Inicio da separação da logida de filtragem">
+      <option name="closed" value="true" />
+      <created>1750883319827</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1750883319827</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Inicio da separação da logida de filtragem">
+      <option name="closed" value="true" />
+      <created>1750955234407</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1750955234407</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,6 +390,17 @@
           <url>file://$PROJECT_DIR$/components/CustomModal.tsx</url>
           <line>24</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
+          <line>116</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

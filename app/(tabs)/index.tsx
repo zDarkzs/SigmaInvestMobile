@@ -1,128 +1,74 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, ScrollView, Button, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
-import { generateMockStockShares } from "@/data/mockStockShares";
 import { useStocks } from "@/context/StockContext";
-import { Dividend } from "@/types/dividendTypes";
 import { toBRL } from "@/scripts/utils";
 import CustomModal from "@/components/CustomModal";
-
 import { CommonStyles } from "@/constants/ConstantStyles";
 import { Colors } from "@/constants/Colors";
-import {useAuth} from "@/context/AuthContext";
-import {ThemedText} from "@/components/ThemedText";
+import { useAuth } from "@/context/AuthContext";
+import { ThemedText } from "@/components/ThemedText";
+import { useDividendFilter } from "@/hooks/useDividendFilter";
 
 export default function HomeScreen() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
-  const [selectedYear, setSelectedYear] = useState("Todos");
-  const [selectedMonth, setSelectedMonth] = useState("Todos");
-  const [selectedTicker, setSelectedTicker] = useState("Todos");
+  const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
 
   const userData = useAuth();
   const { stockShares, getStocksDividendData } = useStocks();
-  const data = stockShares? getStocksDividendData(stockShares) : [];
-  const [filteredDividends, setFilteredDividends] = useState<Dividend[]>(
-    data || []
-  );
-  const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
 
-  const getAvailableTickers = (dividends: Dividend[]) =>
-    [
-      "Todos",
-      ...Array.from(new Set(dividends.map((d) => d.ticker))).sort(),
-    ];
+  const dividends = stockShares ? getStocksDividendData(stockShares) : [];
 
-  const getAvailableYears = (dividends: Dividend[]) =>
-    [
-      "Todos",
-      ...Array.from(new Set(dividends.map((d) => d.paymentDate.split("-")[0]))),
-    ].sort((a, b) => b.localeCompare(a));
+  const {
+    selectedYear,
+    selectedMonth,
+    selectedTicker,
+    setSelectedYear,
+    setSelectedMonth,
+    setSelectedTicker,
+    filteredDividends,
+    availableYears,
+    availableMonths,
+    availableTickers,
+    resetFilters,
+  } = useDividendFilter(dividends);
 
-  const getAvailableMonths = (dividends: Dividend[], year: string) => {
-
-    const filtered =
-      year === "Todos"
-        ? dividends
-        : dividends.filter((d) => d.paymentDate.startsWith(`${year}-`));
-
-    return [
-      "Todos",
-      ...Array.from(
-        new Set(filtered.map((d) => d.paymentDate.split("-")[1]))
-      ).sort((a, b) => parseInt(a) - parseInt(b)),
-    ];
-  };
-
-  const applyFilters = () => {
-    let dividends = data;
-
-    if (selectedYear !== "Todos") {
-      dividends = dividends.filter((d) =>
-        d.paymentDate.startsWith(`${selectedYear}-`)
-      );
-    }
-
-    if (selectedMonth !== "Todos") {
-      dividends = dividends.filter(
-        (d) => d.paymentDate.split("-")[1] === selectedMonth
-      );
-    }
-    if (selectedTicker !== "Todos") {
-      dividends = dividends.filter((d) => d.ticker === selectedTicker);
-    }
-
-    setFilteredDividends(dividends);
-    toggleFilterModal();
-  };
-  useEffect(() => {
-    setSelectedMonth("Todos");
-  }, [selectedYear]);
-  const resetFilters = () => {
-    setSelectedYear("Todos");
-    setSelectedMonth("Todos");
-    setSelectedTicker("Todos")
-    setFilteredDividends(data);
-    toggleFilterModal();
-  };
-
-  const displayDividends =
-    filteredDividends.length > 0 ? filteredDividends : data;
-  const total = displayDividends.reduce(
+  const total = filteredDividends.reduce(
     (sum, d) => sum + d.amount * (stockShares?.[d.ticker]?.quantity || 0),
     0
   );
-  const getFilterButtonDisplayText = ()=>{
-    const tickerPart = ()=>{
-    if(selectedTicker==="Todos"){return ""}
-    if(selectedMonth==="Todos"){return selectedTicker}
-    return selectedTicker + ' : '
-    }
-    const monthYearPart = ()=>{
-      if(selectedYear!== "Todos"){
-        if(selectedMonth !== "Todos")return selectedMonth + ' / ' + selectedYear;
+
+  const getFilterButtonDisplayText = () => {
+    const tickerPart = () => {
+      if (selectedTicker === "Todos") return "";
+      if (selectedMonth === "Todos") return selectedTicker;
+      return selectedTicker + " : ";
+    };
+    const monthYearPart = () => {
+      if (selectedYear !== "Todos") {
+        if (selectedMonth !== "Todos") return `${selectedMonth} / ${selectedYear}`;
         return selectedYear;
       }
-      return ""
-    }
-    const result = tickerPart()+monthYearPart();
-    if(result == ''){
-    return "Filtrar"
-    }
-    return result;
-  }
+      return "";
+    };
+    const result = tickerPart() + monthYearPart();
+    return result === "" ? "Filtrar" : result;
+  };
+
   return (
-
-
-      <View style={styles.container}>
-    <ScrollView scrollEnabled={!isFilterModalVisible}>
+    <View style={styles.container}>
+      <ScrollView scrollEnabled={!isFilterModalVisible}>
         <Text style={CommonStyles.headerText}>SIGMA INVEST</Text>
 
-        {!userData.isAuthenticated && stockShares &&
-            <ThemedText style={CommonStyles.warningText}>Dados Locais, faça login para sincronizar com a nuvem</ThemedText>
-        }
+        {!userData.isAuthenticated && stockShares && (
+          <ThemedText style={CommonStyles.warningText}>
+            Dados Locais, faça login para sincronizar com a nuvem
+          </ThemedText>
+        )}
+
         <View style={styles.section}>
-          <Text style={CommonStyles.sectionTitle}>RENDIMENTOS DO PERIODO:</Text>
+          <Text style={CommonStyles.sectionTitle}>RENDIMENTOS DO PERÍODO:</Text>
           <Button
             title={getFilterButtonDisplayText()}
             onPress={toggleFilterModal}
@@ -132,8 +78,8 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.section}>
-          {displayDividends.length > 0 ? (
-            displayDividends.map((dividend, index) => (
+          {filteredDividends.length > 0 ? (
+            filteredDividends.map((dividend, index) => (
               <View
                 key={`${dividend.id}-${index}`}
                 style={[CommonStyles.card, styles.dividendItem]}
@@ -167,82 +113,56 @@ export default function HomeScreen() {
           )}
         </View>
 
-      {/* Modal de Filtro */}
-      <CustomModal title={'Filtrar Ativos'} visible={isFilterModalVisible} onClose={toggleFilterModal}>
-        <View style={styles.modal}>
-          <Text style={styles.modalTitle}>Filtrar Dividendos</Text>
+        <CustomModal title="Filtrar Ativos" visible={isFilterModalVisible} onClose={toggleFilterModal}>
+          <View style={styles.modal}>
+            <Text style={styles.modalTitle}>Filtrar Dividendos</Text>
 
-          <View style={styles.filterGroup}>
-            <Text style={styles.label}>Ano:</Text>
-            <View style={styles.pickerWrapper}>
-              <Picker
-                selectedValue={selectedYear}
-                onValueChange={setSelectedYear}
-              >
-                {getAvailableYears(data).map((year) => (
-                  <Picker.Item key={year} label={year} value={year} />
-                ))}
-              </Picker>
+            <View style={styles.filterGroup}>
+              <Text style={styles.label}>Ano:</Text>
+              <View style={styles.pickerWrapper}>
+                <Picker selectedValue={selectedYear} onValueChange={setSelectedYear}>
+                  {availableYears.map((year) => (
+                    <Picker.Item key={year} label={year} value={year} />
+                  ))}
+                </Picker>
+              </View>
+            </View>
+
+            {selectedYear !== "Todos" && (
+              <View style={styles.filterGroup}>
+                <Text style={styles.label}>Mês:</Text>
+                <View style={styles.pickerWrapper}>
+                  <Picker selectedValue={selectedMonth} onValueChange={setSelectedMonth}>
+                    {availableMonths.map((month) => (
+                      <Picker.Item
+                        key={month}
+                        label={month === "Todos" ? "Todos" : `${month}/${selectedYear}`}
+                        value={month}
+                      />
+                    ))}
+                  </Picker>
+                </View>
+              </View>
+            )}
+
+            <View style={styles.filterGroup}>
+              <Text style={styles.label}>Ticker:</Text>
+              <View style={styles.pickerWrapper}>
+                <Picker selectedValue={selectedTicker} onValueChange={setSelectedTicker}>
+                  {availableTickers.map((ticker) => (
+                    <Picker.Item key={ticker} label={ticker} value={ticker} />
+                  ))}
+                </Picker>
+              </View>
+            </View>
+
+            <View>
+              <Button title="Limpar Filtros" onPress={resetFilters} color="#666" />
             </View>
           </View>
-          {selectedYear !== "Todos" &&
-
-          <View style={styles.filterGroup}>
-            <Text style={styles.label}>Mês:</Text>
-            <View style={styles.pickerWrapper}>
-              <Picker
-                selectedValue={selectedMonth}
-                onValueChange={setSelectedMonth}
-                enabled={selectedYear !== "Todos"}
-              >
-                {getAvailableMonths(data, selectedYear).map((month) => (
-                  <Picker.Item
-                    key={month}
-                    label={
-                      month === "Todos"
-                        ? "Todos"
-                        : `${month}/${
-                            selectedYear === "Todos" ? "" : selectedYear
-                          }`
-                    }
-                    value={month}
-                  />
-                ))}
-              </Picker>
-            </View>
-          </View>
-          }
-
-          <View style={styles.filterGroup}>
-  <Text style={styles.label}>Ticker:</Text>
-  <View style={styles.pickerWrapper}>
-    <Picker
-      selectedValue={selectedTicker}
-      onValueChange={setSelectedTicker}
-    >
-      {getAvailableTickers(data).map((ticker) => (
-        <Picker.Item key={ticker} label={ticker} value={ticker} />
-      ))}
-    </Picker>
-  </View>
-</View>
-          <View>
-            <Button
-              title="Aplicar Filtros"
-              onPress={applyFilters}
-              color={Colors.primary}
-            />
-            <View style={{ margin: 5 }} />
-            <Button
-              title="Limpar Filtros"
-              onPress={resetFilters}
-              color="#666"
-            />
-          </View>
-        </View>
-      </CustomModal>
-    </ScrollView>
-      </View>
+        </CustomModal>
+      </ScrollView>
+    </View>
   );
 }
 
@@ -251,7 +171,7 @@ const styles = StyleSheet.create({
     ...CommonStyles.container,
     alignItems: "center",
     gap: 8,
-    flex:1
+    flex: 1,
   },
   section: {
     width: "90%",
