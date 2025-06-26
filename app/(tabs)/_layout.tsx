@@ -1,15 +1,19 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { StyleSheet, Platform } from "react-native";
+import {StyleSheet, Platform, View} from "react-native";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
+import {ThemedText} from "@/components/ThemedText";
+import OfflineBanner from "@/components/offlineBanner";
 
 export default function TabLayout() {
-  const { userData } = useAuth();
+  const { userData,isAuthenticated } = useAuth();
 
   return (
+      <>
+          <OfflineBanner visible={!isAuthenticated}/>
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
@@ -19,6 +23,7 @@ export default function TabLayout() {
         tabBarIconStyle: styles.tabBarIcon,
       }}
     >
+        <ThemedText> Teste</ThemedText>
       <Tabs.Screen
         name="index"
         options={{
@@ -72,6 +77,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+      </>
   );
 }
 const getMargin = ()=>{
@@ -94,5 +100,15 @@ const styles = StyleSheet.create({
   },
   tabBarIcon: {
     marginBottom: -3,
+  },
+    offlineBanner: {
+    backgroundColor: "#ffcc00",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    alignItems: "center",
+  },
+  offlineText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });
