@@ -61,12 +61,6 @@ export default function HomeScreen() {
       <ScrollView scrollEnabled={!isFilterModalVisible}>
         <Text style={CommonStyles.headerText}>SIGMA INVEST</Text>
 
-        {!userData.isAuthenticated && stockShares && (
-          <ThemedText style={CommonStyles.warningText}>
-            Dados Locais, faça login para sincronizar com a nuvem
-          </ThemedText>
-        )}
-
         <View style={styles.section}>
           <Text style={CommonStyles.sectionTitle}>RENDIMENTOS DO PERÍODO:</Text>
           <Button

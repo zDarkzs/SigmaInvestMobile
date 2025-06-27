@@ -1,19 +1,21 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import {StyleSheet, Platform, View} from "react-native";
+import {StyleSheet, Platform, View, Text} from "react-native";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import {ThemedText} from "@/components/ThemedText";
-import OfflineBanner from "@/components/offlineBanner";
+import Banner from "@/components/Banner";
 
 export default function TabLayout() {
   const { userData,isAuthenticated } = useAuth();
 
   return (
       <>
-          <OfflineBanner visible={!isAuthenticated}/>
+          <Banner visible={!isAuthenticated}>
+              <Text style={styles.text}>Modo Offline</Text>
+          </Banner>
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
@@ -81,7 +83,7 @@ export default function TabLayout() {
   );
 }
 const getMargin = ()=>{
-    if(Platform.OS !== "web") return 50;
+    if(Platform.OS === "android") return 50;
     return 0;
 }
 const styles = StyleSheet.create({
@@ -110,5 +112,9 @@ const styles = StyleSheet.create({
   offlineText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+    text: {
+    fontWeight: "bold",
+    color: "#FFFFFF",
   },
 });

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
   StyleSheet,
   TextInput,
@@ -7,7 +7,7 @@ import {
   Switch,
   Button,
   ScrollView,
-  Alert,
+  Alert, Text,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useAuth } from "@/context/AuthContext";
@@ -19,6 +19,7 @@ import { Colors } from "@/constants/Colors";
 import { CommonStyles } from "@/constants/ConstantStyles";
 import {useStocks} from "@/context/StockContext";
 import CustomModal from "@/components/CustomModal";
+import Banner from "@/components/Banner";
 
 
 
@@ -103,6 +104,7 @@ export default function SettingsScreen() {
 
   return (
     <ScrollView style={CommonStyles.container}>
+
       {isLoading ? (
         <ThemedView style={styles.loadingContainer}>
           <ThemedText>Carregando...</ThemedText>
@@ -158,9 +160,7 @@ export default function SettingsScreen() {
               <ThemedText type="title" style={styles.authTitle}>
                 Acesse sua conta
               </ThemedText>
-              {errorMessage &&
-                  <ThemedText style={CommonStyles.warningText}>{errorMessage}</ThemedText>
-              }
+
               {!hasAccount && (
                 <TextInput
                   style={CommonStyles.input}
@@ -230,7 +230,14 @@ export default function SettingsScreen() {
                     </TouchableOpacity>
                   </>
                 )}
-              <ThemedText  style={CommonStyles.warningText}>Modo offline</ThemedText>
+              {errorMessage &&
+                  <View style={{width:'100%',height:30}}>
+
+              <Banner visible={true}>
+                 <ThemedText style={CommonStyles.warningText}>{errorMessage}</ThemedText>
+                </Banner>
+                  </View>
+              }
               </View>
 
             </View>
@@ -309,5 +316,9 @@ const styles = StyleSheet.create({
   },
   authButtons: {
     marginTop: 10,
+  },
+  text: {
+    fontWeight: "bold",
+    color: Colors.textOnPrimary,
   },
 });
