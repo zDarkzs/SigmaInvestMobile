@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Adicionador banner quando o usuário estiver offline">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/offlineBanner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Banner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useDividendFilter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useDividendFilter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dividendFiltering.ts" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dividendFiltering.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +118,9 @@
       <workItem from="1750847923961" duration="13848000" />
       <workItem from="1750934552657" duration="5320000" />
       <workItem from="1750964058203" duration="4409000" />
-      <workItem from="1751020515989" duration="3302000" />
+      <workItem from="1751020515989" duration="6142000" />
+      <workItem from="1751035769504" duration="1661000" />
+      <workItem from="1751292961367" duration="5729000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -359,7 +362,23 @@
       <option name="project" value="LOCAL" />
       <updated>1750969497582</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação">
+      <option name="closed" value="true" />
+      <created>1751024011441</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1751024011441</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação">
+      <option name="closed" value="true" />
+      <created>1751024052233</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1751024052233</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -399,7 +418,8 @@
     <MESSAGE value="Inicio da separação da logida de filtragem" />
     <MESSAGE value="Logica de filtragem de dividendos separada em useDividendFilter.ts" />
     <MESSAGE value="Adicionador banner quando o usuário estiver offline" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adicionador banner quando o usuário estiver offline" />
+    <MESSAGE value="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -415,7 +435,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
-          <line>116</line>
+          <line>110</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

@@ -35,7 +35,7 @@ export function updateFilter(params:FilterParams):Variables {
 
 }
 
-export function filterDividends(params:FilterParams, variables:Variables): Dividend[]{
+export function filterDividends(params:FilterParams): Dividend[]{
     let dividends: Dividend[] = params.unfilteredDividends;
 
     if (params.selectedYear !== "Todos") {
@@ -52,6 +52,5 @@ export function filterDividends(params:FilterParams, variables:Variables): Divid
     if (params.selectedTicker !== "Todos") {
       dividends = dividends.filter((d) => d.ticker === params.selectedTicker);
     }
-    console.log(variables)
     return dividends;
 }

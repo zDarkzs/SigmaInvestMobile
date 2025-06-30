@@ -9,13 +9,15 @@ import {ThemedText} from "@/components/ThemedText";
 import Banner from "@/components/Banner";
 
 export default function TabLayout() {
-  const { userData,isAuthenticated } = useAuth();
+const { userData,isAuthenticated } = useAuth();
 
   return (
       <>
           <Banner visible={!isAuthenticated}>
               <Text style={styles.text}>Modo Offline</Text>
           </Banner>
+          <View style={{paddingTop: !isAuthenticated ? 30 : 0}}></View>
+
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,

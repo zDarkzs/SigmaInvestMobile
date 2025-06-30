@@ -18,7 +18,8 @@ export default function HomeScreen() {
   const userData = useAuth();
   const { stockShares, getStocksDividendData } = useStocks();
 
-  const dividends = stockShares ? getStocksDividendData(stockShares) : [];
+
+  const dividends = stockShares ? ( getStocksDividendData(stockShares)) : [];
 
   const {
     selectedYear,
@@ -39,22 +40,11 @@ export default function HomeScreen() {
     0
   );
 
-  const getFilterButtonDisplayText = () => {
-    const tickerPart = () => {
-      if (selectedTicker === "Todos") return "";
-      if (selectedMonth === "Todos") return selectedTicker;
-      return selectedTicker + " : ";
-    };
-    const monthYearPart = () => {
-      if (selectedYear !== "Todos") {
-        if (selectedMonth !== "Todos") return `${selectedMonth} / ${selectedYear}`;
-        return selectedYear;
-      }
-      return "";
-    };
-    const result = tickerPart() + monthYearPart();
-    return result === "" ? "Filtrar" : result;
-  };
+  const showDividends =()=>{
+    if (!stockShares){ return[]}
+    if (filteredDividends.length > 0)return filteredDividends
+
+  }
 
   return (
     <View style={styles.container}>
@@ -64,7 +54,7 @@ export default function HomeScreen() {
         <View style={styles.section}>
           <Text style={CommonStyles.sectionTitle}>RENDIMENTOS DO PERÍODO:</Text>
           <Button
-            title={getFilterButtonDisplayText()}
+            title={"Filtrar"}
             onPress={toggleFilterModal}
             color={Colors.primary}
           />
@@ -151,7 +141,7 @@ export default function HomeScreen() {
             </View>
 
             <View>
-              <Button title="Limpar Filtros" onPress={resetFilters} color="#666" />
+              <Button title="Limpar Filtros" onPress={()=>{resetFilters()}} color="#666" />
             </View>
           </View>
         </CustomModal>

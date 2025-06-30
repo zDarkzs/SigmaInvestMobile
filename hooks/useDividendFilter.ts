@@ -15,11 +15,11 @@ export const useDividendFilter = (dividends: Dividend[] = []) => {
     selectedTicker,
   };
 
-  const variables: Variables = updateFilter(data);
+  let variables: Variables = updateFilter(data);
 
   useEffect(() => {
-    setFiltered(filterDividends(data, variables));
-  }, [selectedYear, selectedMonth, selectedTicker, dividends]);
+    setFiltered(filterDividends(data));
+  }, [selectedYear, selectedMonth, selectedTicker]);
 
   const resetFilters = () => {
     setSelectedYear("Todos");
