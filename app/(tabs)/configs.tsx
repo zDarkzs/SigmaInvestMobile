@@ -32,6 +32,7 @@ export default function SettingsScreen() {
     logout
   } = useAuth();
   const {
+    resetStockData,
     resetLocalData,
     exportStockSharesToJSON,
     exportStockSharesToCSV
@@ -245,7 +246,7 @@ export default function SettingsScreen() {
 
           <View style={styles.utilButtonGroup}>
             <Button title={'Apagar dados locais'} color={'red'} onPress={handleReset}/>
-            <Button title={'Apagar dados..'} color={'red'} onPress={handleReset}/>
+            <Button title={'Apagar dados..'} color={'red'} onPress={resetStockData}/>
             <Button title={'Exportar dados..'} color={'green'} onPress={()=>setIsExportDialogOpen(true)}/>
             {isAuthenticated &&
             <Button title="Sair" onPress={logout} color={Colors.secondary} />

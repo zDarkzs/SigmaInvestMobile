@@ -27,6 +27,7 @@ interface StockContextType {
   saveStocks: () => Promise<void>;
   loadStocks: () => Promise<void>;
   getStocksDividendData: (stockSharesData: StockShares) => any[];
+  resetStockData: () => Promise<void>;
   resetLocalData: () => Promise<void>;
   exportStockSharesToJSON: () => Promise<void>;
   exportStockSharesToCSV: () => Promise<void>;
@@ -166,6 +167,17 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
     return dividends;
   };
 
+  const resetStockData = async ()=>{
+    setStockShares({});
+    if(!userData){
+      try {
+        await AsyncStorage.clear();
+      }catch (e){
+        console.error(e);
+      }
+    }
+  }
+
   const resetLocalData = async () =>{
     try {
       setStockShares({})
@@ -258,6 +270,7 @@ const exportStockSharesToCSV = async () => {
         saveStocks,
         loadStocks,
         getStocksDividendData,
+        resetStockData,
         resetLocalData,
         exportStockSharesToJSON,
         exportStockSharesToCSV,

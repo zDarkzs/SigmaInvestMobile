@@ -7,6 +7,8 @@ import {
 } from "firebase/auth";
 import { auth } from "@/services/firebaseConfig";
 import { UserData } from "@/types/userTypes";
+import {useStocks} from "./StockContext";
+
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -99,6 +101,8 @@ useEffect(() => {
     await AsyncStorage.removeItem("@userData");
     setIsAuthenticated(false);
     setUserData(null);
+    const {resetStockData} = useStocks();
+    await resetStockData();
   };
 
   const register = async (

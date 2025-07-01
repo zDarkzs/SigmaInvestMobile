@@ -44,11 +44,10 @@ export default function Dashboard() {
     <View style={styles.container}>
       <Text style={styles.title}>Histórico de dividendos</Text>
 
-      {filteredDividends.length > 0 ? (
-        <DividendLineChart payments={filteredDividends} />
-      ) : (
-        <Text style={CommonStyles.warningText}>Sem dados de dividendos no momento.</Text>
-      )}
+      {dividends.length > 0 ? (
+          <>
+        <DividendLineChart payments={(filteredDividends.length>0?filteredDividends:dividends)} />
+
 
       <Button
         title="Filtrar"
@@ -111,6 +110,10 @@ export default function Dashboard() {
           </View>
         </View>
       </CustomModal>
+          </>
+   ) : (
+        <Text style={CommonStyles.warningText}>Sem dados de dividendos no momento.</Text>
+      )}
     </View>
   );
 }

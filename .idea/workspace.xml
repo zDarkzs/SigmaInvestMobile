@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Corrigido o bug criado na ultima alteração onde o os dividends não filtrados não apareciam">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/context/StockContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/StockContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useStorage.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +122,7 @@
       <workItem from="1751020515989" duration="6142000" />
       <workItem from="1751035769504" duration="1661000" />
       <workItem from="1751292961367" duration="6990000" />
-      <workItem from="1751371089186" duration="3565000" />
+      <workItem from="1751371089186" duration="6117000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -384,7 +388,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751315574888</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Corrigido o bug criado na ultima alteração onde o os dividends não filtrados não apareciam">
+      <option name="closed" value="true" />
+      <created>1751384899785</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1751384899785</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -426,7 +438,8 @@
     <MESSAGE value="Adicionador banner quando o usuário estiver offline" />
     <MESSAGE value="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação" />
     <MESSAGE value="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela" />
+    <MESSAGE value="Corrigido o bug criado na ultima alteração onde o os dividends não filtrados não apareciam" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrigido o bug criado na ultima alteração onde o os dividends não filtrados não apareciam" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
