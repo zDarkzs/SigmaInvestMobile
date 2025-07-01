@@ -40,11 +40,6 @@ export default function HomeScreen() {
     0
   );
 
-  const showDividends =()=>{
-    if (!stockShares){ return[]}
-    if (filteredDividends.length > 0)return filteredDividends
-
-  }
 
   return (
     <View style={styles.container}>
@@ -62,8 +57,8 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.section}>
-          {filteredDividends.length > 0 ? (
-            filteredDividends.map((dividend, index) => (
+          {dividends.length > 0 ? (
+            (filteredDividends.length>0? filteredDividends: dividends).map((dividend, index) => (
               <View
                 key={`${dividend.id}-${index}`}
                 style={[CommonStyles.card, styles.dividendItem]}

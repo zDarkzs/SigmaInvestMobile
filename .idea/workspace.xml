@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useDividendFilter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useDividendFilter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/dividendFiltering.ts" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dividendFiltering.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +117,8 @@
       <workItem from="1750964058203" duration="4409000" />
       <workItem from="1751020515989" duration="6142000" />
       <workItem from="1751035769504" duration="1661000" />
-      <workItem from="1751292961367" duration="5729000" />
+      <workItem from="1751292961367" duration="6990000" />
+      <workItem from="1751371089186" duration="3565000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -378,7 +376,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751024052233</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela">
+      <option name="closed" value="true" />
+      <created>1751315574888</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1751315574888</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,7 +425,8 @@
     <MESSAGE value="Logica de filtragem de dividendos separada em useDividendFilter.ts" />
     <MESSAGE value="Adicionador banner quando o usuário estiver offline" />
     <MESSAGE value="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação" />
+    <MESSAGE value="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -435,7 +442,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
-          <line>110</line>
+          <line>95</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
