@@ -257,6 +257,9 @@ export default function SettingsScreen() {
       )}
 
       <CustomModal visible={isExportDialogOpen} title={"Exportar Dados"} onClose={()=>setIsExportDialogOpen(false)}>
+        <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'blue'}]} onPress={exportStockSharesToJSON}>
+          <Text >{} Para json... </Text></TouchableOpacity>
+
         <Button title={'Para Json...'} onPress={exportStockSharesToJSON}/>
         <Button title={'Para CSV...'} onPress={exportStockSharesToCSV}/>
       </CustomModal>
@@ -322,4 +325,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Colors.textOnPrimary,
   },
+  exportButtons:{
+    width:'100%',
+    flex:'1',
+  }
 });
