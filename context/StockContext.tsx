@@ -31,6 +31,7 @@ interface StockContextType {
   resetLocalData: () => Promise<void>;
   exportStockSharesToJSON: () => Promise<void>;
   exportStockSharesToCSV: () => Promise<void>;
+  importJSONData: () => Promise<void>;
 }
 const StockContext = createContext<StockContextType | undefined>(undefined);
 
@@ -255,7 +256,9 @@ const exportStockSharesToCSV = async () => {
     console.error('Erro ao exportar CSV:', error);
   }
 };
+const importJSONData = async ()=>{
 
+}
 
 
   return (
@@ -274,7 +277,7 @@ const exportStockSharesToCSV = async () => {
         resetLocalData,
         exportStockSharesToJSON,
         exportStockSharesToCSV,
-
+        importJSONData
       }}
     >
       {children}

@@ -64,7 +64,7 @@ export const CommonStyles = {
   },
 
   modalContainer: {
-    maxWidht:'50%',
+    maxWidth:'50%',
     margin: '10%',
     backgroundColor: Colors.background,
     borderRadius: 10,

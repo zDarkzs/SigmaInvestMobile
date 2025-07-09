@@ -8,12 +8,16 @@ export default function CustomModal({
   onClose,
   children,
   title,
+  style
 }: {
   visible: boolean;
   onClose: () => void;
   children: React.ReactNode;
   title?: string;
+  style?: any;
 }) {
+  const modalStyle = (style !== undefined)? (CommonStyles.modalContainer): ([CommonStyles.modalContainer,style])
+
   return (
     <Modal
       animationType="fade"
@@ -22,7 +26,7 @@ export default function CustomModal({
       onRequestClose={onClose}
     >
       <View style={styles.overlay}>
-        <View style={CommonStyles.modalContainer}>
+        <View style={modalStyle}>
           {title && (
             <View style={styles.modalTitleHolder}>
               <ThemedText style={styles.modalTitleText}>{title}</ThemedText>

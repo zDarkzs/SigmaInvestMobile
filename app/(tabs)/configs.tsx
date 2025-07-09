@@ -258,10 +258,14 @@ export default function SettingsScreen() {
 
       <CustomModal visible={isExportDialogOpen} title={"Exportar Dados"} onClose={()=>setIsExportDialogOpen(false)}>
         <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'blue'}]} onPress={exportStockSharesToJSON}>
-          <Text >{} Para json... </Text></TouchableOpacity>
-
-        <Button title={'Para Json...'} onPress={exportStockSharesToJSON}/>
-        <Button title={'Para CSV...'} onPress={exportStockSharesToCSV}/>
+          <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Para JSON  </>"}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'green'}]} onPress={exportStockSharesToCSV}>
+          <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Para Excel  .CSV"}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'orange'}]} onPress={exportStockSharesToCSV}>
+          <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Importar dados (JSON)"}</Text>
+        </TouchableOpacity>
       </CustomModal>
     </ScrollView>
   );
@@ -326,7 +330,8 @@ const styles = StyleSheet.create({
     color: Colors.textOnPrimary,
   },
   exportButtons:{
-    width:'100%',
-    flex:'1',
+    width:'80%',
+    borderRadius:10,
+    alignItems:'center'
   }
 });
