@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Iniciada alteração de estilização dos botoes de exportar">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Iniciada implementação do método de importação de dados">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ThemedView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedView.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/context/StockContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/StockContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +123,8 @@
       <workItem from="1752005937074" duration="907000" />
       <workItem from="1752073766485" duration="1643000" />
       <workItem from="1752086096290" duration="3516000" />
-      <workItem from="1752494465713" duration="7617000" />
+      <workItem from="1752494465713" duration="7867000" />
+      <workItem from="1752517884483" duration="3112000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -417,7 +414,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752092818880</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Iniciada implementação do método de importação de dados">
+      <option name="closed" value="true" />
+      <created>1752510608163</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1752510608163</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,7 +440,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merged with pi4 branch" />
     <MESSAGE value="Added firebase" />
     <MESSAGE value="Authentication implemented" />
     <MESSAGE value="Ativos voltam a aparcer na tela inicial, agora a partir do menu &quot;ativos&quot;" />
@@ -460,7 +464,8 @@
     <MESSAGE value="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela" />
     <MESSAGE value="Corrigido o bug criado na ultima alteração onde o os dividends não filtrados não apareciam" />
     <MESSAGE value="Iniciada alteração de estilização dos botoes de exportar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Iniciada alteração de estilização dos botoes de exportar" />
+    <MESSAGE value="Iniciada implementação do método de importação de dados" />
+    <option name="LAST_COMMIT_MESSAGE" value="Iniciada implementação do método de importação de dados" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

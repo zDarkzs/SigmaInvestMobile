@@ -257,6 +257,9 @@ const exportStockSharesToCSV = async () => {
     console.error('Erro ao exportar CSV:', error);
   }
 };
+
+
+
 const importJSONData:()=>Promise<any> = async ()=>{
   try{
     const result = await DocumentPicker.getDocumentAsync({
@@ -269,11 +272,7 @@ const importJSONData:()=>Promise<any> = async ()=>{
     const JsonContent = await FileSystem.readAsStringAsync(JsonUri);
 
     const data:StockShares[] = JSON.parse(JsonContent);
-    console.log(data.keys);
-    for(const ticker in data.keys){
-      console.log(ticker);
-    }
-
+    console.log(data)
     if(data.length<1){
       Alert.alert("Erro","Arquivo inválido!");
       return {};
@@ -286,6 +285,43 @@ const importJSONData:()=>Promise<any> = async ()=>{
   }
 }
 
+const getDuplicateStocks = (stocks:StockShares[])=>{
+
+}
+const compareImportedWithCurrent = (
+  imported: StockShares
+): string[] => {
+  const differences: string[] = [];
+  const current = stockShares;
+  for (const ticker in imported) {
+    if (!current[ticker]) {
+      differences.push(`Novo ativo: ${ticker}`);
+    } else {
+      const imp = imported[ticker];
+      const cur = current[ticker];
+
+      if (imp.quantity !== cur.quantity) {
+        differences.push(
+          `Quantidade diferente para ${ticker}: atual = ${cur.quantity}, importado = ${imp.quantity}`
+        );
+      }
+
+      if (imp.payments.length !== cur.payments.length) {
+        differences.push(
+          `Número de pagamentos diferente para ${ticker}: atual = ${cur.payments.length}, importado = ${imp.payments.length}`
+        );
+      }
+    }
+  }
+
+  for (const ticker in current) {
+    if (!imported[ticker]) {
+      differences.push(`Ativo ${ticker} presente localmente mas ausente no importado`);
+    }
+  }
+
+  return differences;
+};
 
   return (
     <StockContext.Provider
