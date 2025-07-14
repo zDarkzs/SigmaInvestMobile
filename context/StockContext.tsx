@@ -5,9 +5,10 @@ import { StockShares } from "@/types/dividendTypes";
 import { useAuth } from "./AuthContext"; // ou o caminho correto
 import { db } from "@/services/firebaseConfig";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import * as FileSystem from "expo-file-system";
-import {Platform} from "react-native";
+import {Alert, Platform} from "react-native";
 import * as Sharing from "expo-sharing";
+import * as DocumentPicker from "expo-document-picker";
+import * as FileSystem from 'expo-file-system';
 
 interface StockContextType {
   stockShares: StockShares | null;
@@ -256,8 +257,33 @@ const exportStockSharesToCSV = async () => {
     console.error('Erro ao exportar CSV:', error);
   }
 };
-const importJSONData = async ()=>{
+const importJSONData:()=>Promise<any> = async ()=>{
+  try{
+    const result = await DocumentPicker.getDocumentAsync({
+      type: 'application/json',
+      copyToCacheDirectory:true,
+    })
+    console.log(result)
+    const JsonUri = result.assets?.[0].uri;
+    if (result.canceled || !JsonUri) return {};
+    const JsonContent = await FileSystem.readAsStringAsync(JsonUri);
 
+    const data:StockShares[] = JSON.parse(JsonContent);
+    console.log(data.keys);
+    for(const ticker in data.keys){
+      console.log(ticker);
+    }
+
+    if(data.length<1){
+      Alert.alert("Erro","Arquivo inválido!");
+      return {};
+    }
+    return {};
+
+
+  }catch (error){
+    console.error('Erro ao importar JSON:', error);
+  }
 }
 
 

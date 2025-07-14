@@ -35,7 +35,8 @@ export default function SettingsScreen() {
     resetStockData,
     resetLocalData,
     exportStockSharesToJSON,
-    exportStockSharesToCSV
+    exportStockSharesToCSV,
+    importJSONData
   } = useStocks();
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
@@ -45,6 +46,7 @@ export default function SettingsScreen() {
   const [notifications, setNotifications] = useState(true);
   const [hasAccount, setHasAccount] = useState(true);
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] =  useState<string|null>(null);
 
   const handleAuthError = ()=>{
@@ -100,6 +102,14 @@ export default function SettingsScreen() {
     }
     finally {
       setIsLoading(false);
+    }
+  }
+
+  const handleImport = async () =>{
+    try{
+      importJSONData()
+    }catch (e) {
+      console.error(e);
     }
   }
 
@@ -245,9 +255,9 @@ export default function SettingsScreen() {
           )}
 
           <View style={styles.utilButtonGroup}>
+            <Button title={'Transferir dados..'} color={'green'} onPress={()=>setIsExportDialogOpen(true)}/>
             <Button title={'Apagar dados locais'} color={'red'} onPress={handleReset}/>
-            <Button title={'Apagar dados..'} color={'red'} onPress={resetStockData}/>
-            <Button title={'Exportar dados..'} color={'green'} onPress={()=>setIsExportDialogOpen(true)}/>
+            <Button title={'Apagar dados na nuvem'} color={'red'} onPress={resetStockData}/>
             {isAuthenticated &&
             <Button title="Sair" onPress={logout} color={Colors.secondary} />
             }
@@ -256,16 +266,20 @@ export default function SettingsScreen() {
 
       )}
 
-      <CustomModal visible={isExportDialogOpen} title={"Exportar Dados"} onClose={()=>setIsExportDialogOpen(false)}>
+      <CustomModal visible={isExportDialogOpen} title={"Transferir Dados"} onClose={()=>setIsExportDialogOpen(false)}>
         <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'blue'}]} onPress={exportStockSharesToJSON}>
           <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Para JSON  </>"}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'green'}]} onPress={exportStockSharesToCSV}>
           <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Para Excel  .CSV"}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'orange'}]} onPress={exportStockSharesToCSV}>
+        <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'orange'}]} onPress={()=>{setIsImportModalOpen(true)}}>
           <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Importar dados (JSON)"}</Text>
         </TouchableOpacity>
+      </CustomModal>
+
+      <CustomModal title={"Importar dados"} visible={isImportModalOpen} onClose={()=>{setIsImportModalOpen(false)}}>
+        <Button title={"abrir arquivo"} onPress={handleImport}/>
       </CustomModal>
     </ScrollView>
   );
