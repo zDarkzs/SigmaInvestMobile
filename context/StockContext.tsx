@@ -32,7 +32,8 @@ interface StockContextType {
   resetLocalData: () => Promise<void>;
   exportStockSharesToJSON: () => Promise<void>;
   exportStockSharesToCSV: () => Promise<void>;
-  importJSONData: () => Promise<void>;
+  importJSONData: () => Promise<StockShares>;
+  compareImportedWithCurrent:(imported: StockShares) => void;
 }
 const StockContext = createContext<StockContextType | undefined>(undefined);
 
@@ -260,7 +261,7 @@ const exportStockSharesToCSV = async () => {
 
 
 
-const importJSONData:()=>Promise<any> = async ()=>{
+const importJSONData:()=>Promise<StockShares> = async ()=>{
   try{
     const result = await DocumentPicker.getDocumentAsync({
       type: 'application/json',
@@ -271,56 +272,34 @@ const importJSONData:()=>Promise<any> = async ()=>{
     if (result.canceled || !JsonUri) return {};
     const JsonContent = await FileSystem.readAsStringAsync(JsonUri);
 
-    const data:StockShares[] = JSON.parse(JsonContent);
+    const data:StockShares = JSON.parse(JsonContent);
     console.log(data)
-    if(data.length<1){
+    if(!data){
       Alert.alert("Erro","Arquivo inválido!");
       return {};
     }
-    return {};
+    return data;
 
 
   }catch (error){
     console.error('Erro ao importar JSON:', error);
+    return {};
   }
 }
 
-const getDuplicateStocks = (stocks:StockShares[])=>{
+const getDuplicateStocks = (stocks:StockShares)=>{
 
 }
 const compareImportedWithCurrent = (
   imported: StockShares
-): string[] => {
-  const differences: string[] = [];
-  const current = stockShares;
+): void => {
+  const differences: StockShares={};
   for (const ticker in imported) {
-    if (!current[ticker]) {
-      differences.push(`Novo ativo: ${ticker}`);
-    } else {
-      const imp = imported[ticker];
-      const cur = current[ticker];
-
-      if (imp.quantity !== cur.quantity) {
-        differences.push(
-          `Quantidade diferente para ${ticker}: atual = ${cur.quantity}, importado = ${imp.quantity}`
-        );
-      }
-
-      if (imp.payments.length !== cur.payments.length) {
-        differences.push(
-          `Número de pagamentos diferente para ${ticker}: atual = ${cur.payments.length}, importado = ${imp.payments.length}`
-        );
-      }
+    if (!stockShares[ticker]) {
+      stockShares[ticker] = imported[ticker];
     }
   }
-
-  for (const ticker in current) {
-    if (!imported[ticker]) {
-      differences.push(`Ativo ${ticker} presente localmente mas ausente no importado`);
-    }
-  }
-
-  return differences;
+  saveStocks();
 };
 
   return (
@@ -339,7 +318,8 @@ const compareImportedWithCurrent = (
         resetLocalData,
         exportStockSharesToJSON,
         exportStockSharesToCSV,
-        importJSONData
+        importJSONData,
+        compareImportedWithCurrent,
       }}
     >
       {children}

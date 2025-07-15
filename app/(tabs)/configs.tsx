@@ -32,11 +32,13 @@ export default function SettingsScreen() {
     logout
   } = useAuth();
   const {
-    resetStockData,
-    resetLocalData,
-    exportStockSharesToJSON,
-    exportStockSharesToCSV,
-    importJSONData
+      resetStockData,
+      resetLocalData,
+      exportStockSharesToJSON,
+      exportStockSharesToCSV,
+      importJSONData,
+      compareImportedWithCurrent,
+
   } = useStocks();
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
@@ -107,7 +109,8 @@ export default function SettingsScreen() {
 
   const handleImport = async () =>{
     try{
-      importJSONData()
+      const imported  = await importJSONData();
+      compareImportedWithCurrent(imported);
     }catch (e) {
       console.error(e);
     }
