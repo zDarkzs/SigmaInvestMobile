@@ -268,13 +268,13 @@ export default function SettingsScreen() {
 
       <CustomModal visible={isExportDialogOpen} title={"Transferir Dados"} onClose={()=>setIsExportDialogOpen(false)}>
         <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'blue'}]} onPress={exportStockSharesToJSON}>
-          <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Para JSON  </>"}</Text>
+          <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Para JSON { }"}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'green'}]} onPress={exportStockSharesToCSV}>
           <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Para Excel  .CSV"}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'orange'}]} onPress={()=>{setIsImportModalOpen(true)}}>
-          <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Importar dados (JSON)"}</Text>
+          <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Importar dados JSON { }"}</Text>
         </TouchableOpacity>
       </CustomModal>
 

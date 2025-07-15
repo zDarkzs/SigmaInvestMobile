@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     marginBottom: 20,
+    
   },
   totalText: {
     color: "green",
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
   },
   quantity: {
     fontSize: 16,
-    color: Colors.primary,
+    color: Colors.black,
   },
   value: {
     fontSize: 18,
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    color: Colors.primary,
+    color: Colors.black,
   },
   type: {
     fontSize: 16,

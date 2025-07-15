@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Dividend } from '../types/dividendTypes';
+import { Colors } from "@/constants/Colors";
 
 const DividendCard = ({ dividend }: { dividend: Dividend }) => {
   return (
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
   ticker: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#1A237E'
   },
   amount: {
     fontSize: 18,
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
   },
   source: {
     fontSize: 12,
-    color: '#666',
+    color: Colors.primary,
     textAlign: 'right',
   },
 });
