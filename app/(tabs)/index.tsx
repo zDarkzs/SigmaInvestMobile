@@ -45,15 +45,14 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <ScrollView scrollEnabled={!isFilterModalVisible}>
         <Text style={CommonStyles.headerText}>SIGMA INVEST</Text>
-
         <View style={styles.section}>
-          <Text style={CommonStyles.sectionTitle}>RENDIMENTOS DO PERÍODO:</Text>
+          <Text style={styles.sectionTitle}>RENDIMENTOS DO PERÍODO:</Text>
+          <Text style={styles.totalText}>{toBRL(total)}</Text>
           <Button
             title={"Filtrar"}
             onPress={toggleFilterModal}
             color={Colors.primary}
           />
-          <Text style={styles.totalText}>{toBRL(total)}</Text>
         </View>
 
         <View style={styles.section}>
@@ -67,13 +66,17 @@ export default function HomeScreen() {
                 <Text style={styles.quantity}>
                   Cotas: {stockShares?.[dividend.ticker]?.quantity}
                 </Text>
-                <Text style={styles.label}>Rendimentos:</Text>
-                <Text style={styles.value}>
-                  {toBRL(
-                    dividend.amount *
-                      (stockShares?.[dividend.ticker]?.quantity || 0)
-                  )}
-                </Text>
+                
+                <View style={styles.rendimentos}>
+                  <Text style={styles.label}>Rendimentos: </Text>
+                  <Text style={styles.value}>
+                    {toBRL(
+                      dividend.amount *
+                        (stockShares?.[dividend.ticker]?.quantity || 0)
+                    )}
+                  </Text> 
+                </View>
+
                 <Text style={styles.label}>
                   Data:{" "}
                   {new Date(dividend.paymentDate).toLocaleDateString("pt-BR")}
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
     color: "green",
     fontSize: 32,
     fontWeight: "500",
-    marginTop: 10,
+    marginBottom: 40
   },
   dividendItem: {
     width: "100%",
@@ -179,7 +182,7 @@ const styles = StyleSheet.create({
     color: Colors.black,
   },
   value: {
-    fontSize: 18,
+    fontSize: 16,
     color: "green",
     fontWeight: "bold",
   },
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
     color: Colors.black,
   },
   type: {
-    fontSize: 16,
+    fontSize: 14,
     marginTop: 10,
     fontStyle: "italic",
     color: Colors.primary,
@@ -214,4 +217,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: "hidden",
   },
+  rendimentos: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  sectionTitle: {
+    fontSize: 23,
+    marginTop: 10,
+    color: Colors.primary,
+    fontWeight: '400',
+  }
 });
