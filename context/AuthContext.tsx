@@ -101,8 +101,6 @@ useEffect(() => {
     await AsyncStorage.removeItem("@userData");
     setIsAuthenticated(false);
     setUserData(null);
-    const {resetStockData} = useStocks();
-    await resetStockData();
   };
 
   const register = async (

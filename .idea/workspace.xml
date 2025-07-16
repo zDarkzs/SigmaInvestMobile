@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Iniciada implementação do método de importação de dados">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Função de importar stocks adicionada. Futuramente adicionar opção de escolher quais serão importados.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/portfolios.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/portfolios.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/AuthContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/context/StockContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/StockContext.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,6 +49,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2xxeyDbC8BYfypblFzdkMLfMVfX" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -126,7 +131,8 @@
       <workItem from="1752086096290" duration="3516000" />
       <workItem from="1752494465713" duration="7867000" />
       <workItem from="1752517884483" duration="3993000" />
-      <workItem from="1752595006755" duration="1931000" />
+      <workItem from="1752595006755" duration="2010000" />
+      <workItem from="1752669313943" duration="5094000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -432,7 +438,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752525566236</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Função de importar stocks adicionada. Futuramente adicionar opção de escolher quais serão importados.">
+      <option name="closed" value="true" />
+      <created>1752597116314</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1752597116314</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -450,7 +464,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added firebase" />
     <MESSAGE value="Authentication implemented" />
     <MESSAGE value="Ativos voltam a aparcer na tela inicial, agora a partir do menu &quot;ativos&quot;" />
     <MESSAGE value="Ativos sendo carregados da/para a nuvem" />
@@ -475,7 +488,8 @@
     <MESSAGE value="Corrigido o bug criado na ultima alteração onde o os dividends não filtrados não apareciam" />
     <MESSAGE value="Iniciada alteração de estilização dos botoes de exportar" />
     <MESSAGE value="Iniciada implementação do método de importação de dados" />
-    <option name="LAST_COMMIT_MESSAGE" value="Iniciada implementação do método de importação de dados" />
+    <MESSAGE value="Função de importar stocks adicionada. Futuramente adicionar opção de escolher quais serão importados." />
+    <option name="LAST_COMMIT_MESSAGE" value="Função de importar stocks adicionada. Futuramente adicionar opção de escolher quais serão importados." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -491,7 +505,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
-          <line>95</line>
+          <line>98</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

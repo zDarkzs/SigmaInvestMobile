@@ -13,11 +13,6 @@ import * as FileSystem from 'expo-file-system';
 interface StockContextType {
   stockShares: StockShares | null;
   debugMode: boolean;
-  updateStockShares: (
-    tickers: string[],
-    quantity: number[],
-    dividends: Dividend[]
-  ) => void;
   addStockShare: (
     tickers: string,
     quantity: number,
@@ -126,40 +121,25 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const updateStockShares = (
-    tickers: string[],
-    quantity: number[],
-    dividends: Dividend[]
-  ) => {
-    const dividendTickers = dividends.map((dividend) => {
-      return dividend.ticker;
-    });
 
-    console.log(dividendTickers);
-    for (const ticker of tickers) {
-      stockShares[ticker] = {
-        quantity: 0,
-        payments: dividends.filter((dividend) => dividend.ticker == ticker),
-      };
-    }
-  };
-
-  const addStockShare = (
-    ticker: string,
-    quantity: number,
-    dividends: Dividend[]
-  ) => {
-    const payments = dividends.filter(
-      (dividend) =>
-        dividend.ticker.trim().toUpperCase() === ticker.trim().toUpperCase()
-    );
-    stockShares[ticker] = {
+const addStockShare = (
+  ticker: string,
+  quantity: number,
+  dividends: Dividend[]
+) => {
+  const payments = dividends.filter(
+    (dividend) =>
+      dividend.ticker.trim().toUpperCase() === ticker.trim().toUpperCase()
+  );
+  setStockShares((prevShares) => ({ // Usar callback para garantir o estado mais recente
+    ...prevShares,
+    [ticker]: {
       quantity: quantity,
       payments: payments,
-    };
-    saveShares()
-    saveStocks();
-  };
+    },
+  }));
+  // saveShares() e saveStocks() serão chamados pelo useEffect que monitora stockShares
+};
   const getStocksDividendData = (stockSharesData: StockShares) => {
     const dividends = Object.values(stockSharesData).flatMap((stock) =>
       stock.payments.map((payment) => ({
@@ -287,19 +267,18 @@ const importJSONData:()=>Promise<StockShares> = async ()=>{
   }
 }
 
-const getDuplicateStocks = (stocks:StockShares)=>{
-
-}
 const compareImportedWithCurrent = (
   imported: StockShares
 ): void => {
-  const differences: StockShares={};
-  for (const ticker in imported) {
-    if (!stockShares[ticker]) {
-      stockShares[ticker] = imported[ticker];
+  setStockShares((prevShares) => {
+    const newStockShares = { ...prevShares };
+    for (const ticker in imported) {
+      if (!newStockShares[ticker]) { // Verificar na nova cópia
+        newStockShares[ticker] = imported[ticker];
+      }
     }
-  }
-  saveStocks();
+    return newStockShares;
+  });
 };
 
   return (
@@ -309,7 +288,6 @@ const compareImportedWithCurrent = (
         debugMode,
         apiConfig,
         showStocks,
-        updateStockShares,
         addStockShare,
         saveStocks,
         loadStocks,

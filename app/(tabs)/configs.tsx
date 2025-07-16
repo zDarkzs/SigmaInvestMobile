@@ -115,7 +115,10 @@ export default function SettingsScreen() {
       console.error(e);
     }
   }
-
+  const handleLogout = async ()=>{
+    await resetStockData();
+    await logout();
+  }
   return (
     <ScrollView style={CommonStyles.container}>
 
@@ -262,7 +265,7 @@ export default function SettingsScreen() {
             <Button title={'Apagar dados locais'} color={'red'} onPress={handleReset}/>
             <Button title={'Apagar dados na nuvem'} color={'red'} onPress={resetStockData}/>
             {isAuthenticated &&
-            <Button title="Sair" onPress={logout} color={Colors.secondary} />
+            <Button title="Sair" onPress={handleLogout} color={Colors.secondary} />
             }
           </View>
         </ThemedView>

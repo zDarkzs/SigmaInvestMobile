@@ -13,7 +13,7 @@ export default function PortfoliosScreen() {
   const [pendingTicker, setPendingTicker] = useState<string | null>(null);
   const [pendingQuantity, setPendingQuantity] = useState<number | null>(null);
 
-  const [selectedApis, setSelectedApis] = useState<string[]>(["BRAPI"]);
+  const [selectedApis] = useState<string[]>(["BRAPI"]);
   const [newTicker, setNewTicker] = useState("");
   const [quantity, setQuantity] = useState("0");
 
