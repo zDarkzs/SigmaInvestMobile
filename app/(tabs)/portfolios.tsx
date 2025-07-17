@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, Button, View, TextInput } from "react-native";
+import { Text, StyleSheet, Button, View, TextInput, TouchableOpacity, Pressable } from "react-native";
 
 import { useDividends } from "@/hooks/useDividends";
 import { useStocks } from "@/context/StockContext";
@@ -59,7 +59,7 @@ export default function PortfoliosScreen() {
         </View>
       ) : (
         <View style={[CommonStyles.container, styles.container]}>
-          <Text style={CommonStyles.headerText}>Dividend Tracker</Text>
+          <Text style={CommonStyles.headerText}>Adicionar Ativos</Text>
 
           <View style={styles.inputContainer}>
             <TextInput
@@ -76,11 +76,12 @@ export default function PortfoliosScreen() {
               onChangeText={setQuantity}
             />
             <View style={styles.buttonContainer}>
-              <Button
-                title="Adicionar"
+              <Pressable
                 onPress={addTicker}
-                color={Colors.primary}
-              />
+                style={({ pressed }) => [
+                  styles.buttonAdicionar,{ backgroundColor: pressed ? Colors.primaryDark : Colors.primary } ]}>
+                <Text style={styles.TextAdicionar}>Adicionar</Text>
+              </Pressable>
             </View>
           </View>
         </View>
@@ -116,4 +117,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 8,
   },
+  buttonAdicionar: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 10,
+  },
+  TextAdicionar: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: 'white',
+    
+  }
 });

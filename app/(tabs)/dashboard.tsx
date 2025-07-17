@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
   Button,
+  Pressable
 } from "react-native";
 import { useDividends } from "@/hooks/useDividends";
 import { API_CONFIGS } from "@/services/apiClients";
@@ -48,12 +49,12 @@ export default function Dashboard() {
           <>
         <DividendLineChart payments={(filteredDividends.length>0?filteredDividends:dividends)} />
 
-
-      <Button
-        title="Filtrar"
+      <Pressable
         onPress={toggleFilterModal}
-        color={Colors.primary}
-      />
+        style={({ pressed }) => [
+          styles.buttonFiltrar,{ backgroundColor: pressed ? Colors.primaryDark : Colors.primary } ]}>
+        <Text style={styles.TextFiltrar}>Filtrar</Text>
+      </Pressable>
 
       <FlatList
         data={filteredDividends}
@@ -221,4 +222,16 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: "hidden",
   },
+  buttonFiltrar: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 10,
+    alignItems: 'center'
+  },
+  TextFiltrar: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'white',
+  }
 })

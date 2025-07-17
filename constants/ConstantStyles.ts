@@ -5,6 +5,7 @@ export const CommonStyles = {
     flex: 1,
     padding: 20,
     backgroundColor: Colors.background,
+    
   },
   loadingContainer: {
     flex: 1,

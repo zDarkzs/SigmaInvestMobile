@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, Button, StyleSheet } from "react-native";
+import { View, Text, ScrollView, Button, StyleSheet, Pressable } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 import { useStocks } from "@/context/StockContext";
@@ -48,11 +48,12 @@ export default function HomeScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>RENDIMENTOS DO PERÍODO:</Text>
           <Text style={styles.totalText}>{toBRL(total)}</Text>
-          <Button
-            title={"Filtrar"}
+          <Pressable
             onPress={toggleFilterModal}
-            color={Colors.primary}
-          />
+            style={({ pressed }) => [
+              styles.buttonFiltrar,{ backgroundColor: pressed ? Colors.primaryDark : Colors.primary } ]}>
+            <Text style={styles.TextFiltrar}>Filtrar</Text>
+          </Pressable>
         </View>
 
         <View style={styles.section}>
@@ -156,8 +157,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   section: {
-    width: "90%",
-    alignItems: "center",
+    width: "100%",
+    alignItems: 'center',
     marginBottom: 20,
     
   },
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
     marginBottom: 40
   },
   dividendItem: {
-    width: "100%",
+    width: "90%",
     borderLeftWidth: 5,
     borderLeftColor: Colors.primary,
   },
@@ -219,12 +220,24 @@ const styles = StyleSheet.create({
   },
   rendimentos: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   sectionTitle: {
     fontSize: 23,
     marginTop: 10,
     color: Colors.primary,
     fontWeight: '400',
+  },
+  buttonFiltrar: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 10,
+  },
+  TextFiltrar: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'white',
+
   }
 });
