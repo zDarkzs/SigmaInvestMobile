@@ -22,7 +22,6 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({ payments }) => {
   const dailyTotals: { [date: string]: number } = {};
   const sortedTotals = Object.keys(dailyTotals).sort();
   const maxLabels = 5;
-  const step = Math.ceil(sortedTotals.length / maxLabels);
 
   payments.forEach((payment) => {
     if (dailyTotals[payment.paymentDate]) {
@@ -32,17 +31,28 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({ payments }) => {
     }
   });
 
-  const chartData = {
-    labels: sortedTotals.map((date,index)=>{
-      return index % step === 0? date:'';
-    }),
-    datasets: [
-      {
-        data: sortedTotals.map((date) => dailyTotals[date]),
-        strokeWidth: 2,
-      },
-    ],
-  };
+// Define o número máximo de labels a serem exibidos no eixo X
+const MAX_LABELS = 5;
+
+// Ordena as datas
+const sortedDates = Object.keys(dailyTotals).sort();
+const step = Math.ceil(sortedDates.length / MAX_LABELS);
+
+const chartData = {
+  labels: sortedDates.map((date, index) => {
+    // Exibe somente algumas datas com base no step
+    return index % step === 0 ? date : "";
+  }),
+  datasets: [
+    {
+      data: sortedDates.map((date) => dailyTotals[date]),
+      strokeWidth: 2,
+    },
+  ],
+};
+
+
+ 
   console.log(chartData);
 
   return (
