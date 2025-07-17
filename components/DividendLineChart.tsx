@@ -18,10 +18,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({ payments }) => {
     return <Text style={{ textAlign: "center", marginVertical: 8 }}>Nenhum pagamento para exibir no gráfico.</Text>;
   }
 
-  // Calcular os totais por dia
   const dailyTotals: { [date: string]: number } = {};
-  const sortedTotals = Object.keys(dailyTotals).sort();
-  const maxLabels = 5;
 
   payments.forEach((payment) => {
     if (dailyTotals[payment.paymentDate]) {
@@ -31,16 +28,13 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({ payments }) => {
     }
   });
 
-// Define o número máximo de labels a serem exibidos no eixo X
 const MAX_LABELS = 5;
 
-// Ordena as datas
 const sortedDates = Object.keys(dailyTotals).sort();
 const step = Math.ceil(sortedDates.length / MAX_LABELS);
 
 const chartData = {
   labels: sortedDates.map((date, index) => {
-    // Exibe somente algumas datas com base no step
     return index % step === 0 ? date : "";
   }),
   datasets: [

@@ -9,7 +9,7 @@ import {ThemedText} from "@/components/ThemedText";
 import Banner from "@/components/Banner";
 
 export default function TabLayout() {
-const { userData,isAuthenticated } = useAuth();
+const { isAuthenticated } = useAuth();
 
   return (
       <>
@@ -32,6 +32,7 @@ const { userData,isAuthenticated } = useAuth();
         name="index"
         options={{
           title: "Proventos",
+            animation:'shift',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "download" : "download-outline"}
@@ -45,6 +46,7 @@ const { userData,isAuthenticated } = useAuth();
         name="portfolios"
         options={{
           title: "Ativos",
+            animation:'shift',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "business" : "business-outline"}
@@ -58,6 +60,7 @@ const { userData,isAuthenticated } = useAuth();
         name="dashboard"
         options={{
           title: "Histórico",
+            animation:'shift',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "stats-chart" : "stats-chart-outline"}
@@ -70,6 +73,7 @@ const { userData,isAuthenticated } = useAuth();
       <Tabs.Screen
         name="configs"
         options={{
+          animation:'shift',
           title: "Configuração",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
@@ -85,7 +89,7 @@ const { userData,isAuthenticated } = useAuth();
   );
 }
 const getMargin = ()=>{
-    if(Platform.OS === "android") return 50;
+    if(Platform.OS !== "web") return 50;
     return 0;
 }
 const styles = StyleSheet.create({
