@@ -7,7 +7,7 @@ import {
   Switch,
   Button,
   ScrollView,
-  Alert, Text,
+  Alert, Text, Pressable
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useAuth } from "@/context/AuthContext";
@@ -261,26 +261,50 @@ export default function SettingsScreen() {
           )}
 
           <View style={styles.utilButtonGroup}>
-            <Button title={'Transferir dados..'} color={'green'} onPress={()=>setIsExportDialogOpen(true)}/>
-            <Button title={'Apagar dados locais'} color={'red'} onPress={handleReset}/>
-            <Button title={'Apagar dados na nuvem'} color={'red'} onPress={resetStockData}/>
+            <Pressable
+              onPress={()=>setIsExportDialogOpen(true)}
+              style={({ pressed }) => [
+                styles.buttonTransferir,{ backgroundColor: pressed ? Colors.success : Colors.primary } ]}>
+              <Text style={styles.TextTransferir}>Transferir dados..</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={handleReset}
+              style={({ pressed }) => [
+                styles.buttonTransferir,{ backgroundColor: pressed ? Colors.secondary : Colors.primary } ]}>
+              <Text style={styles.TextTransferir}>Apagar dados locais</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={resetStockData}
+              style={({ pressed }) => [
+                styles.buttonTransferir,{ backgroundColor: pressed ? Colors.secondary : Colors.primary } ]}>
+              <Text style={styles.TextTransferir}>Apagar dados na nuvem</Text>
+            </Pressable>
+
             {isAuthenticated &&
-            <Button title="Sair" onPress={handleLogout} color={Colors.secondary} />
+            <Pressable
+              onPress={handleLogout}
+              style={({ pressed }) => [
+                styles.buttonTransferir,{ backgroundColor: pressed ? Colors.exit : Colors.primary } ]}>
+              <Text style={styles.TextTransferir}>Sair</Text>
+            </Pressable>
             }
+
           </View>
         </ThemedView>
 
       )}
 
       <CustomModal visible={isExportDialogOpen} title={"Transferir Dados"} onClose={()=>setIsExportDialogOpen(false)}>
-        <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'blue'}]} onPress={exportStockSharesToJSON}>
-          <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Para JSON { }"}</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'green'}]} onPress={exportStockSharesToCSV}>
-          <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Para Excel  .CSV"}</Text>
+          <Text style={[CommonStyles.buttonText,{fontSize: 20}]}>{" Para Excel .CSV"}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'orange'}]} onPress={exportStockSharesToJSON}>
+          <Text style={[CommonStyles.buttonText,{fontSize: 20}]}>{" Para JSON { }"}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'orange'}]} onPress={()=>{setIsImportModalOpen(true)}}>
-          <Text style={[CommonStyles.buttonText,{fontSize: 32}]}>{" Importar dados JSON { }"}</Text>
+          <Text style={[CommonStyles.buttonText,{fontSize: 20}]}>{" Importar dados JSON { }"}</Text>
         </TouchableOpacity>
       </CustomModal>
 
@@ -303,10 +327,10 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   utilButtonGroup:{
-    flexDirection: 'row',
-    flexWrap:'wrap',
+    flexDirection: 'column',
     gap:15,
-    justifyContent: "center",
+    alignItems: 'center',
+    alignContent: 'center'
   },
   username: {
     marginTop: 10,
@@ -350,8 +374,20 @@ const styles = StyleSheet.create({
     color: Colors.textOnPrimary,
   },
   exportButtons:{
-    width:'80%',
+    width:'60%',
     borderRadius:10,
-    alignItems:'center'
+    alignItems:'center',
+
+  },
+    buttonTransferir: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 10,
+  },
+  TextTransferir: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: 'white',
+    
   }
 });

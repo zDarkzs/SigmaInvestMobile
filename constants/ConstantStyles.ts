@@ -46,6 +46,7 @@ export const CommonStyles = {
     color: Colors.white,
     fontWeight: 'bold' as const,
     fontSize: 16,
+    margin: 7,
   },
   warningText: {
     color: Colors.warning,
@@ -65,19 +66,20 @@ export const CommonStyles = {
   },
 
   modalContainer: {
-    maxWidth:'50%',
+    maxWidth:'80%',
     margin: '10%',
     backgroundColor: Colors.background,
     borderRadius: 10,
-    padding: 5,
+    padding: 9,
     alignItems: 'center' as const,
     justifyContent: 'flex-start' as const,
-    gap: 12,
+    gap: 15,
     elevation: 5,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
+    
   },
   borderRadius: 10,
 

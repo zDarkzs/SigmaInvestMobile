@@ -139,8 +139,13 @@ export default function HomeScreen() {
               </View>
             </View>
 
-            <View>
-              <Button title="Limpar Filtros" onPress={()=>{resetFilters()}} color="#666" />
+            <View style={styles.containerLimpar}>
+              <Pressable
+                onPress={()=>{resetFilters()}}
+                style={({ pressed }) => [
+                  styles.buttonLimpar,{ backgroundColor: pressed ? Colors.text : "#666" } ]}>
+                <Text style={styles.TextLimpar}>Limpar</Text>
+                </Pressable>
             </View>
           </View>
         </CustomModal>
@@ -239,5 +244,23 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'white',
 
+  },
+    buttonLimpar: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 10,
+    width: '50%',
+    alignItems: 'center',
+    
+  },
+  TextLimpar: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: 'white',
+    
+  },
+  containerLimpar: {
+    flex: 1,
+    alignItems: 'center'
   }
 });

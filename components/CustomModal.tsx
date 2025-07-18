@@ -1,4 +1,4 @@
-import { Modal, ScrollView, StyleSheet, View, Button, Platform } from "react-native";
+import { Modal, ScrollView, StyleSheet, View, Button, Platform, Pressable } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { CommonStyles } from "@/constants/ConstantStyles";
 import {Colors} from "@/constants/Colors";
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   modalTitleHolder: {
     width: "100%",
-    backgroundColor: Colors.primaryLight,
+    backgroundColor: Colors.primary,
     alignItems: "center",
     padding: 10,
     borderTopLeftRadius: 6,
