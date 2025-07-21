@@ -20,6 +20,7 @@ import { CommonStyles } from "@/constants/ConstantStyles";
 import {useStocks} from "@/context/StockContext";
 import CustomModal from "@/components/CustomModal";
 import Banner from "@/components/Banner";
+import {StockShares} from "@/types/dividendTypes";
 
 
 
@@ -49,8 +50,12 @@ export default function SettingsScreen() {
   const [hasAccount, setHasAccount] = useState(true);
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+
   const [errorMessage, setErrorMessage] =  useState<string|null>(null);
 
+  const [duplicates, setDuplicates] = useState<StockShares>({}) // talvez nem seja necessário
+  const [isDuplicatesModalOpen, setIsDuplicatesModalOpen] = useState(false);
+  const [currentDuplicate, setCurrentDuplicate] = useState<StockShares|null>(null)
   const handleAuthError = ()=>{
     setErrorMessage("Houve um erro ao fazer sua autenticação, tente novamente.");
   }
@@ -107,10 +112,17 @@ export default function SettingsScreen() {
     }
   }
 
+
+
+
   const handleImport = async () =>{
     try{
+
       const imported  = await importJSONData();
-      compareImportedWithCurrent(imported);
+      setDuplicates(  compareImportedWithCurrent(imported));
+      if(duplicates) setIsDuplicatesModalOpen(true);
+      for(let ticker in duplicates) {}
+      console.log(`Duplicados : ${duplicates}`)
     }catch (e) {
       console.error(e);
     }
@@ -295,7 +307,7 @@ export default function SettingsScreen() {
         </ThemedView>
 
       )}
-
+      {/*Modal para transferencia de dados*/}
       <CustomModal visible={isExportDialogOpen} title={"Transferir Dados"} onClose={()=>setIsExportDialogOpen(false)}>
         <TouchableOpacity style={[styles.exportButtons,{backgroundColor:'green'}]} onPress={exportStockSharesToCSV}>
           <Text style={[CommonStyles.buttonText,{fontSize: 20}]}>{" Para Excel .CSV"}</Text>
@@ -308,6 +320,7 @@ export default function SettingsScreen() {
         </TouchableOpacity>
       </CustomModal>
 
+      {/*Modal para importação de dados*/}
       <CustomModal title={"Importar dados"} visible={isImportModalOpen} onClose={()=>{setIsImportModalOpen(false)}}>
         <Button title={"abrir arquivo"} onPress={handleImport}/>
       </CustomModal>

@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Consertada alteração no StockShares por addStockShare e por compareImportedWithCurrent,&#10;Consertado erro de hook ao fazer logout">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Removido dead code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/DividendLineChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DividendLineChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/context/StockContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/StockContext.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +133,7 @@
       <workItem from="1752595006755" duration="2010000" />
       <workItem from="1752669313943" duration="5279000" />
       <workItem from="1752692935241" duration="2908000" />
+      <workItem from="1753123214468" duration="4124000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -454,7 +455,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752681289878</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Removido dead code">
+      <option name="closed" value="true" />
+      <created>1752769642917</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1752769642917</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,7 +481,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ativos voltam a aparcer na tela inicial, agora a partir do menu &quot;ativos&quot;" />
     <MESSAGE value="Ativos sendo carregados da/para a nuvem" />
     <MESSAGE value="Salva automaticamente para nuvem ao adicionar" />
     <MESSAGE value="Correção em detalhes de lógica ao carregar os dados locais" />
@@ -497,7 +505,8 @@
     <MESSAGE value="Iniciada implementação do método de importação de dados" />
     <MESSAGE value="Função de importar stocks adicionada. Futuramente adicionar opção de escolher quais serão importados." />
     <MESSAGE value="Consertada alteração no StockShares por addStockShare e por compareImportedWithCurrent,&#10;Consertado erro de hook ao fazer logout" />
-    <option name="LAST_COMMIT_MESSAGE" value="Consertada alteração no StockShares por addStockShare e por compareImportedWithCurrent,&#10;Consertado erro de hook ao fazer logout" />
+    <MESSAGE value="Removido dead code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removido dead code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -520,6 +529,12 @@
           <url>file://$PROJECT_DIR$/components/CustomModal.tsx</url>
           <line>21</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/context/StockContext.tsx</url>
+          <line>42</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

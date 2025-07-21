@@ -28,7 +28,7 @@ interface StockContextType {
   exportStockSharesToJSON: () => Promise<void>;
   exportStockSharesToCSV: () => Promise<void>;
   importJSONData: () => Promise<StockShares>;
-  compareImportedWithCurrent:(imported: StockShares) => void;
+  compareImportedWithCurrent:(imported: StockShares) => StockShares;
 }
 const StockContext = createContext<StockContextType | undefined>(undefined);
 
@@ -38,8 +38,8 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
   const [stockShares, setStockShares] = useState<StockShares>({});
   const [debugMode, setDebugMode] = useState(false);
   const [apiConfig, setApiConfig] = useState<ApiConfig | null>(null);
-
   const { userData } = useAuth();
+
   useEffect(() => {
     const loadFromFirebase = async () => {
       if (userData) {
@@ -122,15 +122,15 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
 
-const addStockShare = (
-  ticker: string,
-  quantity: number,
-  dividends: Dividend[]
-) => {
-  const payments = dividends.filter(
-    (dividend) =>
+  const addStockShare = (
+   ticker: string,
+   quantity: number,
+   dividends: Dividend[]
+  ) => {
+    const payments = dividends.filter(
+      (dividend) =>
       dividend.ticker.trim().toUpperCase() === ticker.trim().toUpperCase()
-  );
+    );
   setStockShares((prevShares) => ({ // Usar callback para garantir o estado mais recente
     ...prevShares,
     [ticker]: {
@@ -194,22 +194,20 @@ const addStockShare = (
     });
   }
 };
-const exportStockSharesToCSV = async () => {
-  try {
-    let csvContent = 'sep=;\n'; // Faz o Excel entender que o separador é ";"
-    csvContent += 'Ticker;Quantidade;Tipo de Pagamento;Valor por Cota;Data de Pagamento;Total Recebido\n';
+  const exportStockSharesToCSV = async () => {
+    try {
+      let csvContent = 'sep=;\n'; // Faz o Excel entender que o separador é ";"
+      csvContent += 'Ticker;Quantidade;Tipo de Pagamento;Valor por Cota;Data de Pagamento;Total Recebido\n';
 
-    Object.keys(stockShares).forEach((ticker) => {
-      const stock = stockShares[ticker];
+      Object.keys(stockShares).forEach((ticker) => {
+        const stock = stockShares[ticker];
 
-      stock.payments.forEach((payment) => {
-        const totalReceived = (payment.amount || 0) * stock.quantity;
-        const paymentType =
-          payment.type === 'ordinary'
-            ? 'Dividendo'
-            : payment.type === 'special'
-            ? 'Dividendo Especial'
-            : 'JCP';
+        stock.payments.forEach((payment) => {
+          const totalReceived = (payment.amount || 0) * stock.quantity;
+         const paymentType =
+           payment.type === 'ordinary'?
+               'Dividendo' : payment.type === 'special' ?
+                   '' + ' Dividendo Especial': 'JCP';
 
         csvContent += `${ticker};${stock.quantity};${paymentType};${payment.amount.toFixed(4).replace('.', ',')};${payment.paymentDate};${totalReceived.toFixed(2).replace('.', ',')}\n`;
       });
@@ -239,8 +237,6 @@ const exportStockSharesToCSV = async () => {
   }
 };
 
-
-
 const importJSONData:()=>Promise<StockShares> = async ()=>{
   try{
     const result = await DocumentPicker.getDocumentAsync({
@@ -259,26 +255,33 @@ const importJSONData:()=>Promise<StockShares> = async ()=>{
       return {};
     }
     return data;
-
-
   }catch (error){
     console.error('Erro ao importar JSON:', error);
     return {};
   }
 }
 
-const compareImportedWithCurrent = (
+  /**
+   * * Adiciona diretamente StockShares dos atuais, separa duplicatas.
+   * @param imported - StockShares sendo incorporados aos principais
+   * @return StockShares duplicados para que o usuário possa decidir o que fará a respeito.
+   */
+  const compareImportedWithCurrent = (
   imported: StockShares
-): void => {
+): StockShares => {
+  const duplicates:StockShares = {};
   setStockShares((prevShares) => {
     const newStockShares = { ...prevShares };
     for (const ticker in imported) {
       if (!newStockShares[ticker]) { // Verificar na nova cópia
         newStockShares[ticker] = imported[ticker];
+        continue
       }
+      duplicates[ticker] = imported[ticker];
     }
     return newStockShares;
   });
+  return duplicates
 };
 
   return (
