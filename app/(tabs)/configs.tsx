@@ -33,6 +33,7 @@ export default function SettingsScreen() {
     logout
   } = useAuth();
   const {
+      stockShares,
       resetStockData,
       resetLocalData,
       exportStockSharesToJSON,
@@ -55,7 +56,8 @@ export default function SettingsScreen() {
 
   const [duplicates, setDuplicates] = useState<StockShares>({}) // talvez nem seja necessário
   const [isDuplicatesModalOpen, setIsDuplicatesModalOpen] = useState(false);
-  const [currentDuplicate, setCurrentDuplicate] = useState<StockShares|null>(null)
+  const [currentDuplicateTickers, setCurrentDuplicateTickers] = useState<string[]>([]);
+  const [currentDuplicate, setCurrentDuplicate] = useState<StockShares>({})
   const handleAuthError = ()=>{
     setErrorMessage("Houve um erro ao fazer sua autenticação, tente novamente.");
   }
@@ -111,26 +113,27 @@ export default function SettingsScreen() {
       setIsLoading(false);
     }
   }
-
-
-
-
+  const handleLogout = async ()=>{
+    await logout();
+    await resetStockData();
+  }
   const handleImport = async () =>{
     try{
-
       const imported  = await importJSONData();
-      setDuplicates(  compareImportedWithCurrent(imported));
+      setDuplicates(compareImportedWithCurrent(imported));
       if(duplicates) setIsDuplicatesModalOpen(true);
-      for(let ticker in duplicates) {}
+      for(let ticker in duplicates) {
+        setCurrentDuplicateTickers([...currentDuplicateTickers,ticker]);
+      }
       console.log(`Duplicados : ${duplicates}`)
     }catch (e) {
       console.error(e);
+    }finally {
+      setIsDuplicatesModalOpen(false);
     }
   }
-  const handleLogout = async ()=>{
-    await resetStockData();
-    await logout();
-  }
+
+
   return (
     <ScrollView style={CommonStyles.container}>
 
@@ -323,6 +326,29 @@ export default function SettingsScreen() {
       {/*Modal para importação de dados*/}
       <CustomModal title={"Importar dados"} visible={isImportModalOpen} onClose={()=>{setIsImportModalOpen(false)}}>
         <Button title={"abrir arquivo"} onPress={handleImport}/>
+      </CustomModal>
+      {/*Modal para duplicatas nos Stocks*/}
+      <CustomModal title={"Importar dados"} visible={isDuplicatesModalOpen} onClose={()=>{}}>
+        <View>
+          <Text>Dados Duplicados</Text>
+          <Text>Existem dados duplicados de uma ou mais ações!</Text>
+        </View>
+        {currentDuplicateTickers.map((ticker)=>(
+            <View>
+              <View>
+                <Text>{ticker.toUpperCase()}</Text>
+                <Text>Qtde atual: {!(stockShares) || stockShares[ticker].quantity}</Text>
+                <Text>Qtde importada: {duplicates[ticker].quantity}</Text>
+              </View>
+
+              <View style={styles.preferenceItem}>
+                  <Button title={"Manter atuais"} onPress={handleImport}/>
+                  <Button title={"Somar total"} onPress={handleImport}/>
+                  <Button title={"Manter importados"} onPress={handleImport}/>
+              </View>
+            </View>
+          ))}
+
       </CustomModal>
     </ScrollView>
   );
