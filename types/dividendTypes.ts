@@ -19,7 +19,6 @@ export interface StockShares{
   [ticker: string]: Stock;
 }
 
-//export function Stocks
 export interface ApiConfig{
   name: string;
   baseUrl: string;
