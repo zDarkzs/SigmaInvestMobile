@@ -119,20 +119,16 @@ export default function SettingsScreen() {
             const imported = await importJSONData();
             setDuplicates(compareImportedWithCurrent(imported));
             if (duplicates) setIsDuplicatesModalOpen(true);
-            for (let ticker in duplicates) {
-                setCurrentDuplicateTickers([...currentDuplicateTickers, ticker]);
-                setCurrentDuplicatesChoices(()=>{
-                    let previousDuplicateChoices = {...currentDuplicatesChoices}
-                    previousDuplicateChoices[ticker] = '';
-                    return previousDuplicateChoices;
-                })
-            }
-            console.log(`Duplicados : ${duplicates}`)
+            const tickers = Object.keys(duplicates);
+            setCurrentDuplicateTickers(tickers);
+            console.log(currentDuplicateTickers)
         } catch (e) {
             console.error(e);
-        } finally {
-            setIsDuplicatesModalOpen(false);
         }
+    }
+    const cancelImport = ()=>{
+        setIsDuplicatesModalOpen(false)
+        setCurrentDuplicateTickers([])
     }
     const overWriteCurrentStocks = ()=>{}
     const sumCurrentAndDuplicateStocks = ()=>{}
@@ -338,12 +334,11 @@ export default function SettingsScreen() {
             }}>
                 <Button title={"abrir arquivo"} onPress={handleImport}/>
             </CustomModal>
+
             {/*Modal para duplicatas nos Stocks*/}
-            <CustomModal title={"Importar dados"} visible={isDuplicatesModalOpen} onClose={() => {
-            }}>
+            <CustomModal title={"Dados Duplicados"} visible={isDuplicatesModalOpen} onClose={cancelImport}>
                 <View>
-                    <Text>Dados Duplicados</Text>
-                    <Text>Existem dados duplicados de uma ou mais ações!</Text>
+                    <Text style={CommonStyles.warningText}>Existem dados duplicados de uma ou mais ações!</Text>
                 </View>
                 <ScrollView>
                     {currentDuplicateTickers.map((ticker) => (
