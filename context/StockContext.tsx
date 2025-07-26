@@ -18,6 +18,7 @@ interface StockContextType {
     quantity: number,
     dividends: Dividend[]
   ) => void;
+  updateStockAmount:(ticker:string, quantity:number) => void;
   apiConfig: ApiConfig | null;
   showStocks: () => void;
   saveStocks: () => Promise<void>;
@@ -141,6 +142,17 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
     }));
     // saveShares() e saveStocks() serão chamados pelo useEffect que monitora stockShares
   };
+
+  const updateStockAmount= (ticker:string, quantity:number)=>{
+    const payments = stockShares[ticker].payments;
+    setStockShares((prevShares) => ({ // Usar callback para garantir o estado mais recente
+      ...prevShares,
+      [ticker]: {
+        quantity: quantity,
+        payments: payments,
+      },
+    }));
+  }
   const getStocksDividendData = (stockSharesData: StockShares) => {
     const dividends = Object.values(stockSharesData).flatMap((stock) =>
       stock.payments.map((payment) => ({
@@ -293,6 +305,7 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
         apiConfig,
         showStocks,
         addStockShare,
+        updateStockAmount,
         saveStocks,
         loadStocks,
         getStocksDividendData,

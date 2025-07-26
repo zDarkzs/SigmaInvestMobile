@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Criado o modal para tratamento de duplicatas">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Consertado o erro onde a lista de ticker duplicados não era atualizada">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/context/StockContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/StockContext.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +142,8 @@
       <workItem from="1753383272572" duration="497000" />
       <workItem from="1753459805464" duration="719000" />
       <workItem from="1753468655567" duration="601000" />
-      <workItem from="1753469839342" duration="1342000" />
+      <workItem from="1753469839342" duration="3720000" />
+      <workItem from="1753526694487" duration="1713000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -503,7 +505,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753288342105</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Consertado o erro onde a lista de ticker duplicados não era atualizada">
+      <option name="closed" value="true" />
+      <created>1753471502959</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1753471502959</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -521,7 +531,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Correção em detalhes de lógica ao carregar os dados locais" />
     <MESSAGE value="Criada Lógica para remover dados locais" />
     <MESSAGE value="Iniciada a lógica para exportar dados" />
     <MESSAGE value="Exportando com sucesso para csv." />
@@ -546,7 +555,8 @@
     <MESSAGE value="Removido dead code" />
     <MESSAGE value="Iniciada lógica para seleção de duplicatas pelo usuário" />
     <MESSAGE value="Criado o modal para tratamento de duplicatas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Criado o modal para tratamento de duplicatas" />
+    <MESSAGE value="Consertado o erro onde a lista de ticker duplicados não era atualizada" />
+    <option name="LAST_COMMIT_MESSAGE" value="Consertado o erro onde a lista de ticker duplicados não era atualizada" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -572,7 +582,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/context/StockContext.tsx</url>
-          <line>43</line>
+          <line>44</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>

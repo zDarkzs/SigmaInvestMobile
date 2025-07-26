@@ -34,6 +34,7 @@ export default function SettingsScreen() {
     const {
         stockShares,
         resetStockData,
+        updateStockAmount,
         resetLocalData,
         exportStockSharesToJSON,
         exportStockSharesToCSV,
@@ -56,6 +57,7 @@ export default function SettingsScreen() {
     const [duplicates, setDuplicates] = useState<StockShares>({}) // talvez nem seja necessário
     const [isDuplicatesModalOpen, setIsDuplicatesModalOpen] = useState(false);
     const [currentDuplicateTickers, setCurrentDuplicateTickers] = useState<string[]>([]);
+    const [resolvedTickers, setResolvedTickers] = useState<{ [ticker: string]: string }>({});
     const [currentDuplicatesChoices, setCurrentDuplicatesChoices] = useState<{[ticker:string]:string}>({})
     const handleAuthError = () => {
         setErrorMessage("Houve um erro ao fazer sua autenticação, tente novamente.");
@@ -130,8 +132,22 @@ export default function SettingsScreen() {
         setIsDuplicatesModalOpen(false)
         setCurrentDuplicateTickers([])
     }
-    const overWriteCurrentStocks = ()=>{}
-    const sumCurrentAndDuplicateStocks = ()=>{}
+    const keepCurrentStocks =(ticker:string)=>{
+        setResolvedTickers(prev =>({...prev,[ticker]:"Mantido o atual"}))
+    }
+    const overWriteCurrentStocks = (ticker:string)=>{
+        updateStockAmount(ticker, duplicates[ticker].quantity);
+        setResolvedTickers(prev =>({...prev, [ticker]:"Mantido o importado"}))
+    }
+    const sumCurrentAndDuplicateStocks = (ticker:string)=>{
+        if(!stockShares) {
+            console.log('Agora deu o carai');
+            return;
+        }
+        updateStockAmount(ticker, (duplicates[ticker].quantity + stockShares[ticker].quantity));
+        setResolvedTickers(prev =>({...prev, [ticker]:"Somado"}))
+        console.log(stockShares[ticker]);
+    }
 
 
     return (
@@ -350,9 +366,9 @@ export default function SettingsScreen() {
                             </View>
 
                             <View style={styles.preferenceItem}>
-                                <Button title={"Manter atuais"} onPress={handleImport}/>
-                                <Button title={"Somar total"} onPress={handleImport}/>
-                                <Button title={"Manter importados"} onPress={handleImport}/>
+                                <Button title={"Manter atuais"} onPress={()=>{keepCurrentStocks(ticker)}}/>
+                                <Button title={"Somar total"} onPress={()=>{sumCurrentAndDuplicateStocks(ticker)}}/>
+                                <Button title={"Manter importados"} onPress={()=>{overWriteCurrentStocks(ticker)}}/>
                             </View>
                         </View>
                     ))}
