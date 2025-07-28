@@ -7,7 +7,7 @@ import {
     Switch,
     Button,
     ScrollView,
-    Alert, Text, Pressable
+    Alert, Text, Pressable, Image
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {useAuth} from "@/context/AuthContext";
@@ -51,7 +51,7 @@ export default function SettingsScreen() {
     const [hasAccount, setHasAccount] = useState(true);
     const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
     const [isImportModalOpen, setIsImportModalOpen] = useState(false);
-
+    const [isImportComplete, setIsImportComplete] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const [duplicates, setDuplicates] = useState<StockShares>({}) // talvez nem seja necessário
@@ -120,15 +120,19 @@ export default function SettingsScreen() {
         try {
             const imported = await importJSONData();
             setDuplicates(compareImportedWithCurrent(imported));
-            if (duplicates) setIsDuplicatesModalOpen(true);
+
+            if (Object.keys(duplicates).length > 0) setIsDuplicatesModalOpen(true);
             const tickers = Object.keys(duplicates);
             setCurrentDuplicateTickers(tickers);
             console.log(currentDuplicateTickers)
         } catch (e) {
             console.error(e);
+        }finally {
+            setIsImportComplete(true);
         }
     }
     const cancelImport = ()=>{
+        setIsImportComplete(false);
         setIsDuplicatesModalOpen(false)
         setCurrentDuplicateTickers([])
     }
@@ -373,6 +377,11 @@ export default function SettingsScreen() {
                         </View>
                     ))}
                 </ScrollView>
+            </CustomModal>
+
+            <CustomModal visible={isImportComplete} onClose={cancelImport} title={'Concluído'}>
+                <Text style={CommonStyles.warningText}>Importação de dados concluída com sucesso!</Text>
+                <Image style={{width:100,height:100}} source={require('@/assets/images/ok.webp')}/>
             </CustomModal>
         </ScrollView>
     );

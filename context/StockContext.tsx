@@ -140,7 +140,7 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
         payments: payments,
       },
     }));
-    // saveShares() e saveStocks() serão chamados pelo useEffect que monitora stockShares
+
   };
 
   const updateStockAmount= (ticker:string, quantity:number)=>{
@@ -290,6 +290,11 @@ export const StockProvider: React.FC<{ children: React.ReactNode }> = ({
           newStockShares[ticker] = imported[ticker];
           continue
         }
+        if(stockShares[ticker].quantity == imported[ticker].quantity) {
+         console.log(ticker + "Duplicado com a mesma quantidade atual");
+          continue;
+        }
+
         duplicates[ticker] = imported[ticker];
       }
       return newStockShares;
