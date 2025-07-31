@@ -7,6 +7,7 @@ import { Colors } from "@/constants/Colors";
 import { CommonStyles } from "@/constants/ConstantStyles";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
+import AdBanner from "@/components/AdBanner";
 
 export default function PortfoliosScreen() {
   const [tickers, setTickers] = useState<string[]>([]);
@@ -86,6 +87,7 @@ export default function PortfoliosScreen() {
           </View>
         </View>
       )}
+      <AdBanner/>
     </View>
   );
 }

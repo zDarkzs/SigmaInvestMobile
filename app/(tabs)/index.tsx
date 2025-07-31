@@ -10,6 +10,7 @@ import { Colors } from "@/constants/Colors";
 import { useAuth } from "@/context/AuthContext";
 import { ThemedText } from "@/components/ThemedText";
 import { useDividendFilter } from "@/hooks/useDividendFilter";
+import AdBanner from "@/components/AdBanner";
 
 export default function HomeScreen() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
@@ -150,6 +151,7 @@ export default function HomeScreen() {
           </View>
         </CustomModal>
       </ScrollView>
+      <AdBanner/>
     </View>
   );
 }

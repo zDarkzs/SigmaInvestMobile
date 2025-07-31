@@ -21,6 +21,7 @@ import {useStocks} from "@/context/StockContext";
 import CustomModal from "@/components/CustomModal";
 import Banner from "@/components/Banner";
 import {StockShares} from "@/types/dividendTypes";
+import AdBanner from "@/components/AdBanner";
 
 
 export default function SettingsScreen() {
@@ -327,6 +328,7 @@ export default function SettingsScreen() {
                         }
 
                     </View>
+
                 </ThemedView>
 
             )}
@@ -383,6 +385,7 @@ export default function SettingsScreen() {
                 <Text style={CommonStyles.warningText}>Importação de dados concluída com sucesso!</Text>
                 <Image style={{width:100,height:100}} source={require('@/assets/images/ok.webp')}/>
             </CustomModal>
+            <AdBanner/>
         </ScrollView>
     );
 }

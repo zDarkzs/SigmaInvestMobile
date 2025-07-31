@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Adicionado mensagem de conclusão de importação| agora ignora importação com a mesma quantidade">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Consertado eas.json">
+      <change afterPath="$PROJECT_DIR$/components/AdBanner.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eas.json" beforeDir="false" afterPath="$PROJECT_DIR$/eas.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/portfolios.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/portfolios.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +152,7 @@
       <workItem from="1753526694487" duration="7460000" />
       <workItem from="1753542022509" duration="385000" />
       <workItem from="1753706401846" duration="9958000" />
-      <workItem from="1753961480054" duration="6370000" />
+      <workItem from="1753961480054" duration="11710000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -531,7 +538,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753713764505</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Consertado eas.json">
+      <option name="closed" value="true" />
+      <created>1753973419742</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1753973419742</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -549,7 +564,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Exportando com sucesso para csv." />
     <MESSAGE value="Adicionado FIltros por ticker" />
     <MESSAGE value="Consertados os estilos do CustomModal.tsx" />
     <MESSAGE value="Primeira versão compativel com android" />
@@ -574,7 +588,8 @@
     <MESSAGE value="Consertado o erro onde a lista de ticker duplicados não era atualizada" />
     <MESSAGE value="Criada logica de manipulação de stocks importados" />
     <MESSAGE value="Adicionado mensagem de conclusão de importação| agora ignora importação com a mesma quantidade" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adicionado mensagem de conclusão de importação| agora ignora importação com a mesma quantidade" />
+    <MESSAGE value="Consertado eas.json" />
+    <option name="LAST_COMMIT_MESSAGE" value="Consertado eas.json" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -590,7 +605,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
-          <line>99</line>
+          <line>100</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

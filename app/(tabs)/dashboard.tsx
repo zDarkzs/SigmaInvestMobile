@@ -17,6 +17,7 @@ import CustomModal from "@/components/CustomModal";
 import { Picker } from "@react-native-picker/picker";
 import { Colors } from "@/constants/Colors";
 import { useDividendFilter } from "@/hooks/useDividendFilter";
+import AdBanner from "@/components/AdBanner";
 
 export default function Dashboard() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
@@ -115,6 +116,8 @@ export default function Dashboard() {
    ) : (
         <Text style={CommonStyles.warningText}>Sem dados de dividendos no momento.</Text>
       )}
+      {Dev}
+      <AdBanner/>
     </View>
   );
 }
