@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Criada logica de manipulação de stocks importados">
-      <change afterPath="$PROJECT_DIR$/assets/images/ok.webp" afterDir="false" />
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Adicionado mensagem de conclusão de importação| agora ignora importação com a mesma quantidade">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/context/StockContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/StockContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eas.json" beforeDir="false" afterPath="$PROJECT_DIR$/eas.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +144,8 @@
       <workItem from="1753469839342" duration="3720000" />
       <workItem from="1753526694487" duration="7460000" />
       <workItem from="1753542022509" duration="385000" />
-      <workItem from="1753706401846" duration="6588000" />
+      <workItem from="1753706401846" duration="9958000" />
+      <workItem from="1753961480054" duration="6370000" />
     </task>
     <task id="LOCAL-00001" summary="forced to commit">
       <option name="closed" value="true" />
@@ -524,7 +523,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753530511458</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Adicionado mensagem de conclusão de importação| agora ignora importação com a mesma quantidade">
+      <option name="closed" value="true" />
+      <created>1753713764505</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1753713764505</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -542,7 +549,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Iniciada a lógica para exportar dados" />
     <MESSAGE value="Exportando com sucesso para csv." />
     <MESSAGE value="Adicionado FIltros por ticker" />
     <MESSAGE value="Consertados os estilos do CustomModal.tsx" />
@@ -567,7 +573,8 @@
     <MESSAGE value="Criado o modal para tratamento de duplicatas" />
     <MESSAGE value="Consertado o erro onde a lista de ticker duplicados não era atualizada" />
     <MESSAGE value="Criada logica de manipulação de stocks importados" />
-    <option name="LAST_COMMIT_MESSAGE" value="Criada logica de manipulação de stocks importados" />
+    <MESSAGE value="Adicionado mensagem de conclusão de importação| agora ignora importação com a mesma quantidade" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adicionado mensagem de conclusão de importação| agora ignora importação com a mesma quantidade" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
