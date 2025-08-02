@@ -116,7 +116,6 @@ export default function Dashboard() {
    ) : (
         <Text style={CommonStyles.warningText}>Sem dados de dividendos no momento.</Text>
       )}
-      {Dev}
       <AdBanner/>
     </View>
   );

@@ -11,7 +11,7 @@ export default function AdBanner() {
   return (
     <View>
       <BannerAd
-        unitId={__DEV__? TestIds.BANNER: 'ca-app-pub-5675257971208612~4110605516'}
+        unitId={'ca-app-pub-5675257971208612/2723227992'}
         size={BannerAdSize.BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,

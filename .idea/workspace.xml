@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Consertado eas.json">
-      <change afterPath="$PROJECT_DIR$/components/AdBanner.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/portfolios.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/portfolios.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Adicionados anuncios" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -153,14 +143,7 @@
       <workItem from="1753542022509" duration="385000" />
       <workItem from="1753706401846" duration="9958000" />
       <workItem from="1753961480054" duration="11710000" />
-    </task>
-    <task id="LOCAL-00001" summary="forced to commit">
-      <option name="closed" value="true" />
-      <created>1749170549721</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1749170549721</updated>
+      <workItem from="1753991858283" duration="312000" />
     </task>
     <task id="LOCAL-00002" summary="Added firebase">
       <option name="closed" value="true" />
@@ -546,7 +529,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753973419742</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Adicionados anuncios">
+      <option name="closed" value="true" />
+      <created>1753991940710</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1753991940710</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -564,7 +555,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adicionado FIltros por ticker" />
     <MESSAGE value="Consertados os estilos do CustomModal.tsx" />
     <MESSAGE value="Primeira versão compativel com android" />
     <MESSAGE value="Adicionado espacamento dinamico para a barra de navegação; Corrigido bug do gráfico em dispositivos mobile; Corrigido bug gráfico onde metade da tela index.tsx ficava preta." />
@@ -589,7 +579,8 @@
     <MESSAGE value="Criada logica de manipulação de stocks importados" />
     <MESSAGE value="Adicionado mensagem de conclusão de importação| agora ignora importação com a mesma quantidade" />
     <MESSAGE value="Consertado eas.json" />
-    <option name="LAST_COMMIT_MESSAGE" value="Consertado eas.json" />
+    <MESSAGE value="Adicionados anuncios" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adicionados anuncios" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -89,7 +89,7 @@ const { isAuthenticated } = useAuth();
   );
 }
 const getMargin = ()=>{
-    if(Platform.OS !== "web") return 50;
+    //if(Platform.OS !== "web") return 50;
     return 0;
 }
 const styles = StyleSheet.create({
