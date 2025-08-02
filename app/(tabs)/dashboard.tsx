@@ -59,7 +59,7 @@ export default function Dashboard() {
 
       <FlatList
         data={filteredDividends}
-        keyExtractor={(item) => item.id + item.amount}
+        keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => <DividendCard dividend={item} />}
         contentContainerStyle={styles.list}
       />
