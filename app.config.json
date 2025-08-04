@@ -4,7 +4,7 @@
     "slug": "SigmaInvest",
     "version": "0.0.5beta",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/realistic_logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {

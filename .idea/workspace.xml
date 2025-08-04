@@ -7,22 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Corrigido bug de id dos dividend card">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Modo escuro adicionado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Banner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Banner.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Collapsible.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/CreatePortfolioCard.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/DividendCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DividendCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/PortfolioCard.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/StockCard.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ThemedText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedText.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ThemedView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/Colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/Colors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/ConstantStyles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/ConstantStyles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/portfolios.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/portfolios.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,23 +58,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/rhyan/SigmaInvestMobile/assets/images",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "D:\\rhyan\\SigmaInvestMobile\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/rhyan/SigmaInvestMobile/assets/images&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\rhyan\\SigmaInvestMobile\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\rhyan\SigmaInvestMobile\assets\images" />
@@ -165,15 +153,8 @@
       <workItem from="1753961480054" duration="11710000" />
       <workItem from="1753991858283" duration="312000" />
       <workItem from="1754136425716" duration="5653000" />
-      <workItem from="1754304118300" duration="12759000" />
-    </task>
-    <task id="LOCAL-00005" summary="Ativos voltam a aparcer na tela inicial, agora a partir do menu &quot;ativos&quot;">
-      <option name="closed" value="true" />
-      <created>1749828149218</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1749828149218</updated>
+      <workItem from="1754304118300" duration="15551000" />
+      <workItem from="1754334556484" duration="1009000" />
     </task>
     <task id="LOCAL-00006" summary="Ativos voltam a aparcer na tela inicial, agora a partir do menu &quot;ativos&quot;">
       <option name="closed" value="true" />
@@ -559,7 +540,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754146889256</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Modo escuro adicionado">
+      <option name="closed" value="true" />
+      <created>1754321133197</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1754321133198</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -577,7 +566,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Icones adicionados" />
     <MESSAGE value="Adicionado react-natrive-svg" />
     <MESSAGE value="nullable stockshsres fixed" />
     <MESSAGE value="adicionada logica de filtragem a dashboard.tsx" />
@@ -602,7 +590,8 @@
     <MESSAGE value="Adicionados anuncios com sucesso" />
     <MESSAGE value="Id do banner corrigido" />
     <MESSAGE value="Corrigido bug de id dos dividend card" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrigido bug de id dos dividend card" />
+    <MESSAGE value="Modo escuro adicionado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modo escuro adicionado" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

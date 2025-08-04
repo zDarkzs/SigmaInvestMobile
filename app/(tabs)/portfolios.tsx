@@ -94,6 +94,7 @@ export default function PortfoliosScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    padding:10,
     gap: 16,
   },
   loadingContainer: {
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "column",
     gap: 12,
-    width: "100%",
+
   },
   input: {
     width: "100%",
@@ -114,6 +115,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     backgroundColor: Colors.white,
+    color:Colors.primary,
+
   },
   buttonContainer: {
     alignItems: "center",
