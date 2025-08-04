@@ -3,9 +3,15 @@ import { Colors } from './Colors';
 export const CommonStyles = {
   container: {
     flex: 1,
-    padding: 20,
+    //padding: 20,
     backgroundColor: Colors.background,
+
     
+  },
+  overContainer:{
+    width:'100%',
+    height:'100%',
+    justifyContent:'space-around'
   },
   loadingContainer: {
     flex: 1,

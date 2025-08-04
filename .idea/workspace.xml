@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Adicionados anuncios" />
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Corrigido bug de id dos dividend card">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Banner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Banner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Collapsible.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CreatePortfolioCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DividendCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DividendCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/PortfolioCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/StockCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ThemedText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ThemedView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/Colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/Colors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/ConstantStyles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/ConstantStyles.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,22 +70,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/rhyan/SigmaInvestMobile/assets/images&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\rhyan\\SigmaInvestMobile\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/rhyan/SigmaInvestMobile/assets/images",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "D:\\rhyan\\SigmaInvestMobile\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\rhyan\SigmaInvestMobile\assets\images" />
@@ -144,30 +164,8 @@
       <workItem from="1753706401846" duration="9958000" />
       <workItem from="1753961480054" duration="11710000" />
       <workItem from="1753991858283" duration="312000" />
-    </task>
-    <task id="LOCAL-00002" summary="Added firebase">
-      <option name="closed" value="true" />
-      <created>1749223850357</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1749223850357</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Added firebase">
-      <option name="closed" value="true" />
-      <created>1749240991005</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1749240991005</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Authentication implemented">
-      <option name="closed" value="true" />
-      <created>1749501067116</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1749501067116</updated>
+      <workItem from="1754136425716" duration="5653000" />
+      <workItem from="1754304118300" duration="12759000" />
     </task>
     <task id="LOCAL-00005" summary="Ativos voltam a aparcer na tela inicial, agora a partir do menu &quot;ativos&quot;">
       <option name="closed" value="true" />
@@ -537,7 +535,31 @@
       <option name="project" value="LOCAL" />
       <updated>1753991940710</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Adicionados anuncios com sucesso">
+      <option name="closed" value="true" />
+      <created>1754137679298</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1754137679298</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Id do banner corrigido">
+      <option name="closed" value="true" />
+      <created>1754137842464</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1754137842464</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Corrigido bug de id dos dividend card">
+      <option name="closed" value="true" />
+      <created>1754146889256</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1754146889256</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -555,9 +577,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Consertados os estilos do CustomModal.tsx" />
-    <MESSAGE value="Primeira versão compativel com android" />
-    <MESSAGE value="Adicionado espacamento dinamico para a barra de navegação; Corrigido bug do gráfico em dispositivos mobile; Corrigido bug gráfico onde metade da tela index.tsx ficava preta." />
     <MESSAGE value="Icones adicionados" />
     <MESSAGE value="Adicionado react-natrive-svg" />
     <MESSAGE value="nullable stockshsres fixed" />
@@ -580,7 +599,10 @@
     <MESSAGE value="Adicionado mensagem de conclusão de importação| agora ignora importação com a mesma quantidade" />
     <MESSAGE value="Consertado eas.json" />
     <MESSAGE value="Adicionados anuncios" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adicionados anuncios" />
+    <MESSAGE value="Adicionados anuncios com sucesso" />
+    <MESSAGE value="Id do banner corrigido" />
+    <MESSAGE value="Corrigido bug de id dos dividend card" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrigido bug de id dos dividend card" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -596,13 +618,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
-          <line>100</line>
+          <line>104</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/components/CustomModal.tsx</url>
-          <line>21</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

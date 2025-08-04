@@ -2,17 +2,24 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Text, StyleSheet, ViewStyle } from "react-native";
 
+// Banner.tsx
 interface OfflineBannerProps {
   visible: boolean;
   children: React.ReactNode;
+  onHeightChange?: (height: number) => void; // <-- adicionado
 }
 
-export default function Banner({ visible, children }: OfflineBannerProps) {
-  const slideAnim = useRef(new Animated.Value(-50)).current; // começa fora da tela
+export default function Banner({ visible, children, onHeightChange }: OfflineBannerProps) {
+  const slideAnim = useRef(new Animated.Value(-50)).current;
+
+  const handleLayout = (event: any) => {
+    const { height } = event.nativeEvent.layout;
+    onHeightChange?.(height);
+  };
 
   useEffect(() => {
     Animated.timing(slideAnim, {
-      toValue: visible ? 0 : -50, // aparece ou desaparece
+      toValue: visible ? 0 : -50,
       duration: 300,
       useNativeDriver: true,
     }).start();
@@ -20,6 +27,7 @@ export default function Banner({ visible, children }: OfflineBannerProps) {
 
   return (
     <Animated.View
+      onLayout={handleLayout}
       style={[
         styles.banner,
         { transform: [{ translateY: slideAnim }] } as ViewStyle,

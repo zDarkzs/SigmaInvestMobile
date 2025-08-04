@@ -12,8 +12,8 @@ const DividendCard = ({ dividend }: { dividend: Dividend }) => {
       </View>
 
       <View style={styles.dates}>
-        <Text>Pagamento: {dividend.paymentDate}</Text>
-        {dividend.recordDate && <Text>Data ex: {dividend.recordDate}</Text>}
+        <Text style={styles.text}>Pagamento: {dividend.paymentDate}</Text>
+        {dividend.recordDate && <Text style={styles.text}>Data ex: {dividend.recordDate}</Text>}
       </View>
 
       <Text style={styles.source}>Fonte: {dividend.source}</Text>
@@ -23,7 +23,7 @@ const DividendCard = ({ dividend }: { dividend: Dividend }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.cardBackground,
     borderRadius: 8,
     padding: 16,
     marginBottom: 12,
@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
     color: Colors.primary,
     textAlign: 'right',
   },
+  text:{
+    color: Colors.text
+  }
 });
 
 export default DividendCard;

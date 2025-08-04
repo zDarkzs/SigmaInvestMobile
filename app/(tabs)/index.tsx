@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, Button, StyleSheet, Pressable } from "react-native";
+import {View, Text, ScrollView, Button, StyleSheet, Pressable, Image, Dimensions} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 import { useStocks } from "@/context/StockContext";
@@ -8,7 +8,6 @@ import CustomModal from "@/components/CustomModal";
 import { CommonStyles } from "@/constants/ConstantStyles";
 import { Colors } from "@/constants/Colors";
 import { useAuth } from "@/context/AuthContext";
-import { ThemedText } from "@/components/ThemedText";
 import { useDividendFilter } from "@/hooks/useDividendFilter";
 import AdBanner from "@/components/AdBanner";
 
@@ -18,7 +17,8 @@ export default function HomeScreen() {
 
   const userData = useAuth();
   const { stockShares, getStocksDividendData } = useStocks();
-
+  const correctMarginTop  = userData? 0:10;
+  const logoSize = (Dimensions.get('window').width) * 0.4;
 
   const dividends = stockShares ? ( getStocksDividendData(stockShares)) : [];
 
@@ -45,6 +45,10 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ScrollView scrollEnabled={!isFilterModalVisible}>
+        <Image
+          source={require('@/assets/images/img.png')}
+          style={{width:logoSize, height:logoSize, marginTop:correctMarginTop}}
+        />
         <Text style={CommonStyles.headerText}>SIGMA INVEST</Text>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>RENDIMENTOS DO PERÍODO:</Text>
@@ -93,7 +97,7 @@ export default function HomeScreen() {
               </View>
             ))
           ) : (
-            <Text>Nenhum dividendo encontrado</Text>
+            <Text style={styles.text}>Nenhum dividendo encontrado</Text>
           )}
         </View>
 
@@ -160,6 +164,7 @@ const styles = StyleSheet.create({
   container: {
     ...CommonStyles.container,
     alignItems: "center",
+    width:'100%',
     gap: 8,
     flex: 1,
   },
@@ -264,5 +269,8 @@ const styles = StyleSheet.create({
   containerLimpar: {
     flex: 1,
     alignItems: 'center'
-  }
+  },
+  text:{
+    color:Colors.text
+  },
 });

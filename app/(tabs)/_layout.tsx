@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import React from "react";
+import React, {useState} from "react";
 import {StyleSheet, Platform, View, Text} from "react-native";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
@@ -9,24 +9,30 @@ import {ThemedText} from "@/components/ThemedText";
 import Banner from "@/components/Banner";
 
 export default function TabLayout() {
-const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const [bannerHeight, setBannerHeight] = useState(0); // <-- armazenar altura
 
   return (
-      <>
-          <Banner visible={!isAuthenticated}>
-              <Text style={styles.text}>Modo Offline</Text>
-          </Banner>
-          <View style={{paddingTop: !isAuthenticated ? 30 : 0}}></View>
+    <>
+      <Banner
+        visible={!isAuthenticated}
+        onHeightChange={(h) => setBannerHeight(h)} // <-- callback para altura
+      >
+        <Text style={styles.text}>Modo Offline</Text>
+      </Banner>
 
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors.primary,
-        headerShown: false,
-        tabBarStyle: styles.tabBar,
-        tabBarLabelStyle: styles.tabBarLabel,
-        tabBarIconStyle: styles.tabBarIcon,
-      }}
-    >
+      {/* Aplicar o padding top com base na altura real */}
+      <View style={{ paddingTop: !isAuthenticated ? bannerHeight : 0 }} />
+
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: Colors.primary,
+          headerShown: false,
+          tabBarStyle: styles.tabBar,
+          tabBarLabelStyle: styles.tabBarLabel,
+          tabBarIconStyle: styles.tabBarIcon,
+        }}
+      >
         <ThemedText> Teste</ThemedText>
       <Tabs.Screen
         name="index"
@@ -94,7 +100,7 @@ const getMargin = ()=>{
 }
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background,
     borderTopColor: Colors.divider,
     borderTopWidth: 1,
     height: 60,

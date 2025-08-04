@@ -156,6 +156,9 @@ export default function SettingsScreen() {
 
 
     return (
+      <View style={CommonStyles.overContainer}>
+
+
         <ScrollView style={CommonStyles.container}>
 
             {isLoading ? (
@@ -385,8 +388,10 @@ export default function SettingsScreen() {
                 <Text style={CommonStyles.warningText}>Importação de dados concluída com sucesso!</Text>
                 <Image style={{width:100,height:100}} source={require('@/assets/images/ok.webp')}/>
             </CustomModal>
-            <AdBanner/>
+
         </ScrollView>
+        <AdBanner/>
+        </View>
     );
 }
 
@@ -413,7 +418,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
     },
     email: {
-        color: Colors.black,
+        color: Colors.text,
         fontSize: 16,
     },
     section: {

@@ -1,28 +1,43 @@
-export const Colors = {
+import {useColorScheme} from "react-native";
+
+const CommonColors = {
   primary: '#1A237E',
-  primaryLight: '#534bae',
+  primaryLight: '#534BAE',
   primaryDark: '#000051',
 
   secondary: '#E53935',
-  exit: '#700c0aff',
-
-  background: '#F5F5F5',
-  backgroundDark: '#444444',
-
-  text: '#333333',
-  textLight: '#666666',
-  textOnPrimary: '#FFFFFF',
+  exit: '#700C0A',
 
   white: '#FFFFFF',
   black: '#000000',
 
-  divider: '#DDDDDD',
-
   success: '#388E3C',
   warning: '#FFA000',
   error: '#D32F2F',
-
-  cardBackground: '#FFFFFF',
-
   danger: '#D32F2F',
+
+  textOnPrimary: '#FFFFFF',
 };
+
+const ThemedColors ={
+  light: {
+    background: '#F5F5F5',
+    text: '#333333',
+    textLight: '#666666',
+    cardBackground: '#FFFFFF',
+    divider: '#DDDDDD',
+  },
+  dark: {
+    background: '#323232',
+    text: '#EEEEEE',
+    textLight: '#BBBBBB',
+    cardBackground: '#1E1E1E',
+    divider: '#333333',
+  },
+}
+export const Colors = useColorScheme() ==='dark'?
+  (
+    {...CommonColors,...ThemedColors.dark}
+  ):(
+    {...CommonColors,...ThemedColors.light}
+  );

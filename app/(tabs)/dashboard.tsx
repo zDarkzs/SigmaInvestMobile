@@ -59,7 +59,7 @@ export default function Dashboard() {
 
       <FlatList
         data={filteredDividends}
-        keyExtractor={(item) => item.toString()}
+        keyExtractor={(item) => Object.values(item).toString()}
         renderItem={({ item }) => <DividendCard dividend={item} />}
         contentContainerStyle={styles.list}
       />
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
+    color: Colors.text,
   },
   inputContainer: {
     flexDirection: "column",
