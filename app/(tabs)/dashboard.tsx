@@ -48,7 +48,7 @@ export default function Dashboard() {
 
       {dividends.length > 0 ? (
           <>
-        <DividendLineChart payments={(filteredDividends.length>0?filteredDividends:dividends)} />
+
 
       <Pressable
         onPress={toggleFilterModal}

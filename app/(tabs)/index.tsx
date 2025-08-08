@@ -11,12 +11,13 @@ import { useAuth } from "@/context/AuthContext";
 import { useDividendFilter } from "@/hooks/useDividendFilter";
 import AdBanner from "@/components/AdBanner";
 import AddStockModal from "@/components/AddStockModal";
+import DividendLineChart from "@/components/DividendLineChart";
 
 export default function HomeScreen() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
   const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
-  const [isAddStockModalVisible, setAddStockModalVisible] = useState(true);
-
+  const [isAddStockModalVisible, setAddStockModalVisible] = useState(false);
+  const toggleAddStockModal = () => setAddStockModalVisible(!isAddStockModalVisible);
 
   const userData = useAuth();
   const { stockShares, getStocksDividendData } = useStocks();
@@ -56,53 +57,72 @@ export default function HomeScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>RENDIMENTOS DO PERÍODO:</Text>
           <Text style={styles.totalText}>{toBRL(total)}</Text>
-          <Pressable
+          <View style={styles.containerLimpar}>
+            <Pressable
             onPress={toggleFilterModal}
             style={({ pressed }) => [
               styles.buttonFiltrar,{ backgroundColor: pressed ? Colors.primaryDark : Colors.primary } ]}>
             <Text style={styles.TextFiltrar}>Filtrar</Text>
           </Pressable>
+            <Pressable
+            onPress={toggleFilterModal}
+            style={({ pressed }) => [
+              styles.buttonFiltrar,{ backgroundColor: pressed ? Colors.primaryDark : Colors.primary } ]}>
+            <Text style={styles.TextFiltrar}>Adicionar</Text>
+          </Pressable>
+          </View>
+
         </View>
 
-        <View style={styles.section}>
-          {dividends.length > 0 ? (
-            (filteredDividends.length>0? filteredDividends: dividends).map((dividend, index) => (
-              <View
-                key={`${dividend.id}-${index}`}
-                style={[CommonStyles.card, styles.dividendItem]}
-              >
-                <Text style={styles.ticker}>{dividend.ticker}</Text>
-                <Text style={styles.quantity}>
-                  Cotas: {stockShares?.[dividend.ticker]?.quantity}
-                </Text>
-                
-                <View style={styles.rendimentos}>
-                  <Text style={styles.label}>Rendimentos: </Text>
-                  <Text style={styles.value}>
-                    {toBRL(
-                      dividend.amount *
-                        (stockShares?.[dividend.ticker]?.quantity || 0)
-                    )}
-                  </Text> 
-                </View>
+       <View style={styles.section}>
+  {/* Renderiza o gráfico se houver dados */}
+  {dividends.length > 0 && filteredDividends.length > 0 && (
+    <DividendLineChart
+      data={filteredDividends} // ou dividends, se quiser todos
+    />
+  )}
 
-                <Text style={styles.label}>
-                  Data:{" "}
-                  {new Date(dividend.paymentDate).toLocaleDateString("pt-BR")}
-                </Text>
-                <Text style={styles.type}>
-                  {dividend.type === "ordinary"
-                    ? "Dividendo"
-                    : dividend.type === "special"
-                    ? "Dividendo Especial"
-                    : "JCP"}
-                </Text>
-              </View>
-            ))
-          ) : (
-            <Text style={styles.text}>Nenhum dividendo encontrado</Text>
-          )}
+  {dividends.length > 0 ? (
+    (filteredDividends.length > 0 ? filteredDividends : dividends).map(
+      (dividend, index) => (
+        <View
+          key={`${dividend.id}-${index}`}
+          style={[CommonStyles.card, styles.dividendItem]}
+        >
+          <Text style={styles.ticker}>{dividend.ticker}</Text>
+          <Text style={styles.quantity}>
+            Cotas: {stockShares?.[dividend.ticker]?.quantity}
+          </Text>
+
+          <View style={styles.rendimentos}>
+            <Text style={styles.label}>Rendimentos: </Text>
+            <Text style={styles.value}>
+              {toBRL(
+                dividend.amount *
+                  (stockShares?.[dividend.ticker]?.quantity || 0)
+              )}
+            </Text>
+          </View>
+
+          <Text style={styles.label}>
+            Data:{" "}
+            {new Date(dividend.paymentDate).toLocaleDateString("pt-BR")}
+          </Text>
+          <Text style={styles.type}>
+            {dividend.type === "ordinary"
+              ? "Dividendo"
+              : dividend.type === "special"
+              ? "Dividendo Especial"
+              : "JCP"}
+          </Text>
         </View>
+      )
+    )
+  ) : (
+    <Text style={styles.text}>Nenhum dividendo encontrado</Text>
+  )}
+</View>
+
 
         <CustomModal title="Filtrar Ativos" visible={isFilterModalVisible} onClose={toggleFilterModal}>
           <View style={styles.modal}>
@@ -297,6 +317,7 @@ const styles = StyleSheet.create({
   flexDirection:'row',
     width:'100%',
     alignItems:'center',
+    justifyContent:'center',
     gap:5,
     padding:5,
   },
