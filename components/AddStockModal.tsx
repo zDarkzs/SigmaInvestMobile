@@ -9,7 +9,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import AdBanner from "@/components/AdBanner";
 
-export default function PortfoliosScreen() {
+export default function AddStockModal() {
   const [tickers, setTickers] = useState<string[]>([]);
   const [pendingTicker, setPendingTicker] = useState<string | null>(null);
   const [pendingQuantity, setPendingQuantity] = useState<number | null>(null);

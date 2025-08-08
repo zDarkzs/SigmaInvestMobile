@@ -10,7 +10,7 @@ import { Colors } from "@/constants/Colors";
 import { useAuth } from "@/context/AuthContext";
 import { useDividendFilter } from "@/hooks/useDividendFilter";
 import AdBanner from "@/components/AdBanner";
-import PortfoliosScreen from "@/app/(tabs)/portfolios";
+import AddStockModal from "@/components/AddStockModal";
 
 export default function HomeScreen() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
@@ -167,7 +167,7 @@ export default function HomeScreen() {
         <CustomModal title={'Adicionar Ativos'} visible={isAddStockModalVisible} onClose={()=>{setAddStockModalVisible(false)}}>
           <View style={[styles.modal, { maxHeight: '80%' }]}>
            <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-             <PortfoliosScreen />
+             <AddStockModal />
            </ScrollView>
             <Pressable
                 onPress={()=>{setAddStockModalVisible(false)}}

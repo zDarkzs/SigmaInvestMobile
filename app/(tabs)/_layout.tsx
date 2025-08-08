@@ -49,20 +49,6 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="portfolios"
-        options={{
-          title: "Ativos",
-            animation:'shift',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "business" : "business-outline"}
-              color={color}
-              style={styles.tabBarIcon}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="dashboard"
         options={{
           title: "Histórico",
