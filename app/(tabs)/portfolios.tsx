@@ -53,14 +53,13 @@ export default function PortfoliosScreen() {
   }, [dividends]);
 
   return (
-    <View style={CommonStyles.container}>
+    <View style={[CommonStyles.container, styles.container, { minHeight: 150, flexGrow: 1 }]}>
       {loading ? (
         <View style={styles.loadingContainer}>
           <ThemedText>Carregando...</ThemedText>
         </View>
       ) : (
         <View style={[CommonStyles.container, styles.container]}>
-          <Text style={CommonStyles.headerText}>Adicionar Ativos</Text>
 
           <View style={styles.inputContainer}>
             <TextInput
@@ -87,7 +86,6 @@ export default function PortfoliosScreen() {
           </View>
         </View>
       )}
-      <AdBanner/>
     </View>
   );
 }

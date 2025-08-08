@@ -9,8 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Modo escuro adicionado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/portfolios.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/portfolios.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CustomModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CustomModal.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,15 +155,9 @@
       <workItem from="1753991858283" duration="312000" />
       <workItem from="1754136425716" duration="5653000" />
       <workItem from="1754304118300" duration="15551000" />
-      <workItem from="1754334556484" duration="1009000" />
-    </task>
-    <task id="LOCAL-00006" summary="Ativos voltam a aparcer na tela inicial, agora a partir do menu &quot;ativos&quot;">
-      <option name="closed" value="true" />
-      <created>1749832247800</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1749832247800</updated>
+      <workItem from="1754334556484" duration="1629000" />
+      <workItem from="1754390477761" duration="5419000" />
+      <workItem from="1754679673547" duration="383000" />
     </task>
     <task id="LOCAL-00007" summary="Ativos sendo carregados da/para a nuvem">
       <option name="closed" value="true" />
@@ -548,7 +543,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754321133198</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Modo escuro adicionado">
+      <option name="closed" value="true" />
+      <created>1754339165148</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1754339165149</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -607,7 +610,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
-          <line>104</line>
+          <line>107</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

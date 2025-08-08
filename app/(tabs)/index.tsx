@@ -10,10 +10,13 @@ import { Colors } from "@/constants/Colors";
 import { useAuth } from "@/context/AuthContext";
 import { useDividendFilter } from "@/hooks/useDividendFilter";
 import AdBanner from "@/components/AdBanner";
+import PortfoliosScreen from "@/app/(tabs)/portfolios";
 
 export default function HomeScreen() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
   const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
+  const [isAddStockModalVisible, setAddStockModalVisible] = useState(true);
+
 
   const userData = useAuth();
   const { stockShares, getStocksDividendData } = useStocks();
@@ -103,7 +106,6 @@ export default function HomeScreen() {
 
         <CustomModal title="Filtrar Ativos" visible={isFilterModalVisible} onClose={toggleFilterModal}>
           <View style={styles.modal}>
-            <Text style={styles.modalTitle}>Filtrar Dividendos</Text>
 
             <View style={styles.filterGroup}>
               <Text style={styles.label}>Ano:</Text>
@@ -146,13 +148,35 @@ export default function HomeScreen() {
 
             <View style={styles.containerLimpar}>
               <Pressable
-                onPress={()=>{resetFilters()}}
+                onPress={()=>{resetFilters(),setFilterModalVisible(false)}}
                 style={({ pressed }) => [
                   styles.buttonLimpar,{ backgroundColor: pressed ? Colors.text : "#666" } ]}>
                 <Text style={styles.TextLimpar}>Limpar</Text>
-                </Pressable>
+              </Pressable>
+               <Pressable
+                onPress={()=>{setFilterModalVisible(false)}}
+                style={({ pressed }) => [
+                  styles.buttonLimpar,{ backgroundColor: pressed ? Colors.text : "#666" } ]}>
+                <Text style={styles.TextLimpar}>Fechar</Text>
+              </Pressable>
             </View>
+
           </View>
+        </CustomModal>
+
+        <CustomModal title={'Adicionar Ativos'} visible={isAddStockModalVisible} onClose={()=>{setAddStockModalVisible(false)}}>
+          <View style={[styles.modal, { maxHeight: '80%' }]}>
+           <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+             <PortfoliosScreen />
+           </ScrollView>
+            <Pressable
+                onPress={()=>{setAddStockModalVisible(false)}}
+                style={({ pressed }) => [
+                  styles.buttonLimpar,{ backgroundColor: pressed ? Colors.text : "#666" } ]}>
+                <Text style={styles.TextLimpar}>Fechar</Text>
+              </Pressable>
+          </View>
+
         </CustomModal>
       </ScrollView>
       <AdBanner/>
@@ -210,10 +234,14 @@ const styles = StyleSheet.create({
     color: Colors.primary,
   },
   modal: {
-    backgroundColor: Colors.white,
-    padding: 20,
-    borderRadius: 10,
-  },
+  //backgroundColor: Colors.white,
+  padding: 20,
+  borderRadius: 10,
+  width: '90%',
+  maxHeight: '80%',
+  minHeight: 100, // ou o valor que funcionar melhor
+  //alignItems: 'stretch',
+},
   modalTitle: {
     fontSize: 20,
     fontWeight: "bold",
@@ -258,7 +286,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: '50%',
     alignItems: 'center',
-    
   },
   TextLimpar: {
     fontSize: 15,
@@ -267,8 +294,11 @@ const styles = StyleSheet.create({
     
   },
   containerLimpar: {
-    flex: 1,
-    alignItems: 'center'
+  flexDirection:'row',
+    width:'100%',
+    alignItems:'center',
+    gap:5,
+    padding:5,
   },
   text:{
     color:Colors.text

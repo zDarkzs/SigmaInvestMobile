@@ -27,14 +27,16 @@ export default function CustomModal({
     >
       <View style={styles.overlay}>
         <View style={modalStyle}>
-          {title && (
-            <View style={styles.modalTitleHolder}>
-              <ThemedText style={styles.modalTitleText}>{title}</ThemedText>
-            </View>
-          )}
-          {children}
-          <Button title="Fechar" color="red" onPress={onClose} />
-        </View>
+  {title && (
+    <View style={styles.modalTitleHolder}>
+      <ThemedText style={styles.modalTitleText}>{title}</ThemedText>
+    </View>
+  )}
+  <View style={styles.modalContentWrapper}>
+    {children}
+  </View>
+</View>
+
       </View>
     </Modal>
   );
@@ -42,9 +44,17 @@ export default function CustomModal({
 
 const styles = StyleSheet.create({
   overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-  },
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0,0,0,0.3)', // ou 'transparent' se não quiser escurecer o fundo
+  paddingHorizontal: 16,
+},
+  modalContentWrapper: {
+  minHeight: 100, // ajuste conforme necessário
+  justifyContent: 'center',
+},
+
   modalTitleText: {
     fontWeight: "bold",
     fontSize: 30,
