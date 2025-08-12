@@ -37,7 +37,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Proventos",
+          title: "Ativos",
             animation:'shift',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
@@ -48,20 +48,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="dashboard"
-        options={{
-          title: "Histórico",
-            animation:'shift',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "stats-chart" : "stats-chart-outline"}
-              color={color}
-              style={styles.tabBarIcon}
-            />
-          ),
-        }}
-      />
+
       <Tabs.Screen
         name="configs"
         options={{
