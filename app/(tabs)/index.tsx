@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {View, Text, ScrollView, Button, StyleSheet, Pressable, Image, Dimensions} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
@@ -12,20 +12,19 @@ import { useDividendFilter } from "@/hooks/useDividendFilter";
 import AdBanner from "@/components/AdBanner";
 import AddStockModal from "@/components/AddStockModal";
 import DividendLineChart from "@/components/DividendLineChart";
+import ModalButton from "@/components/ModalButton";
 
 export default function HomeScreen() {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
   const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
   const [isAddStockModalVisible, setAddStockModalVisible] = useState(false);
   const toggleAddStockModal = () => setAddStockModalVisible(!isAddStockModalVisible);
-
   const userData = useAuth();
   const { stockShares, getStocksDividendData } = useStocks();
   const correctMarginTop  = userData? 0:10;
   const logoSize = (Dimensions.get('window').width) * 0.4;
 
   const dividends = stockShares ? ( getStocksDividendData(stockShares)) : [];
-
   const {
     selectedYear,
     selectedMonth,
@@ -40,11 +39,16 @@ export default function HomeScreen() {
     resetFilters,
   } = useDividendFilter(dividends);
 
-  const total = filteredDividends.reduce(
+const chartData = useMemo(() => {
+  return filteredDividends.length > 0 ? filteredDividends : dividends;
+}, [filteredDividends, dividends]);
+
+const total = useMemo(() => {
+  return chartData.reduce(
     (sum, d) => sum + d.amount * (stockShares?.[d.ticker]?.quantity || 0),
     0
   );
-
+}, [chartData, stockShares]);
 
   return (
     <View style={styles.container}>
@@ -76,11 +80,9 @@ export default function HomeScreen() {
 
        <View style={styles.section}>
   {/* Renderiza o gráfico se houver dados */}
-  {dividends.length > 0 && filteredDividends.length > 0 && (
     <DividendLineChart
-      payments={filteredDividends} // ou dividends, se quiser todos
+      payments={chartData}
     />
-  )}
 
   {dividends.length > 0 ? (
     (filteredDividends.length > 0 ? filteredDividends : dividends).map(
@@ -167,18 +169,18 @@ export default function HomeScreen() {
             </View>
 
             <View style={styles.containerLimpar}>
-              <Pressable
-                onPress={()=>{resetFilters(),setFilterModalVisible(false)}}
-                style={({ pressed }) => [
-                  styles.buttonLimpar,{ backgroundColor: pressed ? Colors.text : "#666" } ]}>
-                <Text style={styles.TextLimpar}>Limpar</Text>
-              </Pressable>
-               <Pressable
+
+              <ModalButton
                 onPress={()=>{setFilterModalVisible(false)}}
-                style={({ pressed }) => [
-                  styles.buttonLimpar,{ backgroundColor: pressed ? Colors.text : "#666" } ]}>
-                <Text style={styles.TextLimpar}>Fechar</Text>
-              </Pressable>
+                title={'Fechar'}
+              />
+              <ModalButton
+                onPress={()=>{
+                  resetFilters();
+                  setFilterModalVisible(false);
+                }}
+                title={'Limpar'}
+              />
             </View>
 
           </View>
@@ -186,14 +188,7 @@ export default function HomeScreen() {
 
         <CustomModal title={'Adicionar Ativos'} visible={isAddStockModalVisible} onClose={()=>{setAddStockModalVisible(false)}}>
           <View style={[styles.modal]}>
-             <AddStockModal />
-
-            <Pressable
-                onPress={()=>{setAddStockModalVisible(false)}}
-                style={({ pressed }) => [
-                  styles.buttonLimpar,{ backgroundColor: pressed ? Colors.text : "#666" } ]}>
-                <Text style={styles.TextLimpar}>Fechar</Text>
-              </Pressable>
+             <AddStockModal onClose={()=>{setAddStockModalVisible(false)}} />
           </View>
 
         </CustomModal>
@@ -253,11 +248,11 @@ const styles = StyleSheet.create({
     color: Colors.primary,
   },
   modal: {
-  backgroundColor: Colors.white,
-  //padding: 20,
+  //backgroundColor: Colors.white,
+  paddingBottom: 40,
   borderRadius: 10,
   width: '90%',
-  //maxHeight: '80%',
+  maxHeight: '80%',
   minHeight: 100, // ou o valor que funcionar melhor
   alignItems: 'stretch',
 },
@@ -310,7 +305,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '500',
     color: 'white',
-    
+
   },
   containerLimpar: {
   flexDirection:'row',

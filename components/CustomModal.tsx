@@ -24,9 +24,9 @@ export default function CustomModal({
       transparent={true}
       visible={visible}
       onRequestClose={onClose}
-      style={styles.overlay}
+
     >
-      <View >
+      <View style={styles.overlay} >
         <View style={modalStyle}>
   {title && (
     <View style={styles.modalTitleHolder}>
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   modalContentWrapper: {
   minHeight: 100, // ajuste conforme necessário
   justifyContent: 'center',
+  paddingBottom:50
 },
 
   modalTitleText: {

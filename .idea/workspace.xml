@@ -7,11 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Cor dos text input corrigida">
-      <change beforePath="$PROJECT_DIR$/app.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/img_1.png" beforeDir="false" />
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Icones mudados">
+      <change afterPath="$PROJECT_DIR$/components/ModalButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/AddStockModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/AddStockModal.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,15 +162,7 @@
       <workItem from="1754925700872" duration="493000" />
       <workItem from="1754938413480" duration="1000" />
       <workItem from="1754938435462" duration="3142000" />
-      <workItem from="1754995916969" duration="3741000" />
-    </task>
-    <task id="LOCAL-00011" summary="Iniciada a lógica para exportar dados">
-      <option name="closed" value="true" />
-      <created>1750105275451</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1750105275451</updated>
+      <workItem from="1754995916969" duration="8585000" />
     </task>
     <task id="LOCAL-00012" summary="Iniciada a lógica para exportar dados">
       <option name="closed" value="true" />
@@ -556,7 +548,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754999522990</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Icones mudados">
+      <option name="closed" value="true" />
+      <created>1755000083529</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1755000083529</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,7 +574,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Logica de filtragem de dividendos separada em useDividendFilter.ts" />
     <MESSAGE value="Adicionador banner quando o usuário estiver offline" />
     <MESSAGE value="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação" />
     <MESSAGE value="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela" />
@@ -599,7 +598,8 @@
     <MESSAGE value="Tela portfolios.tsx convertida em componente AddStockModal.tsx" />
     <MESSAGE value="Grafico adicionado a index.tsx" />
     <MESSAGE value="Cor dos text input corrigida" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cor dos text input corrigida" />
+    <MESSAGE value="Icones mudados" />
+    <option name="LAST_COMMIT_MESSAGE" value="Icones mudados" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -615,7 +615,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
-          <line>127</line>
+          <line>133</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

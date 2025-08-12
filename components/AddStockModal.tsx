@@ -8,8 +8,11 @@ import { CommonStyles } from "@/constants/ConstantStyles";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import AdBanner from "@/components/AdBanner";
+import ModalButton from "@/components/ModalButton";
 
-export default function AddStockModal() {
+export default function AddStockModal(props:{
+  onClose: () => void;
+}) {
   const [tickers, setTickers] = useState<string[]>([]);
   const [pendingTicker, setPendingTicker] = useState<string | null>(null);
   const [pendingQuantity, setPendingQuantity] = useState<number | null>(null);
@@ -78,12 +81,14 @@ export default function AddStockModal() {
               onChangeText={setQuantity}
             />
             <View style={styles.buttonContainer}>
-              <Pressable
+              <ModalButton
+                onPress={props.onClose}
+                title={'Fechar'}
+              />
+              <ModalButton
                 onPress={addTicker}
-                style={({ pressed }) => [
-                  styles.buttonAdicionar,{ backgroundColor: pressed ? Colors.primaryDark : Colors.primary } ]}>
-                <Text style={styles.TextAdicionar}>Adicionar</Text>
-              </Pressable>
+                title={'Adicionar'}
+              />
             </View>
           </View>
         </View>
@@ -95,6 +100,7 @@ export default function AddStockModal() {
 const styles = StyleSheet.create({
   container: {
     gap: 16,
+    paddingBottom:50
   },
   loadingContainer: {
     flex: 1,
@@ -118,8 +124,12 @@ const styles = StyleSheet.create({
 
   },
   buttonContainer: {
-    alignItems: "center",
-    marginTop: 8,
+   flexDirection:'row',
+    width:'100%',
+    alignItems:'center',
+    justifyContent:'center',
+    gap:5,
+    padding:5,
   },
   buttonAdicionar: {
     backgroundColor: Colors.primary,
