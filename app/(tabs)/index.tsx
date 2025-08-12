@@ -65,7 +65,7 @@ export default function HomeScreen() {
             <Text style={styles.TextFiltrar}>Filtrar</Text>
           </Pressable>
             <Pressable
-            onPress={toggleFilterModal}
+            onPress={toggleAddStockModal}
             style={({ pressed }) => [
               styles.buttonFiltrar,{ backgroundColor: pressed ? Colors.primaryDark : Colors.primary } ]}>
             <Text style={styles.TextFiltrar}>Adicionar</Text>
@@ -78,7 +78,7 @@ export default function HomeScreen() {
   {/* Renderiza o gráfico se houver dados */}
   {dividends.length > 0 && filteredDividends.length > 0 && (
     <DividendLineChart
-      data={filteredDividends} // ou dividends, se quiser todos
+      payments={filteredDividends} // ou dividends, se quiser todos
     />
   )}
 
@@ -185,10 +185,9 @@ export default function HomeScreen() {
         </CustomModal>
 
         <CustomModal title={'Adicionar Ativos'} visible={isAddStockModalVisible} onClose={()=>{setAddStockModalVisible(false)}}>
-          <View style={[styles.modal, { maxHeight: '80%' }]}>
-           <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+          <View style={[styles.modal]}>
              <AddStockModal />
-           </ScrollView>
+
             <Pressable
                 onPress={()=>{setAddStockModalVisible(false)}}
                 style={({ pressed }) => [
@@ -254,13 +253,13 @@ const styles = StyleSheet.create({
     color: Colors.primary,
   },
   modal: {
-  //backgroundColor: Colors.white,
-  padding: 20,
+  backgroundColor: Colors.white,
+  //padding: 20,
   borderRadius: 10,
   width: '90%',
-  maxHeight: '80%',
+  //maxHeight: '80%',
   minHeight: 100, // ou o valor que funcionar melhor
-  //alignItems: 'stretch',
+  alignItems: 'stretch',
 },
   modalTitle: {
     fontSize: 20,

@@ -65,6 +65,7 @@ export default function AddStockModal() {
             <TextInput
               style={styles.input}
               placeholder="Adicionar novo ticker (ex: ITUB4)"
+              placeholderTextColor={Colors.primary}
               value={newTicker}
               onChangeText={setNewTicker}
             />
@@ -72,6 +73,7 @@ export default function AddStockModal() {
               keyboardType="numeric"
               style={styles.input}
               placeholder="Quantidade de cotas"
+              placeholderTextColor={Colors.primary}
               value={quantity}
               onChangeText={setQuantity}
             />
@@ -92,7 +94,6 @@ export default function AddStockModal() {
 
 const styles = StyleSheet.create({
   container: {
-    padding:10,
     gap: 16,
   },
   loadingContainer: {

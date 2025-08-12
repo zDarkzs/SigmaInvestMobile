@@ -228,6 +228,7 @@ export default function SettingsScreen() {
                             <TextInput
                                 style={CommonStyles.input}
                                 placeholder="Email"
+                                placeholderTextColor={Colors.primary}
                                 value={email}
                                 onChangeText={setEmail}
                                 keyboardType="email-address"
@@ -236,6 +237,7 @@ export default function SettingsScreen() {
                             <TextInput
                                 style={CommonStyles.input}
                                 placeholder="Senha"
+                                placeholderTextColor={Colors.primary}
                                 value={password}
                                 onChangeText={setPassword}
                                 secureTextEntry

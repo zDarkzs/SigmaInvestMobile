@@ -7,10 +7,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Tela portfolios.tsx convertida em componente AddStockModal.tsx">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Grafico adicionado a index.tsx">
+      <change afterPath="$PROJECT_DIR$/assets/images/img_1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/AddStockModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/AddStockModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CustomModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CustomModal.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,23 +61,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/rhyan/SigmaInvestMobile/components",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "D:\\rhyan\\SigmaInvestMobile\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/rhyan/SigmaInvestMobile/components&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\rhyan\\SigmaInvestMobile\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\rhyan\SigmaInvestMobile\components" />
@@ -157,15 +160,11 @@
       <workItem from="1754304118300" duration="15551000" />
       <workItem from="1754334556484" duration="1629000" />
       <workItem from="1754390477761" duration="5419000" />
-      <workItem from="1754679673547" duration="3446000" />
-    </task>
-    <task id="LOCAL-00009" summary="Correção em detalhes de lógica ao carregar os dados locais">
-      <option name="closed" value="true" />
-      <created>1749911343168</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1749911343168</updated>
+      <workItem from="1754679673547" duration="3588000" />
+      <workItem from="1754925700872" duration="493000" />
+      <workItem from="1754938413480" duration="1000" />
+      <workItem from="1754938435462" duration="3142000" />
+      <workItem from="1754995916969" duration="3231000" />
     </task>
     <task id="LOCAL-00010" summary="Criada Lógica para remover dados locais">
       <option name="closed" value="true" />
@@ -551,7 +550,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754681076504</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Grafico adicionado a index.tsx">
+      <option name="closed" value="true" />
+      <created>1754685131867</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1754685131867</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -569,7 +576,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adicionada logica de filtragem a dashboard.tsx" />
     <MESSAGE value="Inicio da separação da logida de filtragem" />
     <MESSAGE value="Logica de filtragem de dividendos separada em useDividendFilter.ts" />
     <MESSAGE value="Adicionador banner quando o usuário estiver offline" />
@@ -594,14 +600,15 @@
     <MESSAGE value="Modo escuro adicionado" />
     <MESSAGE value="Estilização concluida graças a um milagre" />
     <MESSAGE value="Tela portfolios.tsx convertida em componente AddStockModal.tsx" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tela portfolios.tsx convertida em componente AddStockModal.tsx" />
+    <MESSAGE value="Grafico adicionado a index.tsx" />
+    <option name="LAST_COMMIT_MESSAGE" value="Grafico adicionado a index.tsx" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/components/CustomModal.tsx</url>
-          <line>28</line>
+          <line>29</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -610,7 +617,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
-          <line>118</line>
+          <line>127</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
