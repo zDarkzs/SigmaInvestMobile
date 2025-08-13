@@ -7,11 +7,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Icones mudados">
-      <change afterPath="$PROJECT_DIR$/components/ModalButton.tsx" afterDir="false" />
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Consertado bug onde o total ficava zerado e o gráfico não aparecia ao carregar os valores do armazenamento">
+      <change afterPath="$PROJECT_DIR$/context/ThemeContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useCommonStyles.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/AddStockModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/AddStockModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CustomModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CustomModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DividendLineChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DividendLineChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ModalButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ModalButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ThemedText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ThemedView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/Colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/Colors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/ConstantStyles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/ConstantStyles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useThemeColor.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,15 +174,9 @@
       <workItem from="1754925700872" duration="493000" />
       <workItem from="1754938413480" duration="1000" />
       <workItem from="1754938435462" duration="3142000" />
-      <workItem from="1754995916969" duration="8585000" />
-    </task>
-    <task id="LOCAL-00012" summary="Iniciada a lógica para exportar dados">
-      <option name="closed" value="true" />
-      <created>1750106183721</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1750106183721</updated>
+      <workItem from="1754995916969" duration="10959000" />
+      <workItem from="1755027162918" duration="2671000" />
+      <workItem from="1755081924542" duration="17249000" />
     </task>
     <task id="LOCAL-00013" summary="Exportando com sucesso para csv.">
       <option name="closed" value="true" />
@@ -556,7 +562,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755000083529</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Consertado bug onde o total ficava zerado e o gráfico não aparecia ao carregar os valores do armazenamento">
+      <option name="closed" value="true" />
+      <created>1755011872917</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1755011872917</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,7 +588,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adicionador banner quando o usuário estiver offline" />
     <MESSAGE value="Adicionador banner quando o usuário estiver offline| Adicionada mensagem de erro na autenticação" />
     <MESSAGE value="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela" />
     <MESSAGE value="Corrigido o bug criado na ultima alteração onde o os dividends não filtrados não apareciam" />
@@ -599,24 +612,32 @@
     <MESSAGE value="Grafico adicionado a index.tsx" />
     <MESSAGE value="Cor dos text input corrigida" />
     <MESSAGE value="Icones mudados" />
-    <option name="LAST_COMMIT_MESSAGE" value="Icones mudados" />
+    <MESSAGE value="Consertado bug onde o total ficava zerado e o gráfico não aparecia ao carregar os valores do armazenamento" />
+    <option name="LAST_COMMIT_MESSAGE" value="Consertado bug onde o total ficava zerado e o gráfico não aparecia ao carregar os valores do armazenamento" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/components/CustomModal.tsx</url>
-          <line>29</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/(tabs)/index.tsx</url>
-          <line>133</line>
+          <line>252</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/constants/ConstantStyles.ts</url>
+          <line>2</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/(tabs)/configs.tsx</url>
+          <line>262</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

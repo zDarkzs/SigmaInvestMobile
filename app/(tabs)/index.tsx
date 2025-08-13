@@ -5,16 +5,139 @@ import { Picker } from "@react-native-picker/picker";
 import { useStocks } from "@/context/StockContext";
 import { toBRL } from "@/scripts/utils";
 import CustomModal from "@/components/CustomModal";
-import { CommonStyles } from "@/constants/ConstantStyles";
-import { Colors } from "@/constants/Colors";
+import { useAppColors } from "@/constants/Colors";
 import { useAuth } from "@/context/AuthContext";
 import { useDividendFilter } from "@/hooks/useDividendFilter";
 import AdBanner from "@/components/AdBanner";
 import AddStockModal from "@/components/AddStockModal";
 import DividendLineChart from "@/components/DividendLineChart";
 import ModalButton from "@/components/ModalButton";
+import {useCommonStyles} from "@/hooks/useCommonStyles";
 
 export default function HomeScreen() {
+  const Colors = useAppColors();
+  const CommonStyles = useCommonStyles();
+  const styles = StyleSheet.create({
+  container: {
+    ...CommonStyles.container,
+    alignItems: "center",
+    width:'100%',
+    gap: 8,
+    flex: 1,
+  },
+  section: {
+    width: "100%",
+    alignItems: 'center',
+    marginBottom: 20,
+
+  },
+  totalText: {
+    color: Colors.success,
+    fontSize: 32,
+    fontWeight: "500",
+    marginBottom: 10
+  },
+  dividendItem: {
+    width: "90%",
+    borderLeftWidth: 4,
+    borderLeftColor: Colors.textLight,
+  },
+  ticker: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: Colors.text,
+  },
+  quantity: {
+    fontSize: 16,
+    color: Colors.text,
+  },
+  value: {
+    fontSize: 16,
+    color: Colors.success,
+    fontWeight: "bold",
+  },
+  label: {
+    fontSize: 16,
+    color: Colors.text,
+  },
+  type: {
+    fontSize: 14,
+    marginTop: 10,
+    fontStyle: "italic",
+    color: Colors.text,
+  },
+  modal: {
+  backgroundColor: Colors.background,
+  paddingBottom: 40,
+  borderRadius: 10,
+  width: '90%',
+  maxHeight: '50%',
+  minHeight: 100, // ou o valor que funcionar melhor
+  alignItems: 'stretch',
+},
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Colors.primary,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  filterGroup: {
+    marginBottom: 15,
+  },
+  pickerWrapper: {
+    borderWidth: 1,
+    borderColor: Colors.divider,
+    borderRadius: 8,
+    overflow: "hidden",
+  },
+  rendimentos: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  sectionTitle: {
+    fontSize: 23,
+    marginTop: 10,
+    color: Colors.text,
+    fontWeight: '400',
+  },
+  buttonFiltrar: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 10,
+  },
+  TextFiltrar: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'white',
+
+  },
+    buttonLimpar: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 10,
+    width: '50%',
+    alignItems: 'center',
+  },
+  TextLimpar: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: 'black',
+
+  },
+  containerLimpar: {
+  flexDirection:'row',
+    width:'100%',
+    alignItems:'center',
+    justifyContent:'center',
+    gap:5,
+    padding:5,
+  },
+  text:{
+    color:Colors.text
+  },
+});
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
   const toggleFilterModal = () => setFilterModalVisible(!isFilterModalVisible);
   const [isAddStockModalVisible, setAddStockModalVisible] = useState(false);
@@ -198,124 +321,4 @@ const total = useMemo(() => {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    ...CommonStyles.container,
-    alignItems: "center",
-    width:'100%',
-    gap: 8,
-    flex: 1,
-  },
-  section: {
-    width: "100%",
-    alignItems: 'center',
-    marginBottom: 20,
-    
-  },
-  totalText: {
-    color: Colors.success,
-    fontSize: 32,
-    fontWeight: "500",
-    marginBottom: 10
-  },
-  dividendItem: {
-    width: "90%",
-    borderLeftWidth: 4,
-    borderLeftColor: Colors.textLight,
-  },
-  ticker: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: Colors.text,
-  },
-  quantity: {
-    fontSize: 16,
-    color: Colors.text,
-  },
-  value: {
-    fontSize: 16,
-    color: Colors.success,
-    fontWeight: "bold",
-  },
-  label: {
-    fontSize: 16,
-    color: Colors.text,
-  },
-  type: {
-    fontSize: 14,
-    marginTop: 10,
-    fontStyle: "italic",
-    color: Colors.text,
-  },
-  modal: {
-  backgroundColor: Colors.background,
-  paddingBottom: 40,
-  borderRadius: 10,
-  width: '90%',
-  maxHeight: '50%',
-  minHeight: 100, // ou o valor que funcionar melhor
-  alignItems: 'stretch',
-},
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: Colors.primary,
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  filterGroup: {
-    marginBottom: 15,
-  },
-  pickerWrapper: {
-    borderWidth: 1,
-    borderColor: Colors.divider,
-    borderRadius: 8,
-    overflow: "hidden",
-  },
-  rendimentos: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  sectionTitle: {
-    fontSize: 23,
-    marginTop: 10,
-    color: Colors.text,
-    fontWeight: '400',
-  },
-  buttonFiltrar: {
-    backgroundColor: Colors.primary,
-    padding: 10,
-    borderRadius: 10,
-  },
-  TextFiltrar: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: 'white',
 
-  },
-    buttonLimpar: {
-    backgroundColor: Colors.primary,
-    padding: 10,
-    borderRadius: 10,
-    width: '50%',
-    alignItems: 'center',
-  },
-  TextLimpar: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: 'black',
-
-  },
-  containerLimpar: {
-  flexDirection:'row',
-    width:'100%',
-    alignItems:'center',
-    justifyContent:'center',
-    gap:5,
-    padding:5,
-  },
-  text:{
-    color:Colors.text
-  },
-});

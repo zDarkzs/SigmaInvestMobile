@@ -15,14 +15,14 @@ import {doc, setDoc} from "firebase/firestore";
 import {db} from "@/services/firebaseConfig";
 import {ThemedText} from "@/components/ThemedText";
 import {ThemedView} from "@/components/ThemedView";
-import {Colors} from "@/constants/Colors";
-import {CommonStyles} from "@/constants/ConstantStyles";
+import {useAppColors} from "@/constants/Colors"; // Importe o hook de cores
+import {useCommonStyles} from "@/hooks/useCommonStyles";
 import {useStocks} from "@/context/StockContext";
 import CustomModal from "@/components/CustomModal";
 import Banner from "@/components/Banner";
 import {StockShares} from "@/types/dividendTypes";
 import AdBanner from "@/components/AdBanner";
-
+import {useTheme} from "@/context/ThemeContext";
 
 export default function SettingsScreen() {
     const {
@@ -43,11 +43,98 @@ export default function SettingsScreen() {
         compareImportedWithCurrent,
 
     } = useStocks();
+    const {
+        theme,
+        toggleTheme,
+        isThemeLoading
+    } = useTheme();
+
+    // Chame o hook useAppColors dentro do componente
+    const Colors = useAppColors();
+    const CommonStyles = useCommonStyles();
+    // Mova a definição dos estilos para dentro do componente
+    // Assim, eles serão recriados com as cores atualizadas sempre que o tema mudar
+    const styles = StyleSheet.create({
+        loadingContainer: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 20,
+        },
+        profileHeader: {
+            alignItems: "center",
+            marginBottom: 30,
+        },
+        utilButtonGroup: {
+            flexDirection: 'column',
+            gap: 15,
+            alignItems: 'center',
+            alignContent: 'center'
+        },
+        username: {
+            marginTop: 10,
+            color: Colors.primary, // Agora usa as cores reativas
+            fontSize: 24,
+        },
+        email: {
+            color: Colors.text, // Agora usa as cores reativas
+            fontSize: 16,
+        },
+        section: {
+            marginBottom: 25,
+            backgroundColor: Colors.background, // Agora usa as cores reativas
+            borderRadius: 10,
+            padding: 15,
+        },
+        preferenceItem: {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingVertical: 10,
+        },
+        preferenceItemText: {
+            color: Colors.text, // Agora usa as cores reativas
+        },
+        authSection: {
+            backgroundColor: Colors.background, // Agora usa as cores reativas
+            borderRadius: 10,
+            padding: 20,
+        },
+        authTitle: {
+            textAlign: "center",
+            margin: 20,
+            color: Colors.text, // Agora usa as cores reativas
+            fontSize: 40,
+        },
+        authButtons: {
+            marginTop: 10,
+        },
+        text: {
+            fontWeight: "bold",
+            color: Colors.textOnPrimary,
+        },
+        exportButtons: {
+            width: '60%',
+            borderRadius: 10,
+            alignItems: 'center',
+
+        },
+        buttonTransferir: {
+            backgroundColor: Colors.primary, // Agora usa as cores reativas
+            padding: 10,
+            borderRadius: 10,
+        },
+        TextTransferir: {
+            fontSize: 15,
+            fontWeight: '500',
+            color: 'white',
+        }
+    });
+
     const [isLoading, setIsLoading] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState(true);
     const [hasAccount, setHasAccount] = useState(true);
     const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
@@ -55,21 +142,20 @@ export default function SettingsScreen() {
     const [isImportComplete, setIsImportComplete] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const [duplicates, setDuplicates] = useState<StockShares>({}) // talvez nem seja necessário
+    const [duplicates, setDuplicates] = useState<StockShares>({})
     const [isDuplicatesModalOpen, setIsDuplicatesModalOpen] = useState(false);
     const [currentDuplicateTickers, setCurrentDuplicateTickers] = useState<string[]>([]);
     const [resolvedTickers, setResolvedTickers] = useState<{ [ticker: string]: string }>({});
-    const [currentDuplicatesChoices, setCurrentDuplicatesChoices] = useState<{[ticker:string]:string}>({})
     const handleAuthError = () => {
         setErrorMessage("Houve um erro ao fazer sua autenticação, tente novamente.");
     }
-
     //Só para o usuário saber que houve uma nova solicitação.
     useEffect(() => {
         if (isLoading) setErrorMessage(null)
     }, [isLoading]);
 
     const handleLogin = async () => {
+        setErrorMessage(null); // Limpa a mensagem de erro antes de iniciar o login
         setIsLoading(true);
         try {
             await login(email, password);
@@ -81,6 +167,7 @@ export default function SettingsScreen() {
     };
 
     const handleRegister = async () => {
+        setErrorMessage(null); // Limpa a mensagem de erro antes de iniciar o registro
         setIsLoading(true);
         try {
             await register(username, email, password);
@@ -88,7 +175,7 @@ export default function SettingsScreen() {
                 await setDoc(doc(db, "users", userData.uid), {
                     username,
                     email,
-                    preferences: {darkMode, notifications},
+                    preferences: {darkMode: theme === 'dark', notifications}, // Use o tema do contexto
                     profile: {
                         bio: "",
                         user_since: new Date().toISOString(),
@@ -120,10 +207,11 @@ export default function SettingsScreen() {
     const handleImport = async () => {
         try {
             const imported = await importJSONData();
-            setDuplicates(compareImportedWithCurrent(imported));
+            const newDuplicates = compareImportedWithCurrent(imported);
+            setDuplicates(newDuplicates);
 
-            if (Object.keys(duplicates).length > 0) setIsDuplicatesModalOpen(true);
-            const tickers = Object.keys(duplicates);
+            if (Object.keys(newDuplicates).length > 0) setIsDuplicatesModalOpen(true);
+            const tickers = Object.keys(newDuplicates);
             setCurrentDuplicateTickers(tickers);
             console.log(currentDuplicateTickers)
         } catch (e) {
@@ -152,6 +240,15 @@ export default function SettingsScreen() {
         updateStockAmount(ticker, (duplicates[ticker].quantity + stockShares[ticker].quantity));
         setResolvedTickers(prev =>({...prev, [ticker]:"Somado"}))
         console.log(stockShares[ticker]);
+    }
+
+    // Opcional: Renderizar um indicador de carregamento enquanto o tema está sendo carregado
+    if (isThemeLoading) {
+      return (
+        <ThemedView style={styles.loadingContainer}>
+          <ThemedText>Carregando tema...</ThemedText>
+        </ThemedView>
+      );
     }
 
     return (
@@ -189,8 +286,8 @@ export default function SettingsScreen() {
                                         Modo Escuro
                                     </ThemedText>
                                     <Switch
-                                        value={darkMode}
-                                        onValueChange={setDarkMode}
+                                        value={theme === 'dark'} // Controlado pelo estado 'theme' do contexto
+                                        onValueChange={toggleTheme} // Usa a função do contexto para alternar
                                         thumbColor={Colors.primary}
                                         trackColor={{false: "#767577", true: "#81b0ff"}}
                                     />
@@ -234,7 +331,7 @@ export default function SettingsScreen() {
                                 autoCapitalize="none"
                             />
                             <TextInput
-                                style={[CommonStyles.input, { color: Colors.black }]}
+                                style={[CommonStyles.input, { color: Colors.text }]}
                                 placeholder="Senha"
                                 placeholderTextColor="rgba(0, 0, 0, 0.5)"
                                 value={password}
@@ -372,11 +469,11 @@ export default function SettingsScreen() {
                 </View>
                 <ScrollView>
                     {currentDuplicateTickers.map((ticker) => (
-                        <View>
+                        <View key={ticker}>
                             <View>
-                                <Text>{ticker.toUpperCase()}</Text>
-                                <Text>Qtde atual: {!(stockShares) || stockShares[ticker].quantity}</Text>
-                                <Text>Qtde importada: {duplicates[ticker].quantity}</Text>
+                                <Text style={{color: Colors.text}}>{ticker.toUpperCase()}</Text>
+                                <Text style={{color: Colors.text}}>Qtde atual: {!(stockShares) || stockShares[ticker]?.quantity}</Text>
+                                <Text style={{color: Colors.text}}>Qtde importada: {duplicates[ticker]?.quantity}</Text>
                             </View>
 
                             <View style={styles.preferenceItem}>
@@ -399,81 +496,3 @@ export default function SettingsScreen() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    loadingContainer: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20,
-    },
-    profileHeader: {
-        alignItems: "center",
-        marginBottom: 30,
-    },
-    utilButtonGroup: {
-        flexDirection: 'column',
-        gap: 15,
-        alignItems: 'center',
-        alignContent: 'center'
-    },
-    username: {
-        marginTop: 10,
-        color: Colors.primary,
-        fontSize: 24,
-    },
-    email: {
-        color: Colors.text,
-        fontSize: 16,
-    },
-    section: {
-        marginBottom: 25,
-        backgroundColor: Colors.background,
-        borderRadius: 10,
-        padding: 15,
-    },
-    preferenceItem: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingVertical: 10,
-    },
-    preferenceItemText: {
-        color: Colors.text,
-    },
-    authSection: {
-        backgroundColor: Colors.background,
-        borderRadius: 10,
-        padding: 20,
-    },
-    authTitle: {
-        textAlign: "center",
-        margin: 20,
-        color: Colors.text,
-        fontSize: 40,
-    },
-    authButtons: {
-        marginTop: 10,
-    },
-    text: {
-        fontWeight: "bold",
-        color: Colors.textOnPrimary,
-    },
-    exportButtons: {
-        width: '60%',
-        borderRadius: 10,
-        alignItems: 'center',
-
-    },
-    buttonTransferir: {
-        backgroundColor: Colors.primary,
-        padding: 10,
-        borderRadius: 10,
-    },
-    TextTransferir: {
-        fontSize: 15,
-        fontWeight: '500',
-        color: 'white',
-
-    }
-});

@@ -2,7 +2,7 @@
 import React from "react";
 import { View, Dimensions, Text } from "react-native";
 import { LineChart } from "react-native-chart-kit";
-import { Colors } from "@/constants/Colors";
+import { useAppColors } from "@/constants/Colors";
 
 type Payment = {
   paymentDate: string;
@@ -14,6 +14,8 @@ interface DividendLineChartProps {
 }
 
 const DividendLineChart: React.FC<DividendLineChartProps> = ({ payments }) => {
+  const Colors = useAppColors();
+
   if (payments.length === 0) {
     return <Text style={{ textAlign: "center", marginVertical: 30, color: Colors.text }}>Nenhum pagamento para exibir no gráfico 📊.</Text>;
   }

@@ -1,12 +1,10 @@
-import { Colors } from './Colors';
-
+import { useAppColors } from './Colors';
+const Colors = useAppColors();
 export const CommonStyles = {
   container: {
     flex: 1,
     //padding: 20,
     backgroundColor: Colors.background,
-
-    
   },
   overContainer:{
     width:'100%',

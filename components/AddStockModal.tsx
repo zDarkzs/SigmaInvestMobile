@@ -3,8 +3,8 @@ import { Text, StyleSheet, Button, View, TextInput, TouchableOpacity, Pressable 
 
 import { useDividends } from "@/hooks/useDividends";
 import { useStocks } from "@/context/StockContext";
-import { Colors } from "@/constants/Colors";
-import { CommonStyles } from "@/constants/ConstantStyles";
+import { useAppColors } from "@/constants/Colors";
+import {useCommonStyles} from "@/hooks/useCommonStyles";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import AdBanner from "@/components/AdBanner";
@@ -13,6 +13,54 @@ import ModalButton from "@/components/ModalButton";
 export default function AddStockModal(props:{
   onClose: () => void;
 }) {
+  const Colors = useAppColors();
+  const CommonStyles = useCommonStyles();
+  const styles = StyleSheet.create({
+  container: {
+    gap: 16,
+    paddingBottom:50
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  inputContainer: {
+    flexDirection: "column",
+    gap: 12,
+
+  },
+  input: {
+    width: "100%",
+    borderWidth: 1,
+    borderColor: Colors.divider,
+    borderRadius: 8,
+    padding: 10,
+    backgroundColor: Colors.white,
+    color:Colors.primary,
+
+  },
+  buttonContainer: {
+   flexDirection:'row',
+    width:'100%',
+    alignItems:'center',
+    justifyContent:'center',
+    gap:5,
+    padding:5,
+  },
+  buttonAdicionar: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 10,
+  },
+  TextAdicionar: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: 'white',
+
+  }
+});
   const [tickers, setTickers] = useState<string[]>([]);
   const [pendingTicker, setPendingTicker] = useState<string | null>(null);
   const [pendingQuantity, setPendingQuantity] = useState<number | null>(null);
@@ -96,50 +144,3 @@ export default function AddStockModal(props:{
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    gap: 16,
-    paddingBottom:50
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-  inputContainer: {
-    flexDirection: "column",
-    gap: 12,
-
-  },
-  input: {
-    width: "100%",
-    borderWidth: 1,
-    borderColor: Colors.divider,
-    borderRadius: 8,
-    padding: 10,
-    backgroundColor: Colors.white,
-    color:Colors.primary,
-
-  },
-  buttonContainer: {
-   flexDirection:'row',
-    width:'100%',
-    alignItems:'center',
-    justifyContent:'center',
-    gap:5,
-    padding:5,
-  },
-  buttonAdicionar: {
-    backgroundColor: Colors.primary,
-    padding: 10,
-    borderRadius: 10,
-  },
-  TextAdicionar: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: 'white',
-    
-  }
-});
