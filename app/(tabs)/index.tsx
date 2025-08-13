@@ -213,46 +213,46 @@ const styles = StyleSheet.create({
     
   },
   totalText: {
-    color: "green",
+    color: Colors.success,
     fontSize: 32,
     fontWeight: "500",
-    marginBottom: 40
+    marginBottom: 10
   },
   dividendItem: {
     width: "90%",
-    borderLeftWidth: 5,
-    borderLeftColor: Colors.primary,
+    borderLeftWidth: 4,
+    borderLeftColor: Colors.textLight,
   },
   ticker: {
     fontSize: 18,
     fontWeight: "bold",
-    color: Colors.primary,
+    color: Colors.text,
   },
   quantity: {
     fontSize: 16,
-    color: Colors.black,
+    color: Colors.text,
   },
   value: {
     fontSize: 16,
-    color: "green",
+    color: Colors.success,
     fontWeight: "bold",
   },
   label: {
     fontSize: 16,
-    color: Colors.black,
+    color: Colors.text,
   },
   type: {
     fontSize: 14,
     marginTop: 10,
     fontStyle: "italic",
-    color: Colors.primary,
+    color: Colors.text,
   },
   modal: {
-  //backgroundColor: Colors.white,
+  backgroundColor: Colors.background,
   paddingBottom: 40,
   borderRadius: 10,
   width: '90%',
-  maxHeight: '80%',
+  maxHeight: '50%',
   minHeight: 100, // ou o valor que funcionar melhor
   alignItems: 'stretch',
 },
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 23,
     marginTop: 10,
-    color: Colors.primary,
+    color: Colors.text,
     fontWeight: '400',
   },
   buttonFiltrar: {
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
   TextLimpar: {
     fontSize: 15,
     fontWeight: '500',
-    color: 'white',
+    color: 'black',
 
   },
   containerLimpar: {

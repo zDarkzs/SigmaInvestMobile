@@ -154,10 +154,8 @@ export default function SettingsScreen() {
         console.log(stockShares[ticker]);
     }
 
-
     return (
       <View style={CommonStyles.overContainer}>
-
 
         <ScrollView style={CommonStyles.container}>
 
@@ -220,6 +218,7 @@ export default function SettingsScreen() {
                             {!hasAccount && (
                                 <TextInput
                                     style={CommonStyles.input}
+                                    placeholderTextColor="rgba(0, 0, 0, 0.5)"
                                     placeholder="Nome de usuário"
                                     value={username}
                                     onChangeText={setUsername}
@@ -228,16 +227,16 @@ export default function SettingsScreen() {
                             <TextInput
                                 style={CommonStyles.input}
                                 placeholder="Email"
-                                placeholderTextColor={Colors.primary}
+                                placeholderTextColor="rgba(0, 0, 0, 0.5)"
                                 value={email}
                                 onChangeText={setEmail}
                                 keyboardType="email-address"
                                 autoCapitalize="none"
                             />
                             <TextInput
-                                style={CommonStyles.input}
+                                style={[CommonStyles.input, { color: Colors.black }]}
                                 placeholder="Senha"
-                                placeholderTextColor={Colors.primary}
+                                placeholderTextColor="rgba(0, 0, 0, 0.5)"
                                 value={password}
                                 onChangeText={setPassword}
                                 secureTextEntry
@@ -302,26 +301,30 @@ export default function SettingsScreen() {
                     )}
 
                     <View style={styles.utilButtonGroup}>
-                        <Pressable
-                            onPress={() => setIsExportDialogOpen(true)}
-                            style={({pressed}) => [
-                                styles.buttonTransferir, {backgroundColor: pressed ? Colors.success : Colors.primary}]}>
-                            <Text style={styles.TextTransferir}>Transferir dados..</Text>
+                        {isAuthenticated &&
+                            <Pressable
+                                onPress={() => setIsExportDialogOpen(true)}
+                                style={({pressed}) => [
+                                    styles.buttonTransferir, {backgroundColor: pressed ? Colors.success : Colors.primary}]}>
+                                <Text style={styles.TextTransferir}>Transferir dados..</Text>
+                            </Pressable>
+                        }
+                        {isAuthenticated &&
+                            <Pressable
+                                onPress={handleReset}
+                                style={({pressed}) => [
+                                    styles.buttonTransferir, {backgroundColor: pressed ? Colors.secondary : Colors.primary}]}>
+                                <Text style={styles.TextTransferir}>Apagar dados locais</Text>
+                            </Pressable>
+                        }
+                        {isAuthenticated &&
+                            <Pressable
+                                onPress={resetStockData}
+                                style={({pressed}) => [
+                                    styles.buttonTransferir, {backgroundColor: pressed ? Colors.secondary : Colors.primary}]}>
+                                <Text style={styles.TextTransferir}>Apagar dados na nuvem</Text>
                         </Pressable>
-
-                        <Pressable
-                            onPress={handleReset}
-                            style={({pressed}) => [
-                                styles.buttonTransferir, {backgroundColor: pressed ? Colors.secondary : Colors.primary}]}>
-                            <Text style={styles.TextTransferir}>Apagar dados locais</Text>
-                        </Pressable>
-
-                        <Pressable
-                            onPress={resetStockData}
-                            style={({pressed}) => [
-                                styles.buttonTransferir, {backgroundColor: pressed ? Colors.secondary : Colors.primary}]}>
-                            <Text style={styles.TextTransferir}>Apagar dados na nuvem</Text>
-                        </Pressable>
+                        }
 
                         {isAuthenticated &&
                             <Pressable
@@ -436,7 +439,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     preferenceItemText: {
-        color: Colors.primary,
+        color: Colors.text,
     },
     authSection: {
         backgroundColor: Colors.background,
@@ -445,8 +448,9 @@ const styles = StyleSheet.create({
     },
     authTitle: {
         textAlign: "center",
-        marginBottom: 20,
-        color: Colors.primary,
+        margin: 20,
+        color: Colors.text,
+        fontSize: 40,
     },
     authButtons: {
         marginTop: 10,

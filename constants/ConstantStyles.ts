@@ -22,9 +22,10 @@ export const CommonStyles = {
   headerText: {
     fontSize: 48,
     fontWeight: 'bold' as const,
-    color: Colors.primary,
+    color: Colors.text,
     borderBottomWidth: 1,
     marginTop: 20,
+    borderBottomColor: Colors.textLight
   },
   sectionTitle: {
     fontSize: 20,
@@ -60,11 +61,11 @@ export const CommonStyles = {
     fontSize: 22,
   },
   card: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background,
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,
-    shadowColor: Colors.black,
+    shadowColor: Colors.textLight,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,

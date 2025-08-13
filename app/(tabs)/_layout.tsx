@@ -84,9 +84,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "500",
     marginBottom: 5,
+    color: Colors.text,
   },
   tabBarIcon: {
-    marginBottom: -3,
+    marginBottom: -1,
+    color: Colors.text,
   },
     offlineBanner: {
     backgroundColor: "#ffcc00",

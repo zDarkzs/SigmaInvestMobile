@@ -15,7 +15,7 @@ interface DividendLineChartProps {
 
 const DividendLineChart: React.FC<DividendLineChartProps> = ({ payments }) => {
   if (payments.length === 0) {
-    return <Text style={{ textAlign: "center", marginVertical: 8 }}>Nenhum pagamento para exibir no gráfico.</Text>;
+    return <Text style={{ textAlign: "center", marginVertical: 30, color: Colors.text }}>Nenhum pagamento para exibir no gráfico 📊.</Text>;
   }
 
   const dailyTotals: { [date: string]: number } = {};
@@ -45,8 +45,6 @@ const chartData = {
   ],
 };
 
-
- 
   console.log(chartData);
 
   return (
@@ -64,7 +62,7 @@ const chartData = {
         }}
         bezier
         style={{
-          marginVertical: 8,
+          marginVertical: 20,
           borderRadius: 16,
         }}
       />
