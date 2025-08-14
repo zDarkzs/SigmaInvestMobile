@@ -2,13 +2,13 @@
   "expo": {
     "name": "SigmaInvest",
     "slug": "SigmaInvest",
-    "version": "0.1.0",
+    "version": "0.1.0_prerelease",
     "orientation": "portrait",
     "icon": "./assets/images/realistic_logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#534BAE"
     },

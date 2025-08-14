@@ -177,7 +177,7 @@ const total = useMemo(() => {
     <View style={styles.container}>
       <ScrollView scrollEnabled={!isFilterModalVisible}>
         <Image
-          source={require('@/assets/images/img.png')}
+          source={require('@/assets/images/adaptive-icon.png')}
           style={{width:logoSize, height:logoSize, marginTop:correctMarginTop}}
         />
         <Text style={CommonStyles.headerText}>SIGMA INVEST</Text>

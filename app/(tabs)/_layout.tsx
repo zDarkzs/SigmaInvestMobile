@@ -12,8 +12,7 @@ export default function TabLayout() {
   const [bannerHeight, setBannerHeight] = useState(0);
 
   const Colors = useAppColors();
-  const commonStyles = useCommonStyles(); // Se você criou o useCommonStyles, use-o.
-
+  const commonStyles = useCommonStyles();
   const getMargin = ()=>{
     return 0;
   }
