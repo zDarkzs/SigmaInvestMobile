@@ -18,7 +18,7 @@ export default function AddStockModal(props:{
   const styles = StyleSheet.create({
   container: {
     gap: 16,
-    paddingBottom:50
+    paddingBottom:50,
   },
   loadingContainer: {
     flex: 1,
@@ -110,7 +110,7 @@ export default function AddStockModal(props:{
           <ThemedText>Carregando...</ThemedText>
         </View>
       ) : (
-        <View style={[CommonStyles.container, styles.container]}>
+        <View style={styles.container}>
 
           <View style={styles.inputContainer}>
             <TextInput

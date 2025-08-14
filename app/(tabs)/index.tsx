@@ -67,7 +67,6 @@ export default function HomeScreen() {
     color: Colors.text,
   },
   modal: {
-  backgroundColor: Colors.background,
   paddingBottom: 40,
   borderRadius: 10,
   width: '90%',
@@ -90,6 +89,7 @@ export default function HomeScreen() {
     borderColor: Colors.divider,
     borderRadius: 8,
     overflow: "hidden",
+
   },
   rendimentos: {
     flex: 1,
@@ -103,7 +103,6 @@ export default function HomeScreen() {
     fontWeight: '400',
   },
   buttonFiltrar: {
-    backgroundColor: Colors.primary,
     padding: 10,
     borderRadius: 10,
   },
@@ -114,7 +113,6 @@ export default function HomeScreen() {
 
   },
     buttonLimpar: {
-    backgroundColor: Colors.primary,
     padding: 10,
     borderRadius: 10,
     width: '50%',
@@ -255,9 +253,13 @@ const total = useMemo(() => {
             <View style={styles.filterGroup}>
               <Text style={styles.label}>Ano:</Text>
               <View style={styles.pickerWrapper}>
-                <Picker selectedValue={selectedYear} onValueChange={setSelectedYear}>
+                <Picker
+                  selectedValue={selectedYear}
+                  onValueChange={setSelectedYear}
+                  itemStyle={{color:Colors.primary}}
+                >
                   {availableYears.map((year) => (
-                    <Picker.Item key={year} label={year} value={year} />
+                    <Picker.Item key={year} label={year} value={year} style={{color:Colors.primary}} />
                   ))}
                 </Picker>
               </View>
@@ -273,6 +275,7 @@ const total = useMemo(() => {
                         key={month}
                         label={month === "Todos" ? "Todos" : `${month}/${selectedYear}`}
                         value={month}
+                        style={{color:Colors.primary}}
                       />
                     ))}
                   </Picker>
@@ -285,7 +288,9 @@ const total = useMemo(() => {
               <View style={styles.pickerWrapper}>
                 <Picker selectedValue={selectedTicker} onValueChange={setSelectedTicker}>
                   {availableTickers.map((ticker) => (
-                    <Picker.Item key={ticker} label={ticker} value={ticker} />
+                    <Picker.Item key={ticker} label={ticker} value={ticker}
+                    style={{color:Colors.primary}}
+                    />
                   ))}
                 </Picker>
               </View>
