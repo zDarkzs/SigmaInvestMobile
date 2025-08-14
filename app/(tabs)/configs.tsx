@@ -23,6 +23,7 @@ import Banner from "@/components/Banner";
 import {StockShares} from "@/types/dividendTypes";
 import AdBanner from "@/components/AdBanner";
 import {useTheme} from "@/context/ThemeContext";
+import ModalButton from "@/components/ModalButton";
 
 export default function SettingsScreen() {
     const {
@@ -391,7 +392,10 @@ export default function SettingsScreen() {
                             <Pressable
                                 onPress={() => setIsExportDialogOpen(true)}
                                 style={({pressed}) => [
-                                    styles.buttonTransferir, {backgroundColor: pressed ? Colors.success : Colors.primary}]}>
+                                  CommonStyles.button,
+                                  //styles.buttonTransferir,
+                                    {backgroundColor: pressed ? Colors.success : Colors.primary}
+                                ]}>
                                 <Text style={styles.TextTransferir}>Transferir dados..</Text>
                             </Pressable>
                         }
@@ -399,7 +403,9 @@ export default function SettingsScreen() {
                             <Pressable
                                 onPress={handleReset}
                                 style={({pressed}) => [
-                                    styles.buttonTransferir, {backgroundColor: pressed ? Colors.secondary : Colors.primary}]}>
+                                  CommonStyles.button,
+                                    //styles.buttonTransferir,
+                                    {backgroundColor: pressed ? Colors.secondary : Colors.primary}]}>
                                 <Text style={styles.TextTransferir}>Apagar dados locais</Text>
                             </Pressable>
                         }
@@ -407,7 +413,9 @@ export default function SettingsScreen() {
                             <Pressable
                                 onPress={resetStockData}
                                 style={({pressed}) => [
-                                    styles.buttonTransferir, {backgroundColor: pressed ? Colors.secondary : Colors.primary}]}>
+                                  CommonStyles.button,
+                                    //styles.buttonTransferir,
+                                    {backgroundColor: pressed ? Colors.secondary : Colors.primary}]}>
                                 <Text style={styles.TextTransferir}>Apagar dados na nuvem</Text>
                         </Pressable>
                         }
@@ -416,7 +424,9 @@ export default function SettingsScreen() {
                             <Pressable
                                 onPress={handleLogout}
                                 style={({pressed}) => [
-                                    styles.buttonTransferir, {backgroundColor: pressed ? Colors.exit : Colors.primary}]}>
+                                  CommonStyles.button,
+                                    //styles.buttonTransferir,
+                                    {backgroundColor: pressed ? Colors.exit : Colors.primary}]}>
                                 <Text style={styles.TextTransferir}>Sair</Text>
                             </Pressable>
                         }
@@ -427,21 +437,18 @@ export default function SettingsScreen() {
 
             )}
             {/*Modal para transferencia de dados*/}
-            <CustomModal visible={isExportDialogOpen} title={"Transferir Dados"}
-                         onClose={() => setIsExportDialogOpen(false)}>
-                <TouchableOpacity style={[styles.exportButtons, {backgroundColor: 'green'}]}
-                                  onPress={exportStockSharesToCSV}>
-                    <Text style={[CommonStyles.buttonText, {fontSize: 20}]}>{" Para Excel .CSV"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.exportButtons, {backgroundColor: 'orange'}]}
-                                  onPress={exportStockSharesToJSON}>
-                    <Text style={[CommonStyles.buttonText, {fontSize: 20}]}>{" Para JSON { }"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.exportButtons, {backgroundColor: 'orange'}]} onPress={() => {
-                    setIsImportModalOpen(true)
-                }}>
-                    <Text style={[CommonStyles.buttonText, {fontSize: 20}]}>{" Importar dados JSON { }"}</Text>
-                </TouchableOpacity>
+            <CustomModal
+              visible={isExportDialogOpen}
+              title={"Transferir Dados"}
+              onClose={() => setIsExportDialogOpen(false)}
+            >
+                <View style={{gap:10, alignItems:'center'}}>
+
+                <ModalButton onPress={exportStockSharesToCSV} title={"Para Excel"}/>
+                <ModalButton onPress={exportStockSharesToJSON} title={"Para JSON"}/>
+                <ModalButton onPress={importJSONData} title={"Importar Json"}/>
+                <ModalButton onPress={()=>{setIsExportDialogOpen(false)}} title={"Fechar"}/>
+                </View>
             </CustomModal>
 
             {/*Modal para importação de dados*/}

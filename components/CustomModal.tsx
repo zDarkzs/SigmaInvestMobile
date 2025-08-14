@@ -17,16 +17,10 @@ export default function CustomModal({
   title?: string;
   style?: StyleProp<ViewStyle>; // Tipagem correta para o prop 'style'
 }) {
-  // Chame o hook de cores e estilos comuns dentro do componente
   const Colors = useAppColors();
   const commonStyles = useCommonStyles(); // Obtenha os estilos comuns reativos
-
-  // Lógica corrigida para combinar estilos
-  // Se 'style' for fornecido, combine-o com 'commonStyles.modalContainer'.
-  // Caso contrário, use apenas 'commonStyles.modalContainer'.
   const modalStyle = style ? [commonStyles.modalContainer, style] : commonStyles.modalContainer;
 
-  // Defina os estilos específicos do modal DENTRO do componente, após chamar os hooks
   const styles = StyleSheet.create({
     overlay: {
       flex: 1,
@@ -38,6 +32,7 @@ export default function CustomModal({
     modalContentWrapper: {
       minHeight: 100,
       justifyContent: 'center',
+      alignItems:'center',
       paddingBottom: 50,
       width: '100%', // Adicionado para garantir que o conteúdo preencha a largura do modal
     },

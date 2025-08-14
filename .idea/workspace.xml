@@ -7,10 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Temas 100% funcionais graças a nosso Senhor e Salvador Jesus Cristo">
+    <list default="true" id="b69e670b-1788-442e-92f7-6dde112b4f84" name="Changes" comment="Switch desnecessário de notificações removido">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/configs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/configs.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,23 +163,8 @@
       <workItem from="1754995916969" duration="10959000" />
       <workItem from="1755027162918" duration="2671000" />
       <workItem from="1755081924542" duration="18229000" />
-      <workItem from="1755179645090" duration="960000" />
-    </task>
-    <task id="LOCAL-00014" summary="Adicionado FIltros por ticker">
-      <option name="closed" value="true" />
-      <created>1750170724993</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1750170724993</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Consertados os estilos do CustomModal.tsx">
-      <option name="closed" value="true" />
-      <created>1750171108870</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1750171108870</updated>
+      <workItem from="1755179645090" duration="1925000" />
+      <workItem from="1755197708675" duration="983000" />
     </task>
     <task id="LOCAL-00016" summary="Primeira versão compativel com android">
       <option name="closed" value="true" />
@@ -558,7 +542,23 @@
       <option name="project" value="LOCAL" />
       <updated>1755115962471</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Icone alterado">
+      <option name="closed" value="true" />
+      <created>1755188350473</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1755188350473</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Switch desnecessário de notificações removido">
+      <option name="closed" value="true" />
+      <created>1755188718240</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1755188718240</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -576,8 +576,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Corrigido bug de chamadas infitas da função de filtragem e do banner offline tomando a frente de outros recursos da tela" />
-    <MESSAGE value="Corrigido o bug criado na ultima alteração onde o os dividends não filtrados não apareciam" />
     <MESSAGE value="Iniciada alteração de estilização dos botoes de exportar" />
     <MESSAGE value="Iniciada implementação do método de importação de dados" />
     <MESSAGE value="Função de importar stocks adicionada. Futuramente adicionar opção de escolher quais serão importados." />
@@ -601,7 +599,9 @@
     <MESSAGE value="Icones mudados" />
     <MESSAGE value="Consertado bug onde o total ficava zerado e o gráfico não aparecia ao carregar os valores do armazenamento" />
     <MESSAGE value="Temas 100% funcionais graças a nosso Senhor e Salvador Jesus Cristo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Temas 100% funcionais graças a nosso Senhor e Salvador Jesus Cristo" />
+    <MESSAGE value="Icone alterado" />
+    <MESSAGE value="Switch desnecessário de notificações removido" />
+    <option name="LAST_COMMIT_MESSAGE" value="Switch desnecessário de notificações removido" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -619,11 +619,6 @@
           <url>file://$PROJECT_DIR$/constants/ConstantStyles.ts</url>
           <line>2</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app/(tabs)/configs.tsx</url>
-          <line>262</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
