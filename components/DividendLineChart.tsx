@@ -30,7 +30,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({ payments }) => {
     }
   });
 
-const MAX_LABELS = 5;
+const MAX_LABELS = 4;
 
 const sortedDates = Object.keys(dailyTotals).sort();
 const step = Math.ceil(sortedDates.length / MAX_LABELS);
