@@ -283,7 +283,7 @@ export default function SettingsScreen() {
 
                                 <View style={styles.preferenceItem}>
                                     <ThemedText style={styles.preferenceItemText}>
-                                        Modo Escuro
+                                        Modo: {theme ==='dark'? "Escuro" : "Claro"}
                                     </ThemedText>
                                     <Switch
                                         value={theme === 'dark'} // Controlado pelo estado 'theme' do contexto
@@ -293,17 +293,6 @@ export default function SettingsScreen() {
                                     />
                                 </View>
 
-                                <View style={styles.preferenceItem}>
-                                    <ThemedText style={styles.preferenceItemText}>
-                                        Notificações
-                                    </ThemedText>
-                                    <Switch
-                                        value={notifications}
-                                        onValueChange={setNotifications}
-                                        thumbColor={Colors.primary}
-                                        trackColor={{false: "#767577", true: "#81b0ff"}}
-                                    />
-                                </View>
                             </View>
                         </>
                     ) : (
