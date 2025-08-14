@@ -259,7 +259,7 @@ const total = useMemo(() => {
                   itemStyle={{color:Colors.primary}}
                 >
                   {availableYears.map((year) => (
-                    <Picker.Item key={year} label={year} value={year} style={{color:Colors.primary}} />
+                    <Picker.Item key={year} label={year} value={year} style={{color:Colors.text}} />
                   ))}
                 </Picker>
               </View>
@@ -275,7 +275,7 @@ const total = useMemo(() => {
                         key={month}
                         label={month === "Todos" ? "Todos" : `${month}/${selectedYear}`}
                         value={month}
-                        style={{color:Colors.primary}}
+                        style={{color:Colors.text}}
                       />
                     ))}
                   </Picker>
@@ -289,7 +289,7 @@ const total = useMemo(() => {
                 <Picker selectedValue={selectedTicker} onValueChange={setSelectedTicker}>
                   {availableTickers.map((ticker) => (
                     <Picker.Item key={ticker} label={ticker} value={ticker}
-                    style={{color:Colors.primary}}
+                    style={{color:Colors.text}}
                     />
                   ))}
                 </Picker>
