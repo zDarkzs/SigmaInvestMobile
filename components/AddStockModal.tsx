@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, Button, View, TextInput, TouchableOpacity, Pressable } from "react-native";
+import { Text, StyleSheet, Button, View, TextInput, TouchableOpacity, Pressable, Alert } from "react-native";
 
 import { useDividends } from "@/hooks/useDividends";
 import { useStocks } from "@/context/StockContext";
@@ -39,7 +39,7 @@ export default function AddStockModal(props:{
     padding: 10,
     backgroundColor: Colors.white,
     color:Colors.primary,
-
+    height: 50
   },
   buttonContainer: {
    flexDirection:'row',
@@ -86,6 +86,8 @@ export default function AddStockModal(props:{
 
       setNewTicker("");
       setQuantity("0");
+
+      Alert.alert("Sucesso", "Ativo Adicionado ✔")
     }
   };
   useEffect(() => {
@@ -104,7 +106,7 @@ export default function AddStockModal(props:{
   }, [dividends]);
 
   return (
-    <View style={[CommonStyles.container, styles.container, { minHeight: 150, flexGrow: 1 }]}>
+    <View style={[styles.container, { minHeight: 150, flexGrow: 1 }]}>
       {loading ? (
         <View style={styles.loadingContainer}>
           <ThemedText>Carregando...</ThemedText>

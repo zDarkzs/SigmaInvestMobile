@@ -29,7 +29,6 @@ export default function HomeScreen() {
     width: "100%",
     alignItems: 'center',
     marginBottom: 20,
-
   },
   totalText: {
     color: Colors.success,
@@ -72,6 +71,15 @@ export default function HomeScreen() {
   width: '90%',
   maxHeight: '50%',
   minHeight: 100, // ou o valor que funcionar melhor
+  alignItems: 'stretch',
+  marginTop: -40
+},
+modal2: {
+  paddingBottom: 40,
+  borderRadius: 10,
+  width: '90%',
+  maxHeight: 120,
+  minHeight: 40, // ou o valor que funcionar melhor
   alignItems: 'stretch',
 },
   modalTitle: {
@@ -242,7 +250,7 @@ const total = useMemo(() => {
       )
     )
   ) : (
-    <Text style={styles.text}>Nenhum dividendo encontrado</Text>
+    <Text style={styles.text}>Nenhum dividendo encontrado 💲</Text>
   )}
 </View>
 
@@ -259,7 +267,7 @@ const total = useMemo(() => {
                   itemStyle={{color:Colors.primary}}
                 >
                   {availableYears.map((year) => (
-                    <Picker.Item key={year} label={year} value={year} style={{color:Colors.text}} />
+                    <Picker.Item key={year} label={year} value={year} style={{color:Colors.text, backgroundColor: Colors.cardBackground}} />
                   ))}
                 </Picker>
               </View>
@@ -275,7 +283,7 @@ const total = useMemo(() => {
                         key={month}
                         label={month === "Todos" ? "Todos" : `${month}/${selectedYear}`}
                         value={month}
-                        style={{color:Colors.text}}
+                        style={{color:Colors.text, backgroundColor: Colors.cardBackground}}
                       />
                     ))}
                   </Picker>
@@ -289,7 +297,7 @@ const total = useMemo(() => {
                 <Picker selectedValue={selectedTicker} onValueChange={setSelectedTicker}>
                   {availableTickers.map((ticker) => (
                     <Picker.Item key={ticker} label={ticker} value={ticker}
-                    style={{color:Colors.text}}
+                    style={{color:Colors.text, backgroundColor: Colors.cardBackground}}
                     />
                   ))}
                 </Picker>
@@ -315,7 +323,7 @@ const total = useMemo(() => {
         </CustomModal>
 
         <CustomModal title={'Adicionar Ativos'} visible={isAddStockModalVisible} onClose={()=>{setAddStockModalVisible(false)}}>
-          <View style={[styles.modal]}>
+          <View style={[styles.modal2]}>
              <AddStockModal onClose={()=>{setAddStockModalVisible(false)}} />
           </View>
 

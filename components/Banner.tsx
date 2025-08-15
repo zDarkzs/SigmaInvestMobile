@@ -38,13 +38,13 @@ export default function Banner({ visible, children, onHeightChange }: OfflineBan
   );
 }
 
+
 const styles = StyleSheet.create({
   banner: {
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: "#1A237E",
     paddingVertical: 10,
     alignItems: "center",
     zIndex: 999,

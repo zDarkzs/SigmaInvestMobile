@@ -9,7 +9,7 @@ export const CommonStyles = {
   overContainer:{
     width:'100%',
     height:'100%',
-    justifyContent:'space-around'
+    justifyContent:'space-around',
   },
   loadingContainer: {
     flex: 1,
@@ -57,6 +57,7 @@ export const CommonStyles = {
     color: Colors.warning,
     fontWeight: 'bold' as const,
     fontSize: 22,
+    fontFamily: 'Montserrat', // ou 'Roboto', 'Open Sans'
   },
   card: {
     backgroundColor: Colors.background,
@@ -75,7 +76,7 @@ export const CommonStyles = {
     margin: '10%',
     backgroundColor: Colors.background,
     borderRadius: 10,
-    padding: 9,
+    padding: 16,
     alignItems: 'center' as const,
     justifyContent: 'flex-start' as const,
     gap: 15,

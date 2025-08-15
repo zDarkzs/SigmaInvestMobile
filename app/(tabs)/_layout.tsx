@@ -48,7 +48,16 @@ export default function TabLayout() {
     },
     text: {
       fontWeight: "bold",
-      color: "#FFFFFF",
+      color: Colors.white,
+      backgroundColor: Colors.primary,
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      paddingVertical: 10,
+      alignItems: "center",
+      zIndex: 999,
+      textAlign: 'center'
     },
   });
 
@@ -56,8 +65,8 @@ export default function TabLayout() {
     <>
       <Banner
         visible={!isAuthenticated}
-        onHeightChange={(h) => setBannerHeight(h)}
-      >
+        onHeightChange={(h) => setBannerHeight(h)}>
+
         <Text style={styles.text}>Modo Offline</Text>
       </Banner>
 

@@ -64,7 +64,7 @@ export default function SettingsScreen() {
         },
         profileHeader: {
             alignItems: "center",
-            marginBottom: 30,
+            marginBottom: 20,
         },
         utilButtonGroup: {
             flexDirection: 'column',
@@ -78,6 +78,7 @@ export default function SettingsScreen() {
             fontSize: 24,
         },
         email: {
+            marginTop: -20,
             color: Colors.text, // Agora usa as cores reativas
             fontSize: 16,
         },
@@ -304,26 +305,26 @@ export default function SettingsScreen() {
 
                             {!hasAccount && (
                                 <TextInput
-                                    style={CommonStyles.input}
-                                    placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                                    style={[CommonStyles.input, {color: 'black'}]}
+                                    placeholderTextColor="rgba(0, 0, 0, 0.6)"
                                     placeholder="Nome de usuário"
                                     value={username}
                                     onChangeText={setUsername}
-                                />
+                                    />
                             )}
                             <TextInput
-                                style={CommonStyles.input}
+                                style={[CommonStyles.input,{color: 'black'}]}
                                 placeholder="Email"
-                                placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                                placeholderTextColor="rgba(0, 0, 0, 0.6)"
                                 value={email}
                                 onChangeText={setEmail}
                                 keyboardType="email-address"
                                 autoCapitalize="none"
                             />
                             <TextInput
-                                style={[CommonStyles.input, { color: Colors.text }]}
+                                style={[CommonStyles.input, { color: 'black' }]}
                                 placeholder="Senha"
-                                placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                                placeholderTextColor="rgba(0, 0, 0, 0.6)"
                                 value={password}
                                 onChangeText={setPassword}
                                 secureTextEntry
