@@ -275,7 +275,6 @@ export default function SettingsScreen() {
                                 <ThemedText type="title" style={styles.username}>
                                     {userData?.username}
                                 </ThemedText>
-                                <ThemedText style={styles.email}>{userData?.email}</ThemedText>
                             </View>
 
                             <View style={styles.section}>
